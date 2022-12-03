@@ -62,13 +62,19 @@ namespace OmieSharp
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
+                {
+                    //"{\"faultstring\":\"ERROR: N\\u00e3o existem registros para a p\\u00e1gina [1]!\",\"faultcode\":\"SOAP-ENV:Client-5113\"}"
+                    if (jsonResponse.Contains("N\\u00e3o existem registros para a p\\u00e1gina"))
+                        return new ListarClientesResponse();
+
                     throw new OmieSharpException($"Error statusCode: {(int)response.StatusCode}");
+                }
 
                 var model = JsonSerializer.Deserialize<ListarClientesResponse>(jsonResponse)!;
 
                 return model;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
             }

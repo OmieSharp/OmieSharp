@@ -1,4 +1,7 @@
-﻿namespace OmieSharp.Models
+﻿using static OmieSharp.Utils.JsonUtils;
+using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models
 {
     public class DadosBancarios
     {
@@ -7,6 +10,8 @@
         public string? conta_corrente { get; set; }
         public string? doc_titular { get; set; }
         public string? nome_titular { get; set; }
-        public string? transf_padrao { get; set; }
+        
+        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        public bool? transf_padrao { get; set; }
     }
 }

@@ -1,8 +1,13 @@
-﻿namespace OmieSharp.Models
+﻿using static OmieSharp.Utils.JsonUtils;
+using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models
 {
     public class Info
     {
-        public string? cImpAPI { get; set; }
+        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        public bool? cImpAPI { get; set; }
+
         public string? dAlt { get; set; }
         public string? dInc { get; set; }
         public string? hAlt { get; set; }

@@ -7,5 +7,10 @@
         public int registros { get; set; }
         public int total_de_registros { get; set; }
         public List<ClientesCadastro>? clientes_cadastro { get; set; }
+
+        public ListarClientesResponse()
+        {
+            clientes_cadastro = new List<ClientesCadastro>();
+        }
     }
 }

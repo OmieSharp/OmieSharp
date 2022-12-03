@@ -1,4 +1,7 @@
-﻿namespace OmieSharp.Models
+﻿using System.Text.Json.Serialization;
+using static OmieSharp.Utils.JsonUtils;
+
+namespace OmieSharp.Models
 {
     public class ClientesCadastro
     {
@@ -38,19 +41,33 @@
         public string? obs_detalhadas { get; set; }
         public string? recomendacao_atraso { get; set; }
         public List<Tag>? tags { get; set; }
-        public string? pessoa_fisica { get; set; }
-        public string? exterior { get; set; }
+
+        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        public bool? pessoa_fisica { get; set; }
+
+        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        public bool? exterior { get; set; }
+
         public string? logradouro { get; set; }
-        public string? importado_api { get; set; }
+        
+        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        public bool? importado_api { get; set; }
+
         public string? bloqueado { get; set; }
         public string? cidade_ibge { get; set; }
         public int valor_limite_credito { get; set; }
-        public string? bloquear_faturamento { get; set; }
+
+        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        public bool? bloquear_faturamento { get; set; }
+
         public Recomendacoes? recomendacoes { get; set; }
         public EnderecoEntrega? enderecoEntrega { get; set; }
         public string? nif { get; set; }
         public string? documento_exterior { get; set; }
-        public string? inativo { get; set; }
+        
+        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        public bool? inativo { get; set; }
+
         public DadosBancarios? dadosBancarios { get; set; }
         public List<Caracteristica>? caracteristicas { get; set; }
         public Info? info { get; set; }

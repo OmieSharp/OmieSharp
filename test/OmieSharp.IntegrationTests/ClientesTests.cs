@@ -32,36 +32,60 @@ namespace OmieSharp.IntegrationTests
         }
 
         [Fact]
-        public async Task IncluirClienteAsync_Success()
+        public async Task IncluirAlterarClienteAsync_Success()
         {
-            var name = $"test_{DateTime.Now:yyyy-MM-dd_HH-mm-ss-ffff}";
+            var now = DateTime.Now;
+            var timestamp = $"{now:yyyyMMdd_HHmmss_fff}";
+            var code = timestamp;
+            var name = $"Teste OmieSharp {timestamp}";
+            var cnpj = "12121212000106";
+            long codigoClienteOmie = 0;
 
-            var cliente = new ClientesCadastro
+            var responseListaClientes = await _omieSharpClient.ListarClientesAsync(
+                new ListarClientesRequest() { 
+                    clientesFiltro = new ClientFiltro() { 
+                        cnpj_cpf = cnpj 
+                    } 
+                });
+
+            var clienteExistente = responseListaClientes?.clientes_cadastro?.FirstOrDefault();
+
+            if (clienteExistente == null)
             {
-                codigo_cliente_integracao = name,
-                email = "teste@teste.com.br",
-                razao_social = name,
-                nome_fantasia = name
-            };
+                var clienteIncluir = new ClientesCadastro
+                {
+                    codigo_cliente_integracao = code,
+                    email = "teste@teste.com.br",
+                    razao_social = name,
+                    nome_fantasia = name,
+                    cnpj_cpf = cnpj,
+                    inativo = true
+                };
 
-            var response = await _omieSharpClient.IncluirClienteAsync(cliente);
-            Assert.True(response.Success);
-        }
+                var responseIncluir = await _omieSharpClient.IncluirClienteAsync(clienteIncluir);
+                Assert.True(responseIncluir.Success);
+                Assert.NotEqual(0, responseIncluir.codigo_cliente_omie);
 
-        [Fact]
-        public async Task AlterarClienteAsync_Success()
-        {
-            var cliente = await _omieSharpClient.ConsultarClienteAsync(new ClientesCadastroChave(_configurationFile.codigo_cliente_omie));
+                codigoClienteOmie = responseIncluir.codigo_cliente_omie;
+            }
+            else
+            {
+                codigoClienteOmie = clienteExistente.codigo_cliente_omie;
+            }
+
+            var clienteEditar = await _omieSharpClient.ConsultarClienteAsync(new ClientesCadastroChave(codigoClienteOmie));
+            Assert.NotNull(clienteEditar);
 
             const string fieldName = "omiesharp_test";
-            cliente.caracteristicas ??= new List<Caracteristica>();
-            var caracteristica = cliente.caracteristicas.FirstOrDefault(a => a.campo.Equals(fieldName));
+            clienteEditar.caracteristicas ??= new List<Caracteristica>();
+            var caracteristica = clienteEditar.caracteristicas.FirstOrDefault(a => a.campo.Equals(fieldName));
             if (caracteristica == null)
-                cliente.caracteristicas.Add(new Caracteristica(fieldName, ""));
-            caracteristica.conteudo = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff");
+                clienteEditar.caracteristicas.Add(new Caracteristica(fieldName, timestamp));
+            else
+                caracteristica.conteudo = timestamp;
 
-            var response = await _omieSharpClient.AlterarClienteAsync(cliente);
-            Assert.True(response.Success);
+            var responseEditar = await _omieSharpClient.AlterarClienteAsync(clienteEditar);
+            Assert.True(responseEditar.Success);
         }
     }
 }
