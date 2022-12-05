@@ -1,4 +1,4 @@
-﻿using static OmieSharp.Utils.JsonUtils;
+﻿using OmieSharp.JsonConverters;
 using System.Text.Json.Serialization;
 
 namespace OmieSharp.Models

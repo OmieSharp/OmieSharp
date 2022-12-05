@@ -1,4 +1,4 @@
-﻿using static OmieSharp.Utils.JsonUtils;
+﻿using OmieSharp.JsonConverters;
 using System.Text.Json.Serialization;
 
 namespace OmieSharp.Models
@@ -11,7 +11,11 @@ namespace OmieSharp.Models
         public bool? gerar_boletos { get; set; }
 
         public int? codigo_vendedor { get; set; }
+
+        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string? email_fatura { get; set; }
+
+        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string? numero_parcelas { get; set; }
     }
 }

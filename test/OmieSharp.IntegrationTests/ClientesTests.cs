@@ -35,10 +35,14 @@ namespace OmieSharp.IntegrationTests
         public async Task IncluirAlterarClienteAsync_Success()
         {
             var now = DateTime.Now;
-            var timestamp = $"{now:yyyyMMdd_HHmmss_fff}";
-            var code = timestamp;
-            var name = $"Teste OmieSharp {timestamp}";
+            var timestamp = $"{now:yyyy-MM-ddTHH:mm:ss.fff}";
+            
+            var codigoIntegracao = $"{now:yyyyMMdd_HHmmss_fff}";
+            var email = "teste@teste.com.br";
+            var razaoSocial = $"Teste OmieSharp LTDA {timestamp}";
+            var nomeFantasia = $"Teste OmieSharp {timestamp}";
             var cnpj = "12121212000106";
+
             long codigoClienteOmie = 0;
 
             var responseListaClientes = await _omieSharpClient.ListarClientesAsync(
@@ -54,10 +58,10 @@ namespace OmieSharp.IntegrationTests
             {
                 var clienteIncluir = new ClientesCadastro
                 {
-                    codigo_cliente_integracao = code,
-                    email = "teste@teste.com.br",
-                    razao_social = name,
-                    nome_fantasia = name,
+                    codigo_cliente_integracao = codigoIntegracao,
+                    email = email,
+                    razao_social = razaoSocial,
+                    nome_fantasia = nomeFantasia,
                     cnpj_cpf = cnpj,
                     inativo = true
                 };
@@ -75,6 +79,9 @@ namespace OmieSharp.IntegrationTests
 
             var clienteEditar = await _omieSharpClient.ConsultarClienteAsync(new ClientesCadastroChave(codigoClienteOmie));
             Assert.NotNull(clienteEditar);
+
+            clienteEditar.razao_social = razaoSocial;
+            clienteEditar.nome_fantasia = nomeFantasia;
 
             const string fieldName = "omiesharp_test";
             clienteEditar.caracteristicas ??= new List<Caracteristica>();
