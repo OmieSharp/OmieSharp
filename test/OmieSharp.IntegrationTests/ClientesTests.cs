@@ -23,15 +23,6 @@ namespace OmieSharp.IntegrationTests
         }
 
         [Fact]
-        public async Task ConsultarClienteAsync_Success()
-        {
-            var request = new ClientesCadastroChave(_configurationFile.codigo_cliente_omie);
-            var response = await _omieSharpClient.ConsultarClienteAsync(request);
-            Assert.NotNull(response);
-            Assert.Equal(_configurationFile.codigo_cliente_omie, response.codigo_cliente_omie);
-        }
-
-        [Fact]
         public async Task IncluirAlterarClienteAsync_Success()
         {
             var now = DateTime.Now;
