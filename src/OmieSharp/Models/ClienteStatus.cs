@@ -1,6 +1,6 @@
 ﻿namespace OmieSharp.Models
 {
-    public class ClientesStatus
+    public class ClienteStatus
     {
         public long codigo_cliente_omie { get; set; }
 

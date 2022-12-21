@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace OmieSharp.Models
 {
-    public class ListarClientesRequest
+    public class ListarClienteRequest
     {
         public int pagina { get; set; }
         public int registros_por_pagina { get; set; }
@@ -26,12 +26,12 @@ namespace OmieSharp.Models
 
         public ClientFiltro? clientesFiltro { get; set; }
 
-        public List<string>? clientesPorCodigo { get; set; }
+        public List<ClienteCadastroChave>? clientesPorCodigo { get; set; }
 
         [JsonConverter(typeof(BooleanSNJsonConverter))]
         public bool? exibir_caracteristicas { get; set; }
 
-        public ListarClientesRequest(int pagina = 1, int registros_por_pagina = 50, bool apenas_importado_api = false)
+        public ListarClienteRequest(int pagina = 1, int registros_por_pagina = 50, bool apenas_importado_api = false)
         {
             this.pagina = pagina;
             this.registros_por_pagina = registros_por_pagina;

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace OmieSharp.Models
 {
-    public class ClientesCadastro
+    public class ClienteCadastro
     {
         public long codigo_cliente_omie { get; set; }
 

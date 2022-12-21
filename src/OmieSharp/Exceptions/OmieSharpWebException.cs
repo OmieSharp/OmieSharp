@@ -4,6 +4,8 @@
     public class OmieSharpWebException : OmieSharpException
     {
         public System.Net.HttpStatusCode HttpStatusCode { get; set; }
+        public string? JsonRequest { get; set; }
+        public string? JsonResponse { get; set; }
 
         public OmieSharpWebException()
             : base("OmieSharp WebException")
@@ -27,6 +29,14 @@
             : base(message)
         {
             HttpStatusCode = httpStatusCode;
+        }
+
+        public OmieSharpWebException(System.Net.HttpStatusCode httpStatusCode, string message, string? jsonRequest, string? jsonResponse)
+            : base(message)
+        {
+            HttpStatusCode = httpStatusCode;
+            JsonRequest = jsonRequest;
+            JsonResponse = jsonResponse;
         }
 
         public OmieSharpWebException(System.Net.HttpStatusCode httpStatusCode, string message, Exception innerException)

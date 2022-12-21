@@ -3,12 +3,12 @@ using OmieSharp.Models;
 
 namespace OmieSharp.IntegrationTests
 {
-    public class ClientesTests : BaseTest
+    public class ClienteTests : BaseTest
     {
         private readonly OmieSharpClient _omieSharpClient;
         private readonly ConfigurationFile _configurationFile;
 
-        public ClientesTests()
+        public ClienteTests()
         {
             _omieSharpClient = GetOmieSharpClient();
             _configurationFile = GetConfigurationFile();
@@ -17,9 +17,25 @@ namespace OmieSharp.IntegrationTests
         [Fact]
         public async Task ListarClientesAsync_Success()
         {
-            var request = new ListarClientesRequest();
+            var request = new ListarClienteRequest();
             var response = await _omieSharpClient.ListarClientesAsync(request);
             Assert.NotEmpty(response.clientes_cadastro);
+        }
+
+        [Fact]
+        public async Task ListarClientesAsync_NotFound()
+        {
+            var request = new ListarClienteRequest() { clientesPorCodigo = new List<ClienteCadastroChave>() { new ClienteCadastroChave(9999999) } };
+            var response = await _omieSharpClient.ListarClientesAsync(request);
+            Assert.Equal(0, response.total_de_registros);
+        }
+
+        [Fact]
+        public async Task ConsultarClienteAsync_NotFound()
+        {
+            var chave = new ClienteCadastroChave(999999999);
+            var response = await _omieSharpClient.ConsultarClienteAsync(chave);
+            Assert.Null(response);
         }
 
         [Fact]
@@ -36,18 +52,20 @@ namespace OmieSharp.IntegrationTests
 
             long codigoClienteOmie = 0;
 
-            var responseListaClientes = await _omieSharpClient.ListarClientesAsync(
-                new ListarClientesRequest() { 
-                    clientesFiltro = new ClientFiltro() { 
-                        cnpj_cpf = cnpj 
-                    } 
-                });
+            var requestListaClientes = new ListarClienteRequest()
+            {
+                clientesFiltro = new ClientFiltro()
+                {
+                    cnpj_cpf = cnpj
+                }
+            };
+            var responseListaClientes = await _omieSharpClient.ListarClientesAsync(requestListaClientes);
 
             var clienteExistente = responseListaClientes?.clientes_cadastro?.FirstOrDefault();
 
             if (clienteExistente == null)
             {
-                var clienteIncluir = new ClientesCadastro
+                var clienteIncluir = new ClienteCadastro
                 {
                     codigo_cliente_integracao = codigoIntegracao,
                     email = email,
@@ -68,7 +86,7 @@ namespace OmieSharp.IntegrationTests
                 codigoClienteOmie = clienteExistente.codigo_cliente_omie;
             }
 
-            var clienteEditar = await _omieSharpClient.ConsultarClienteAsync(new ClientesCadastroChave(codigoClienteOmie));
+            var clienteEditar = await _omieSharpClient.ConsultarClienteAsync(new ClienteCadastroChave(codigoClienteOmie));
             Assert.NotNull(clienteEditar);
 
             clienteEditar.razao_social = razaoSocial;

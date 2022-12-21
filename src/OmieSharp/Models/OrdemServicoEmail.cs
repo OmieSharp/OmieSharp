@@ -1,11 +1,23 @@
-﻿namespace OmieSharp.Models
+﻿using OmieSharp.JsonConverters;
+using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models
 {
     public class OrdemServicoEmail
     {
-        public string cEnvBoleto { get; set; }
-        public string cEnvLink { get; set; }
-        public string cEnvRecibo { get; set; }
-        public string cEnvViaUnica { get; set; }
-        public string cEnviarPara { get; set; }
+        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+        public string? cEnvBoleto { get; set; }
+
+        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+        public string? cEnvLink { get; set; }
+        
+        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+        public string? cEnvRecibo { get; set; }
+
+        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+        public string? cEnvViaUnica { get; set; }
+
+        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+        public string? cEnviarPara { get; set; }
     }
 }
