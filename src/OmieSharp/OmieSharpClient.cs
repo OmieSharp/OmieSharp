@@ -313,11 +313,11 @@ namespace OmieSharp
             }
         }
 
-        public async Task<IncluirCadastroServicoResponse> AlterarCadastroServicoAsync(AlterarCadastroServicoRequest request)
+        public async Task<AlterarCadastroServicoResponse> AlterarCadastroServicoAsync(AlterarCadastroServicoRequest request)
         {
             var relativeUrl = new Uri("/api/v1/servicos/servico/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
-            var omieRequest = new OmieBaseRequest<AlterarCadastroServicoRequest>("IncluirCadastroServico", AppKey, AppSecret, request);
+            var omieRequest = new OmieBaseRequest<AlterarCadastroServicoRequest>("AlterarCadastroServico", AppKey, AppSecret, request);
             var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
 
             try
@@ -336,12 +336,12 @@ namespace OmieSharp
 
                     //{"faultstring": "ERROR: Não existem registros para a página [20]!","faultcode": "SOAP-ENV:Client-5113"}
                     if (jsonResponse.Contains("N\\u00e3o existem registros para a p\\u00e1gina"))
-                        return new IncluirCadastroServicoResponse();
+                        return new AlterarCadastroServicoResponse();
 
                     throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
                 }
 
-                var model = JsonSerializer.Deserialize<IncluirCadastroServicoResponse>(jsonResponse)!;
+                var model = JsonSerializer.Deserialize<AlterarCadastroServicoResponse>(jsonResponse)!;
 
                 return model;
             }
