@@ -23,7 +23,7 @@ namespace OmieSharp.Models
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string nIdNBS { get; set; }
 
-        public double nPrecoUnit { get; set; }
+        public decimal nPrecoUnit { get; set; }
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string cCodCateg { get; set; }

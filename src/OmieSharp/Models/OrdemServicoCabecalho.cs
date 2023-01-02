@@ -26,8 +26,8 @@ namespace OmieSharp.Models
 
         public int? nQtdeParc { get; set; }
 
-        public int? nValorTotal { get; set; }
+        public decimal? nValorTotal { get; set; }
 
-        public int? nValorTotalImpRet { get; set; }
+        public decimal? nValorTotalImpRet { get; set; }
     }
 }

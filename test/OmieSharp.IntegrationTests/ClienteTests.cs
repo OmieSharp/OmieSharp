@@ -44,19 +44,13 @@ namespace OmieSharp.IntegrationTests
             var now = DateTime.Now;
             var timestamp = $"{now:yyyy-MM-ddTHH:mm:ss.fff}";
             
-            var codigoIntegracao = $"{now:yyyyMMdd_HHmmss_fff}";
-            var email = "teste@teste.com.br";
-            var razaoSocial = $"Teste OmieSharp LTDA {timestamp}";
-            var nomeFantasia = $"Teste OmieSharp {timestamp}";
-            var cnpj = "12121212000106";
-
             long codigoClienteOmie = 0;
 
             var requestListaClientes = new ListarClienteRequest()
             {
                 clientesFiltro = new ClientFiltro()
                 {
-                    cnpj_cpf = cnpj
+                    cnpj_cpf = Constants.CLIENTE_CNPJ
                 }
             };
             var responseListaClientes = await _omieSharpClient.ListarClientesAsync(requestListaClientes);
@@ -67,11 +61,11 @@ namespace OmieSharp.IntegrationTests
             {
                 var clienteIncluir = new ClienteCadastro
                 {
-                    codigo_cliente_integracao = codigoIntegracao,
-                    email = email,
-                    razao_social = razaoSocial,
-                    nome_fantasia = nomeFantasia,
-                    cnpj_cpf = cnpj,
+                    codigo_cliente_integracao = Constants.CLIENTE_CODIGO_INTEGRACAO,
+                    email = Constants.CLIENTE_EMAIL,
+                    razao_social = Constants.CLIENTE_RAZAO_SOCIAL,
+                    nome_fantasia = Constants.CLIENTE_NOME_FANTASIA,
+                    cnpj_cpf = Constants.CLIENTE_CNPJ,
                     inativo = true
                 };
 
@@ -89,9 +83,9 @@ namespace OmieSharp.IntegrationTests
             var clienteEditar = await _omieSharpClient.ConsultarClienteAsync(new ClienteCadastroChave(codigoClienteOmie));
             Assert.NotNull(clienteEditar);
 
-            clienteEditar.razao_social = razaoSocial;
-            clienteEditar.nome_fantasia = nomeFantasia;
-
+            //clienteEditar.razao_social = razaoSocial;
+            //clienteEditar.nome_fantasia = nomeFantasia;
+            
             const string fieldName = "omiesharp_test";
             clienteEditar.caracteristicas ??= new List<Caracteristica>();
             var caracteristica = clienteEditar.caracteristicas.FirstOrDefault(a => a.campo.Equals(fieldName));

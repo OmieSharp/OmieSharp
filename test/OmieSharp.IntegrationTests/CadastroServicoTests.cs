@@ -38,19 +38,16 @@ namespace OmieSharp.IntegrationTests
         [Fact]
         public async Task IncluirAlterarCadastroServicoAsync_Success()
         {
-            var codigoIntegracao = "TesteOmieSharp_001";
             var descricaoCompleta = $"Descrição do serviço TesteOmieSharp - {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
 
-            var chave = new CadastroServicoChave(codigoIntegracao);
-
+            var chave = new CadastroServicoChave(Constants.SERVICO_CODIGO_INTEGRACAO);
             var cadastroServicoExistente = await _omieSharpClient.ConsultarCadastroServicoAsync(chave);
             
             if (cadastroServicoExistente == null)
             {
-                var codigoServico = "TesteOmieSharp_001";
                 var descricao = "Serviço TesteOmieSharp 001";
                 
-                var request = new IncluirCadastroServicoRequest(codigoServico, codigoIntegracao, descricao, descricaoCompleta);
+                var request = new IncluirCadastroServicoRequest(Constants.SERVICO_CODIGO_INTEGRACAO, Constants.SERVICO_CODIGO_INTEGRACAO, descricao, descricaoCompleta);
                 var response = await _omieSharpClient.IncluirCadastroServicoAsync(request);
 
                 Assert.Equal("0", response.cCodStatus);

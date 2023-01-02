@@ -22,6 +22,11 @@ namespace OmieSharp.Models
         [JsonConverter(typeof(BooleanSNJsonConverter))]
         public bool? filtrar_apenas_inclusao { get; set; }
 
+        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        public bool? filtrar_apenas_alteracao { get; set; }
+
+        public List<OrdemServicoChave>? filtrar_por_codigo { get; set; }
+
         public string? filtrar_por_status { get; set; }
 
         public string? filtrar_por_etapa { get; set; }

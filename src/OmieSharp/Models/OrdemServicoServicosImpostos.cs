@@ -6,72 +6,72 @@ namespace OmieSharp.Models
     public class OrdemServicoServicosImpostos
     {
         [JsonConverter(typeof(BooleanSNJsonConverter))]
-        public string? cFixarCOFINS { get; set; }
+        public bool? cFixarCOFINS { get; set; }
 
         [JsonConverter(typeof(BooleanSNJsonConverter))]
-        public string? cFixarCSLL { get; set; }
+        public bool? cFixarCSLL { get; set; }
 
         [JsonConverter(typeof(BooleanSNJsonConverter))]
-        public string? cFixarINSS { get; set; }
+        public bool? cFixarINSS { get; set; }
 
         [JsonConverter(typeof(BooleanSNJsonConverter))]
-        public string? cFixarIRRF { get; set; }
+        public bool? cFixarIRRF { get; set; }
 
         [JsonConverter(typeof(BooleanSNJsonConverter))]
-        public string? cFixarISS { get; set; }
+        public bool? cFixarISS { get; set; }
 
         [JsonConverter(typeof(BooleanSNJsonConverter))]
-        public string? cFixarPIS { get; set; }
+        public bool? cFixarPIS { get; set; }
 
         [JsonConverter(typeof(BooleanSNJsonConverter))]
-        public string? cRetemCOFINS { get; set; }
+        public bool? cRetemCOFINS { get; set; }
 
         [JsonConverter(typeof(BooleanSNJsonConverter))]
-        public string? cRetemCSLL { get; set; }
+        public bool? cRetemCSLL { get; set; }
 
         [JsonConverter(typeof(BooleanSNJsonConverter))]
-        public string? cRetemINSS { get; set; }
+        public bool? cRetemINSS { get; set; }
 
         [JsonConverter(typeof(BooleanSNJsonConverter))]
-        public string? cRetemIRRF { get; set; }
+        public bool? cRetemIRRF { get; set; }
 
         [JsonConverter(typeof(BooleanSNJsonConverter))]
-        public string? cRetemPIS { get; set; }
+        public bool? cRetemPIS { get; set; }
 
         public bool lDeduzISS { get; set; }
 
-        public int nAliqCOFINS { get; set; }
+        public decimal nAliqCOFINS { get; set; }
 
-        public int nAliqCSLL { get; set; }
+        public decimal nAliqCSLL { get; set; }
 
-        public int nAliqINSS { get; set; }
+        public decimal nAliqINSS { get; set; }
 
-        public int nAliqIRRF { get; set; }
+        public decimal nAliqIRRF { get; set; }
 
-        public int nAliqISS { get; set; }
+        public decimal nAliqISS { get; set; }
 
-        public int nAliqPIS { get; set; }
+        public decimal nAliqPIS { get; set; }
 
-        public int nAliqRedBaseCOFINS { get; set; }
+        public decimal nAliqRedBaseCOFINS { get; set; }
 
-        public int nAliqRedBaseINSS { get; set; }
+        public decimal nAliqRedBaseINSS { get; set; }
 
-        public int nAliqRedBasePIS { get; set; }
+        public decimal nAliqRedBasePIS { get; set; }
 
-        public int nBaseISS { get; set; }
+        public decimal nBaseISS { get; set; }
 
-        public int nTotDeducao { get; set; }
+        public decimal nTotDeducao { get; set; }
 
-        public int nValorCOFINS { get; set; }
+        public decimal nValorCOFINS { get; set; }
 
-        public int nValorCSLL { get; set; }
+        public decimal nValorCSLL { get; set; }
 
-        public int nValorINSS { get; set; }
+        public decimal nValorINSS { get; set; }
 
-        public int nValorIRRF { get; set; }
+        public decimal nValorIRRF { get; set; }
 
-        public double nValorISS { get; set; }
+        public decimal nValorISS { get; set; }
 
-        public int nValorPIS { get; set; }
+        public decimal nValorPIS { get; set; }
     }
 }

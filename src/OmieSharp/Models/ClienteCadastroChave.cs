@@ -1,4 +1,6 @@
-﻿namespace OmieSharp.Models
+﻿using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models
 {
     public class ClienteCadastroChave
     {
@@ -15,6 +17,7 @@
             this.codigo_cliente_integracao = codigo_cliente_integracao;
         }
 
+        [JsonConstructor]
         public ClienteCadastroChave(long? codigo_cliente_omie, string? codigo_cliente_integracao)
         {
             this.codigo_cliente_omie = codigo_cliente_omie;

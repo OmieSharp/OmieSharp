@@ -90,11 +90,11 @@ namespace OmieSharp
             }
         }
 
-        public async Task<ClienteCadastro?> ConsultarClienteAsync(ClienteCadastroChave request)
+        public async Task<ClienteCadastro?> ConsultarClienteAsync(ClienteCadastroChave chave)
         {
             var relativeUrl = new Uri("/api/v1/geral/clientes/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
-            var omieRequest = new OmieBaseRequest<ClienteCadastroChave>("ConsultarCliente", AppKey, AppSecret, request);
+            var omieRequest = new OmieBaseRequest<ClienteCadastroChave>("ConsultarCliente", AppKey, AppSecret, chave);
             var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
 
             try
@@ -237,11 +237,11 @@ namespace OmieSharp
             }
         }
 
-        public async Task<CadastroServico?> ConsultarCadastroServicoAsync(CadastroServicoChave request)
+        public async Task<CadastroServico?> ConsultarCadastroServicoAsync(CadastroServicoChave chave)
         {
             var relativeUrl = new Uri("/api/v1/servicos/servico/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
-            var omieRequest = new OmieBaseRequest<CadastroServicoChave>("ConsultarCadastroServico", AppKey, AppSecret, request);
+            var omieRequest = new OmieBaseRequest<CadastroServicoChave>("ConsultarCadastroServico", AppKey, AppSecret, chave);
             var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
 
             try
@@ -376,6 +376,10 @@ namespace OmieSharp
                     if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
                         throw new OmieSharpDuplicateRequestException();
 
+                    //{"faultstring":"ERROR: N\u00e3o existem registros para a p\u00e1gina [1]!","faultcode":"SOAP-ENV:Client-5113"}
+                    if (jsonResponse.Contains("N\\u00e3o existem registros"))
+                        return new ListarOrdemServicoResponse();
+
                     throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
                 }
                 
@@ -389,11 +393,11 @@ namespace OmieSharp
             }
         }
 
-        public async Task<OrdemServico?> ConsultarOrdemServicoAsync(ConsultarOrdemServicoRequest request)
+        public async Task<OrdemServico?> ConsultarOrdemServicoAsync(OrdemServicoChave chave)
         {
-            var relativeUrl = new Uri("/api/v1/geral/clientes/", UriKind.Relative);
+            var relativeUrl = new Uri("/api/v1/servicos/os/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
-            var omieRequest = new OmieBaseRequest<ConsultarOrdemServicoRequest>("ConsultarOS", AppKey, AppSecret, request);
+            var omieRequest = new OmieBaseRequest<OrdemServicoChave>("ConsultarOS", AppKey, AppSecret, chave);
             var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
 
             try
@@ -427,7 +431,7 @@ namespace OmieSharp
             }
         }
 
-        public async Task<ClienteStatus> IncluirClienteAsync(IncluirOrdemServicoRequest request)
+        public async Task<ClienteStatus> IncluirOrdemServicoAsync(IncluirOrdemServicoRequest request)
         {
             var relativeUrl = new Uri("/api/v1/servicos/os/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);

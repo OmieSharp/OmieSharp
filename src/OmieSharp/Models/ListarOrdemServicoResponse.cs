@@ -7,5 +7,10 @@
         public int registros { get; set; }
         public int total_de_registros { get; set; }
         public List<OrdemServico> osCadastro { get; set; }
+
+        public ListarOrdemServicoResponse()
+        {
+            osCadastro = new List<OrdemServico>();
+        }
     }
 }
