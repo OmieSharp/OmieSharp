@@ -41,8 +41,7 @@ namespace OmieSharp.IntegrationTests
         [Fact]
         public async Task IncluirAlterarClienteAsync_Success()
         {
-            var now = DateTime.Now;
-            var timestamp = $"{now:yyyy-MM-ddTHH:mm:ss.fff}";
+            var timestamp = $"{DateTime.Now:yyyy-MM-ddTHH:mm:ss.fff}";
             
             long codigoClienteOmie = 0;
 

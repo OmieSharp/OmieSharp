@@ -9,5 +9,7 @@
         public const string CLIENTE_CNPJ = "12121212000106";
 
         public const string SERVICO_CODIGO_INTEGRACAO = "TesteOmieSharp_001";
+
+        public const string CONTA_CORRENTE_CODIGO_INTEGRACAO = "TesteOmieSharp_001";
     }
 }

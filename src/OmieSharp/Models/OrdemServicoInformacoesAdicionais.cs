@@ -11,6 +11,9 @@ namespace OmieSharp.Models
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string? cCodCateg { get; set; }
 
+        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+        public string? cDadosAdicNF { get; set; }
+
         public long? nCodCC { get; set; }
     }
 }

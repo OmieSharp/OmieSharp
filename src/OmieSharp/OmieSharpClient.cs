@@ -334,10 +334,6 @@ namespace OmieSharp
                     if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
                         throw new OmieSharpDuplicateRequestException();
 
-                    //{"faultstring": "ERROR: Não existem registros para a página [20]!","faultcode": "SOAP-ENV:Client-5113"}
-                    if (jsonResponse.Contains("N\\u00e3o existem registros para a p\\u00e1gina"))
-                        return new AlterarCadastroServicoResponse();
-
                     throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
                 }
 
@@ -431,7 +427,7 @@ namespace OmieSharp
             }
         }
 
-        public async Task<ClienteStatus> IncluirOrdemServicoAsync(IncluirOrdemServicoRequest request)
+        public async Task<OrdemServicoStatus> IncluirOrdemServicoAsync(IncluirOrdemServicoRequest request)
         {
             var relativeUrl = new Uri("/api/v1/servicos/os/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
@@ -455,7 +451,161 @@ namespace OmieSharp
                     throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
                 }
 
-                var model = JsonSerializer.Deserialize<ClienteStatus>(jsonResponse)!;
+                var model = JsonSerializer.Deserialize<OrdemServicoStatus>(jsonResponse)!;
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
+            }
+        }
+
+        #endregion
+
+        #region ContaCorrente
+
+        public async Task<ListarContaCorrenteResponse> ListarContaCorrenteAsync(ListarContaCorrenteRequest request)
+        {
+            var relativeUrl = new Uri("/api/v1/geral/contacorrente/", UriKind.Relative);
+            var fullUrl = new Uri(baseUrl, relativeUrl);
+            var omieRequest = new OmieBaseRequest<ListarContaCorrenteRequest>("ListarContasCorrentes", AppKey, AppSecret, request);
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+
+            try
+            {
+                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
+                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                        throw new OmieSharpDuplicateRequestException();
+
+                    //{"faultstring":"ERROR: Nenhuma conta corrente foi encontrada!","faultcode":"SOAP-ENV:Client-101"}
+                    if (jsonResponse.Contains("Nenhuma conta corrente"))
+                        return new ListarContaCorrenteResponse();
+
+                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                }
+
+                var model = JsonSerializer.Deserialize<ListarContaCorrenteResponse>(jsonResponse)!;
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
+            }
+        }
+
+        public async Task<ContaCorrente?> ConsultarContaCorrenteAsync(ContaCorrenteChave chave)
+        {
+            var relativeUrl = new Uri("/api/v1/geral/contacorrente/", UriKind.Relative);
+            var fullUrl = new Uri(baseUrl, relativeUrl);
+            var omieRequest = new OmieBaseRequest<ContaCorrenteChave>("ConsultarContaCorrente", AppKey, AppSecret, chave);
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+
+            try
+            {
+                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
+                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                        throw new OmieSharpDuplicateRequestException();
+
+                    //{"faultstring": "ERROR: OS não cadastrada para o Código de Integração [999999999999] !","faultcode": "SOAP-ENV:Client-103"}
+                    if (jsonResponse.Contains("OS não cadastrada"))
+                        return null;
+
+                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                }
+
+                var model = JsonSerializer.Deserialize<ContaCorrente>(jsonResponse)!;
+
+                if (model.nCodCC == 0)
+                    return null;
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
+            }
+        }
+
+        public async Task<ContaCorrenteStatus> IncluirContaCorrenteAsync(ContaCorrente request)
+        {
+            var relativeUrl = new Uri("/api/v1/geral/contacorrente/", UriKind.Relative);
+            var fullUrl = new Uri(baseUrl, relativeUrl);
+            var omieRequest = new OmieBaseRequest<ContaCorrente>("IncluirContaCorrente", AppKey, AppSecret, request);
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+
+            try
+            {
+                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
+                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                        throw new OmieSharpDuplicateRequestException();
+
+                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                }
+
+                var model = JsonSerializer.Deserialize<ContaCorrenteStatus>(jsonResponse)!;
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
+            }
+        }
+
+        public async Task<ContaCorrenteStatus> AlterarContaCorrenteAsync(ContaCorrente request)
+        {
+            //{"faultstring":"ERROR: A tag [pdv_sincr_analitica] somente deve ser informada quando a tag [tipo_conta_corrente] for igual a 'CC', 'AC', 'CX' ou 'CN' e a tag [pdv_enviar] for 'S' !","faultcode":"SOAP-ENV:Client-1020"}
+            request.pdv_sincr_analitica = null;
+
+            var relativeUrl = new Uri("/api/v1/geral/contacorrente/", UriKind.Relative);
+            var fullUrl = new Uri(baseUrl, relativeUrl);
+            var omieRequest = new OmieBaseRequest<ContaCorrente>("AlterarContaCorrente", AppKey, AppSecret, request);
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+
+            try
+            {
+                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
+                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                        throw new OmieSharpDuplicateRequestException();
+
+                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                }
+
+                var model = JsonSerializer.Deserialize<ContaCorrenteStatus>(jsonResponse)!;
 
                 return model;
             }
