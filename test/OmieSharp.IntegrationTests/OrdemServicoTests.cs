@@ -57,7 +57,7 @@ namespace OmieSharp.IntegrationTests
                 {
                     cCodIntOS = codigoIntegracao,
                     cCodParc = null,
-                    cEtapa = "20",
+                    cEtapa = EtapasOS.SegundaColuna, //"20",
                     dDtPrevisao = dataPrevisao.ToString("dd/MM/yyyy"),
                     nCodCli = cliente.codigo_cliente_omie,
                     nQtdeParc = 1

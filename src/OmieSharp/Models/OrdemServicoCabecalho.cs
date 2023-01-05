@@ -11,8 +11,8 @@ namespace OmieSharp.Models
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string? cCodParc { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? cEtapa { get; set; }
+        [JsonConverter(typeof(EnumJsonConverter<EtapasOS>))]
+        public EtapasOS cEtapa { get; set; }
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string? cNumOS { get; set; }
