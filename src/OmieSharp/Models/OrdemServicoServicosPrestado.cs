@@ -34,22 +34,22 @@ namespace OmieSharp.Models
 
         public OrdemServicoServicosImpostos impostos { get; set; }
 
-        public decimal nAliqDesconto { get; set; }
+        public decimal? nAliqDesconto { get; set; }
 
-        public decimal nCodServico { get; set; }
+        public long? nCodServico { get; set; }
 
-        public long nIdItem { get; set; }
+        public long? nIdItem { get; set; }
 
         public decimal nQtde { get; set; }
 
-        public int nSeqItem { get; set; }
+        public int? nSeqItem { get; set; }
 
-        public decimal nValUnit { get; set; }
+        public decimal? nValUnit { get; set; }
 
-        public decimal nValorAcrescimos { get; set; }
+        public decimal? nValorAcrescimos { get; set; }
 
-        public decimal nValorDesconto { get; set; }
+        public decimal? nValorDesconto { get; set; }
 
-        public decimal nValorOutrasRetencoes { get; set; }
+        public decimal? nValorOutrasRetencoes { get; set; }
     }
 }
