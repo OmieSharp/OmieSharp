@@ -410,8 +410,8 @@ namespace OmieSharp
                     if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
                         throw new OmieSharpDuplicateRequestException();
 
-                    //{"faultstring": "ERROR: OS não cadastrada para o Código de Integração [999999999999] !","faultcode": "SOAP-ENV:Client-103"}
-                    if (jsonResponse.Contains("OS não cadastrada"))
+                    //{"faultstring":"ERROR: OS n\u00e3o cadastrada para o C\u00f3digo de Integra\u00e7\u00e3o [99999999999] !","faultcode":"SOAP-ENV:Client-103"}
+                    if (jsonResponse.Contains("OS n\\u00e3o cadastrada"))
                         return null;
 
                     throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
@@ -523,10 +523,6 @@ namespace OmieSharp
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
                     if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
                         throw new OmieSharpDuplicateRequestException();
-
-                    //{"faultstring": "ERROR: OS não cadastrada para o Código de Integração [999999999999] !","faultcode": "SOAP-ENV:Client-103"}
-                    if (jsonResponse.Contains("OS não cadastrada"))
-                        return null;
 
                     throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
                 }

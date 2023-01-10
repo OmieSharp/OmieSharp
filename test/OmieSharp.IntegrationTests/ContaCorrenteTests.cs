@@ -31,6 +31,14 @@ namespace OmieSharp.IntegrationTests
         }
 
         [Fact]
+        public async Task ConsultarContaCorrenteAsync_Notfound()
+        {
+            var request = new ContaCorrenteChave("99999999999");
+            var response = await _omieSharpClient.ConsultarContaCorrenteAsync(request);
+            Assert.Null(response);
+        }
+
+        [Fact]
         public async Task IncluirAlterarContaCorrenteAsync_Success()
         {
             var timestamp = $"{DateTime.Now:yyyy-MM-ddTHH:mm:ss.fff}";

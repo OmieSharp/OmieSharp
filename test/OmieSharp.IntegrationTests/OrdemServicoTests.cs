@@ -31,6 +31,14 @@ namespace OmieSharp.IntegrationTests
         }
 
         [Fact]
+        public async Task ConsultarOrdemServicoAsync_Notfound()
+        {
+            var request = new OrdemServicoChave("99999999999");
+            var response = await _omieSharpClient.ConsultarOrdemServicoAsync(request);
+            Assert.Null(response);
+        }
+
+        [Fact]
         public async Task IncluirOrdemServico_Success()
         {
             var cliente = await _omieSharpClient.ConsultarClienteAsync(new ClienteCadastroChave(Constants.CLIENTE_CODIGO_INTEGRACAO));
