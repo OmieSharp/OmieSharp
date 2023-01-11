@@ -7,5 +7,7 @@
         public string? cNumOS { get; set; }
         public string? cCodStatus { get; set; }
         public string? cDescStatus { get; set; }
+
+        public bool Success { get { return (cCodStatus ?? "999").Equals("0"); } }
     }
 }
