@@ -15,5 +15,7 @@ namespace OmieSharp.Models
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string cDescStatus { get; set; }
+
+        public bool Success { get { return (cCodStatus ?? "999").Equals("0"); } }
     }
 }
