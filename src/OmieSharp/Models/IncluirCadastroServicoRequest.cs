@@ -4,20 +4,23 @@
     {
         public CadastroServicoChave? intIncluir { get; set; }
 
-        public IncluirCadastroServicoRequest(string cCodigo, string cCodIntServ, string cDescricao, string cDescrCompleta)
+        public IncluirCadastroServicoRequest(string cCodigo, string cCodIntServ, string cDescricao, string? cDescrCompleta)
         {
             this.intIncluir = new CadastroServicoChave(cCodIntServ);
 
             this.cabecalho = new CadastroServicoCabecalho()
             {
                 cDescricao = cDescricao,
-                cCodigo = cCodigo,
+                cCodigo = cCodigo
             };
 
-            this.descricao = new CadastroServicoDescricao()
+            if (cDescrCompleta != null)
             {
-                cDescrCompleta = cDescrCompleta
-            };
+                this.descricao = new CadastroServicoDescricao()
+                {
+                    cDescrCompleta = cDescrCompleta
+                };
+            }
 
             this.impostos = new CadastroServicoImpostos();
         }

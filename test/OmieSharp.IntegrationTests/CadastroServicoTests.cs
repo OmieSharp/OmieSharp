@@ -47,7 +47,7 @@ namespace OmieSharp.IntegrationTests
             {
                 var descricao = "Serviço TesteOmieSharp 001";
                 
-                var request = new IncluirCadastroServicoRequest(Constants.SERVICO_CODIGO_INTEGRACAO, Constants.SERVICO_CODIGO_INTEGRACAO, descricao, descricaoCompleta);
+                var request = new IncluirCadastroServicoRequest(Constants.SERVICO_CODIGO_INTEGRACAO, Constants.SERVICO_CODIGO_INTEGRACAO, descricao, null);
                 var response = await _omieSharpClient.IncluirCadastroServicoAsync(request);
 
                 Assert.Equal("0", response.cCodStatus);
