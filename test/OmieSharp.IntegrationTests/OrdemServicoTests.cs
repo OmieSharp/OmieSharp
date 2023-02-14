@@ -55,7 +55,7 @@ namespace OmieSharp.IntegrationTests
 
             var codigoIntegracao = $"{DateTime.Now:yyyyMMdd-HHmmss}";
             var now = DateTime.Now.Date;
-            var dataPrevisao = now.AddDays(15);
+            var dataPrevisao = DateOnly.FromDateTime(now.AddDays(15));
             var qtd = 1;
             var valUnit = 100M;
 
@@ -66,7 +66,7 @@ namespace OmieSharp.IntegrationTests
                     cCodIntOS = codigoIntegracao,
                     cCodParc = null,
                     cEtapa = EtapasOS.SegundaColuna, //"20",
-                    dDtPrevisao = dataPrevisao.ToString("dd/MM/yyyy"),
+                    dDtPrevisao = dataPrevisao,
                     nCodCli = cliente.codigo_cliente_omie,
                     nQtdeParc = 1
                 },
@@ -90,7 +90,7 @@ namespace OmieSharp.IntegrationTests
                 {
                     new ParcelaOS()
                     {
-                        dDtVenc = dataPrevisao.ToString("dd/MM/yyyy"),
+                        dDtVenc = dataPrevisao,
                         nDias = 31,
                         nParcela = 1,
                         nPercentual = 100,
