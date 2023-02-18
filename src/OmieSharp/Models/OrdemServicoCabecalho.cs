@@ -17,7 +17,7 @@ namespace OmieSharp.Models
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string? cNumOS { get; set; }
 
-        [JsonConverter(typeof(DateOnlyJsonConverter))]
+        [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
         public DateOnly? dDtPrevisao { get; set; }
 
         public long? nCodCli { get; set; }

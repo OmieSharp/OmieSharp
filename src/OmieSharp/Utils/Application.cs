@@ -2,7 +2,7 @@
 {
     internal static class Application
     {
-        private static System.Reflection.Assembly staticExecutingAssembly = null;
+        private static System.Reflection.Assembly? staticExecutingAssembly = null;
 
         internal static string GetAppVersion(bool includeBuild = false)
         {

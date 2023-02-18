@@ -4,9 +4,9 @@
     {
         public CadastroServicoChave? intListar { get; set; }
 
-        public CadastroServicoCabecalho cabecalho { get; set; }
-        public CadastroServicoDescricao descricao { get; set; }
-        public CadastroServicoImpostos impostos { get; set; }
+        public CadastroServicoCabecalho? cabecalho { get; set; }
+        public CadastroServicoDescricao? descricao { get; set; }
+        public CadastroServicoImpostos? impostos { get; set; }
 
         public void FillProperties(CadastroServico cadastroServico)
         {

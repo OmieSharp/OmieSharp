@@ -32,7 +32,7 @@ namespace OmieSharp.Models
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string? cTribServ { get; set; }
 
-        public OrdemServicoServicosImpostos impostos { get; set; }
+        public OrdemServicoServicosImpostos? impostos { get; set; }
 
         public decimal? nAliqDesconto { get; set; }
 

@@ -6,15 +6,15 @@ namespace OmieSharp.Models
     public class IncluirCadastroServicoResponse
     {
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string cCodIntServ { get; set; }
+        public string? cCodIntServ { get; set; }
 
         public long nCodServ { get; set; }
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string cCodStatus { get; set; }
+        public string? cCodStatus { get; set; }
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string cDescStatus { get; set; }
+        public string? cDescStatus { get; set; }
 
         public bool Success { get { return (cCodStatus ?? "999").Equals("0"); } }
     }

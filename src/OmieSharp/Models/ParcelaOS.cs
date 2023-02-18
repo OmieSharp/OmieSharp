@@ -5,7 +5,7 @@ namespace OmieSharp.Models
 {
     public class ParcelaOS
     {
-        [JsonConverter(typeof(DateOnlyJsonConverter))]
+        [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
         public DateOnly? dDtVenc { get; set; }
 
         public int? nDias { get; set; }
