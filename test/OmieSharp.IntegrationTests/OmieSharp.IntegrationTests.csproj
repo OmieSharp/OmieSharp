@@ -32,6 +32,33 @@
     <None Update="config\main.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="SampleRequests\Events\ContaReceber\ContaReceber-Alterado.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleRequests\Events\ContaReceber\ContaReceber-Incluido.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleRequests\Events\Erro\Erro-EventoDesconhecido.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleRequests\Events\OrdemServico\OrdemServico-Alterada.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleRequests\Events\OrdemServico\OrdemServico-EtapaAlterada.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleRequests\Events\OrdemServico\OrdemServico-Faturada.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleRequests\Events\OrdemServico\OrdemServico-Cancelada.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleRequests\Events\OrdemServico\OrdemServico-Excluida.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleRequests\Events\OrdemServico\OrdemServico-Incluida.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

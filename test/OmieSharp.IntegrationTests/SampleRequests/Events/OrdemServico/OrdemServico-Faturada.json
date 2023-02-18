@@ -1,0 +1,27 @@
+{
+  "messageId": "f5e2d3e0-e13d-5250-bf15-8f890ca5b55c",
+  "topic": "OrdemServico.Faturada",
+  "event": {
+    "codigoCategoria": "1.01.02",
+    "codigoIntegracao": "0",
+    "dataFaturado": "17/02/2023",
+    "dataPrevisao": "17/02/2023",
+    "etapa": "20",
+    "faturada": "S",
+    "horaFaturado": "18:02:13",
+    "idCliente": 6289226831,
+    "idContaCorrente": 6247915297,
+    "idOrdemServico": 6301351446,
+    "numeroOrdemServico": "53",
+    "usuarioFaturado": "P000482088",
+    "valorOrdemServico": 10.5
+  },
+  "author": {
+    "email": "no-reply@omie.com.br",
+    "name": "Integração",
+    "userId": 89
+  },
+  "appKey": "00000",
+  "appHash": "xxxx",
+  "origin": "omie-connect-1.6"
+}

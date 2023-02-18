@@ -1,0 +1,26 @@
+{
+  "messageId": "303b5b0d-4b7b-5ed3-a5ab-076641191b97",
+  "topic": "OrdemServico.Incluida",
+  "event": {
+    "codigoCategoria": "1.01.02",
+    "codigoIntegracao": "0",
+    "dataInclusao": "18/02/2023",
+    "dataPrevisao": "18/02/2023",
+    "etapa": "20",
+    "horaInclusao": "14:17:20",
+    "idCliente": 6289226831,
+    "idContaCorrente": 6247915297,
+    "idOrdemServico": 6301382458,
+    "numeroOrdemServico": "55",
+    "usuarioInclusao": "WEBSERVICE",
+    "valorOrdemServico": 0
+  },
+  "author": {
+    "email": "no-reply@omie.com.br",
+    "name": "Integração",
+    "userId": 89
+  },
+  "appKey": "00000",
+  "appHash": "xxxx",
+  "origin": "omie-connect-1.6"
+}

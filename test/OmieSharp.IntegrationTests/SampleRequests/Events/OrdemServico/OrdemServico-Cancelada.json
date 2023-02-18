@@ -1,0 +1,27 @@
+{
+  "messageId": "59e7e6d4-76e3-5957-973d-bab0aae8a81c",
+  "topic": "OrdemServico.Cancelada",
+  "event": {
+    "cancelada": "S",
+    "codigoCategoria": "1.01.02",
+    "codigoIntegracao": "0",
+    "dataCancelado": "13/02/2023",
+    "dataPrevisao": "13/02/2023",
+    "etapa": "20",
+    "horaCancelado": "21:46:00",
+    "idCliente": 6289226831,
+    "idContaCorrente": 6247915297,
+    "idOrdemServico": 6300250582,
+    "numeroOrdemServico": "44",
+    "usuarioCancelado": "P000482088",
+    "valorOrdemServico": 10.5
+  },
+  "author": {
+    "email": "no-reply@omie.com.br",
+    "name": "Integração",
+    "userId": 89
+  },
+  "appKey": "00000",
+  "appHash": "xxxx",
+  "origin": "omie-connect-1.6"
+}

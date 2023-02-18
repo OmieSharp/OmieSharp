@@ -1,0 +1,23 @@
+{
+  "messageId": "6341c81f-379d-576c-8c7d-94743cf578c6",
+  "topic": "OrdemServico.EtapaAlterada",
+  "event": {
+    "codigoCategoria": "1.01.02",
+    "codigoIntegracao": "0",
+    "dataPrevisao": "18/02/2023",
+    "etapa": "30",
+    "idCliente": 6289226831,
+    "idContaCorrente": 6247915297,
+    "idOrdemServico": 6301382458,
+    "numeroOrdemServico": "55",
+    "valorOrdemServico": 10.5
+  },
+  "author": {
+    "email": "no-reply@omie.com.br",
+    "name": "Integração",
+    "userId": 89
+  },
+  "appKey": "00000",
+  "appHash": "xxxx",
+  "origin": "omie-connect-1.6"
+}

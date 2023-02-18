@@ -1,9 +1,9 @@
 ﻿using OmieSharp.JsonConverters;
 using System.Text.Json.Serialization;
 
-namespace OmieSharp.Events.Body
+namespace OmieSharp.Events.Body.OrdemServico
 {
-    public abstract class BaseOrdemServicoOmieEvent
+    public abstract class BaseOrdemServicoOmieEvent : BaseOmieEvent
     {
         [JsonPropertyName("codigoCategoria")]
         public string? CodigoCategoria { get; set; }

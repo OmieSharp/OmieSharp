@@ -1,5 +1,4 @@
-﻿using OmieSharp.Events.Body;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace OmieSharp.Events
 {

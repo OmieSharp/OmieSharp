@@ -1,0 +1,15 @@
+{
+  "messageId": "8d0a9dd4-e36f-5804-80df-c1bfe90d81ac",
+  "topic": "EventoDesconchecido",
+  "event": {
+    "codigo": "123"
+  },
+  "author": {
+    "email": "no-reply@omie.com.br",
+    "name": "Integração",
+    "userId": 89
+  },
+  "appKey": "00000",
+  "appHash": "xxxx",
+  "origin": "omie-connect-1.6"
+}
