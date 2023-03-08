@@ -16,7 +16,7 @@ namespace OmieSharp
 
         private static readonly Uri baseUrl = new("https://app.omie.com.br/");
 
-        private JsonSerializerOptions _jsonSerializerOptions;
+        private readonly JsonSerializerOptions _jsonSerializerOptions;
 
         public OmieSharpClient(string appKey, string appSecret, HttpClient httpClient)
         {
@@ -69,15 +69,17 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
                     //{"faultstring": "ERROR: Não existem registros para a página [1]!","faultcode": "SOAP-ENV:Client-5113"}
-                    if (jsonResponse.Contains("N\\u00e3o existem registros"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("Não existem registros"))
                         return new ListarClienteResponse();
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
                 var model = JsonSerializer.Deserialize<ListarClienteResponse>(jsonResponse)!;
@@ -107,17 +109,19 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
                     //{"faultstring": "ERROR: Cliente não cadastrado para o Código [999999999] !","faultcode": "SOAP-ENV:Client-105"}
-                    if (jsonResponse.Contains("Cliente n\\u00e3o cadastrado"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("não cadastrado"))
                         return null;
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
-                
+
                 var model = JsonSerializer.Deserialize<ClienteCadastro>(jsonResponse)!;
 
                 return model;
@@ -145,11 +149,13 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
                 var model = JsonSerializer.Deserialize<ClienteStatus>(jsonResponse)!;
@@ -179,11 +185,13 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
                 var model = JsonSerializer.Deserialize<ClienteStatus>(jsonResponse)!;
 
@@ -216,15 +224,17 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
                     //{"faultstring":"ERROR: N\u00e3o existem registros para a p\u00e1gina [1]!","faultcode":"SOAP-ENV:Client-5113"}
-                    if (jsonResponse.Contains("N\\u00e3o existem registros"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("Não existem registros"))
                         return new ListarCadastroServicoResponse();
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
                 var model = JsonSerializer.Deserialize<ListarCadastroServicoResponse>(jsonResponse)!;
@@ -254,15 +264,17 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
                     //{"faultstring": "ERROR: Serviço não cadastrado para o Código de integração do Serviço [teste-010] ! Tag [cCodIntServ]!","faultcode": "SOAP-ENV:Client-5002"}
-                    if (jsonResponse.Contains("Servi\\u00e7o n\\u00e3o cadastrado"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("não cadastrado"))
                         return null;
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
                 var model = JsonSerializer.Deserialize<CadastroServico>(jsonResponse)!;
@@ -292,15 +304,17 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
                     //{"faultstring": "ERROR: Não existem registros para a página [20]!","faultcode": "SOAP-ENV:Client-5113"}
-                    if (jsonResponse.Contains("N\\u00e3o existem registros para a p\\u00e1gina"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("Não existem registros"))
                         return new IncluirCadastroServicoResponse();
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
                 var model = JsonSerializer.Deserialize<IncluirCadastroServicoResponse>(jsonResponse)!;
@@ -330,11 +344,13 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
                 var model = JsonSerializer.Deserialize<AlterarCadastroServicoResponse>(jsonResponse)!;
@@ -368,15 +384,17 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
                     //{"faultstring":"ERROR: N\u00e3o existem registros para a p\u00e1gina [1]!","faultcode":"SOAP-ENV:Client-5113"}
-                    if (jsonResponse.Contains("N\\u00e3o existem registros"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("Não existem registros"))
                         return new ListarOrdemServicoResponse();
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
                 
                 var model = JsonSerializer.Deserialize<ListarOrdemServicoResponse>(jsonResponse)!;
@@ -406,15 +424,17 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
                     //{"faultstring":"ERROR: OS n\u00e3o cadastrada para o C\u00f3digo de Integra\u00e7\u00e3o [99999999999] !","faultcode":"SOAP-ENV:Client-103"}
-                    if (jsonResponse.Contains("OS n\\u00e3o cadastrada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("não cadastrada"))
                         return null;
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
                 var model = JsonSerializer.Deserialize<OrdemServico>(jsonResponse)!;
@@ -444,11 +464,13 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
                 var model = JsonSerializer.Deserialize<OrdemServicoStatus>(jsonResponse)!;
@@ -482,15 +504,17 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
                     //{"faultstring":"ERROR: Nenhuma conta corrente foi encontrada!","faultcode":"SOAP-ENV:Client-101"}
-                    if (jsonResponse.Contains("Nenhuma conta corrente"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("Nenhuma conta corrente"))
                         return new ListarContaCorrenteResponse();
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
                 var model = JsonSerializer.Deserialize<ListarContaCorrenteResponse>(jsonResponse)!;
@@ -520,11 +544,13 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
                 var model = JsonSerializer.Deserialize<ContaCorrente>(jsonResponse)!;
@@ -557,11 +583,13 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
                 var model = JsonSerializer.Deserialize<ContaCorrenteStatus>(jsonResponse)!;
@@ -594,11 +622,13 @@ namespace OmieSharp
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if (jsonResponse.Contains("j\u00e1 foi processada ou est\u00e1 sendo processada"))
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
-                    throw new OmieSharpWebException(response.StatusCode, $"Error statusCode: {(int)response.StatusCode}", jsonRequest, jsonResponse);
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
                 var model = JsonSerializer.Deserialize<ContaCorrenteStatus>(jsonResponse)!;
