@@ -14,7 +14,12 @@ namespace OmieSharp.Events
 
             var eventRequest = JsonSerializer.Deserialize<OmieEventRequest<dynamic>>(json);
             if (eventRequest == null || string.IsNullOrEmpty(eventRequest.Topic))
+            {
+                if (json.Contains("ping"))
+                    return new OmieEventRequest<object>(messageId: "", topic: "ping", "", new OmieEventRequestAuthor("", "", 0), "", "", "");
+
                 return null;
+            }
 
             var topic = eventRequest.Topic!;
 
