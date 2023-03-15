@@ -59,7 +59,7 @@ namespace OmieSharp.IntegrationTests
             var qtd = 1;
             var valUnit = 100M;
 
-            var request = new IncluirOrdemServicoRequest()
+            var request = new OrdemServico()
             {
                 Cabecalho = new OrdemServicoCabecalho()
                 {
