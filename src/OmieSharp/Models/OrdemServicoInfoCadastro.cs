@@ -8,28 +8,28 @@ namespace OmieSharp.Models
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string? cAmbiente { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? cCancelada { get; set; }
+        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        public bool? cCancelada { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? cFaturada { get; set; }
+        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        public bool? cFaturada { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? cHrAlt { get; set; }
+        [JsonConverter(typeof(TimeOnlyNullableJsonConverter))]
+        public TimeOnly? cHrAlt { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? cHrInc { get; set; }
+        [JsonConverter(typeof(TimeOnlyNullableJsonConverter))]
+        public TimeOnly? cHrInc { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? dDtAlt { get; set; }
+        [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
+        public DateOnly? dDtAlt { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? dDtInc { get; set; }
+        [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
+        public DateOnly? dDtInc { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? cHrFat { get; set; }
+        [JsonConverter(typeof(TimeOnlyNullableJsonConverter))]
+        public TimeOnly? cHrFat { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? dDtFat { get; set; }
+        [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
+        public DateOnly? dDtFat { get; set; }
     }
 }
