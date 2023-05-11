@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace OmieSharp.JsonConverters
 {
-    public class BooleanSNJsonConverter : JsonConverter<bool?>
+    public class BooleanNullableSNJsonConverter : JsonConverter<bool?>
     {
         public override bool? Read(
             ref Utf8JsonReader reader,

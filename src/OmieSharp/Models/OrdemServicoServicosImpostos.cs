@@ -5,37 +5,37 @@ namespace OmieSharp.Models
 {
     public class OrdemServicoServicosImpostos
     {
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cFixarCOFINS { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cFixarCSLL { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cFixarINSS { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cFixarIRRF { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cFixarISS { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cFixarPIS { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cRetemCOFINS { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cRetemCSLL { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cRetemINSS { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cRetemIRRF { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cRetemPIS { get; set; }
 
         public bool lDeduzISS { get; set; }

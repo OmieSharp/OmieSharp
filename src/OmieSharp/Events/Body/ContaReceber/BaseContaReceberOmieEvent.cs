@@ -6,15 +6,15 @@ namespace OmieSharp.Events.Body.ContaReceber
     public abstract class BaseContaReceberOmieEvent : BaseOmieEvent
     {
         [JsonPropertyName("baixa_bloqueada")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? BaixaBloqueada { get; set; }
 
         [JsonPropertyName("bloqueado")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? Bloqueado { get; set; }
 
         [JsonPropertyName("boleto_gerado")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? BoletoGerado { get; set; }
 
         [JsonPropertyName("chave_nfe")]
@@ -84,35 +84,35 @@ namespace OmieSharp.Events.Body.ContaReceber
         public string? Operacao { get; set; }
 
         [JsonPropertyName("pix_gerado")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? PixGerado { get; set; }
 
         [JsonPropertyName("retem_cofins")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? RetemCofins { get; set; }
 
         [JsonPropertyName("retem_csll")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? RetemCsll { get; set; }
 
         [JsonPropertyName("retem_inss")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? RetemInss { get; set; }
 
         [JsonPropertyName("retem_ir")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? RetemIr { get; set; }
 
         [JsonPropertyName("retem_iss")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? RetemIss { get; set; }
 
         [JsonPropertyName("retem_pis")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? RetemPis { get; set; }
 
         [JsonPropertyName("situacao")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? Situacao { get; set; }
 
         [JsonPropertyName("valor_cofins")]

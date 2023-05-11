@@ -714,5 +714,49 @@ namespace OmieSharp
         }
 
         #endregion
+
+        #region ContaReceber
+
+        public async Task<ContaReceber?> ConsultarContaReceberAsync(ContaReceberChave chave)
+        {
+            var relativeUrl = new Uri("/api/v1/financas/contareceber/", UriKind.Relative);
+            var fullUrl = new Uri(baseUrl, relativeUrl);
+            var omieRequest = new OmieBaseRequest<ContaReceberChave>("ConsultarContaReceber", AppKey, AppSecret, chave);
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            
+            try
+            {
+                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
+                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
+                        throw new OmieSharpDuplicateRequestException();
+
+                    //{"faultstring": "ERROR: Lançamento não cadastrado para o Código [123] !", "faultcode": "SOAP-ENV:Client-105"}
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("não cadastrado"))
+                        return null;
+
+                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
+                }
+
+                var model = JsonSerializer.Deserialize<ContaReceber>(jsonResponse)!;
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
+            }
+        }
+
+        #endregion
     }
 }

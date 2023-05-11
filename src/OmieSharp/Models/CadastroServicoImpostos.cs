@@ -7,32 +7,32 @@ namespace OmieSharp.Models
     {
         public decimal nAliqISS { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cRetISS { get; set; }
 
         public decimal nAliqPIS { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cRetPIS { get; set; }
 
         public decimal nAliqCOFINS { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cRetCOFINS { get; set; }
 
         public decimal nAliqCSLL { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cRetCSLL { get; set; }
 
         public decimal nAliqIR { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cRetIR { get; set; }
 
         public decimal nAliqINSS { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cRetINSS { get; set; }
 
         public decimal nRedBaseINSS { get; set; }

@@ -29,10 +29,10 @@ namespace OmieSharp.Models
 
         public string? cCodigo { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? inativo { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cExibirProdutos { get; set; }
 
         public ListarCadastroServicoRequest(int nPagina = 1, int nRegPorPagina = 50)

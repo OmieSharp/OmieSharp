@@ -8,21 +8,21 @@ namespace OmieSharp.Models
         public int pagina { get; set; }
         public int registros_por_pagina { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? apenas_importado_api { get; set; }
 
         public string? ordenar_por { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? ordem_decrescente { get; set; }
 
         public string? filtrar_por_data_de { get; set; }
         public string? filtrar_por_data_ate { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? filtrar_apenas_inclusao { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? filtrar_apenas_alteracao { get; set; }
 
         public List<OrdemServicoChave>? filtrar_por_codigo { get; set; }
@@ -33,10 +33,10 @@ namespace OmieSharp.Models
 
         public int? filtrar_por_cliente { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cExibirDespesas { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cExibirProdutos { get; set; }
 
         public string? cTipoFat { get; set; }

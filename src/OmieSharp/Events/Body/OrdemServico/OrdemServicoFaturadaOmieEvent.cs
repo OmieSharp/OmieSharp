@@ -6,7 +6,7 @@ namespace OmieSharp.Events.Body.OrdemServico
     public class OrdemServicoFaturadaOmieEvent : BaseOrdemServicoOmieEvent
     {
         [JsonPropertyName("faturada")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? faturada { get; set; }
 
         [JsonPropertyName("dataFaturado")]

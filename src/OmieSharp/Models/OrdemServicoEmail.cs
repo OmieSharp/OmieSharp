@@ -5,16 +5,16 @@ namespace OmieSharp.Models
 {
     public class OrdemServicoEmail
     {
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cEnvBoleto { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cEnvLink { get; set; }
         
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cEnvRecibo { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cEnvViaUnica { get; set; }
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]

@@ -6,7 +6,7 @@ namespace OmieSharp.Events.Body.OrdemServico
     public class OrdemServicoCanceladaOmieEvent : BaseOrdemServicoOmieEvent
     {
         [JsonPropertyName("cancelada")]
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? Cancelada { get; set; }
 
         [JsonPropertyName("dataCancelado")]

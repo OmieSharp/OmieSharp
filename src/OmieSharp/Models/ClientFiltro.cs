@@ -22,13 +22,13 @@ namespace OmieSharp.Models
         public string? inscricao_estadual { get; set; }
         public string? inscricao_suframa { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? pessoa_fisica { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? optante_simples_nacional { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? inativo { get; set; }
 
         public List<string>? tags { get; set; }

@@ -111,18 +111,18 @@ namespace OmieSharp.Models
 
         public List<Tag>? tags { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? pessoa_fisica { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? exterior { get; set; }
 
         public string? logradouro { get; set; }
         
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? importado_api { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? bloqueado { get; set; }
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
@@ -130,7 +130,7 @@ namespace OmieSharp.Models
 
         public int valor_limite_credito { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? bloquear_faturamento { get; set; }
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
@@ -139,10 +139,10 @@ namespace OmieSharp.Models
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string? documento_exterior { get; set; }
         
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? inativo { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? bloquear_exclusao { get; set; }
 
         public Recomendacoes? recomendacoes { get; set; }

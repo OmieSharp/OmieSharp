@@ -7,7 +7,7 @@ namespace OmieSharp.Models
     {
         public int codigo_transportadora { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? gerar_boletos { get; set; }
 
         public int? codigo_vendedor { get; set; }

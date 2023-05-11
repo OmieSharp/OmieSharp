@@ -5,7 +5,7 @@ namespace OmieSharp.Models
 {
     public class Info
     {
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cImpAPI { get; set; }
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]

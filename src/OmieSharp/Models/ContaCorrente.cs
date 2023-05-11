@@ -27,52 +27,52 @@ namespace OmieSharp.Models
 
         public decimal saldo_inicial { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? bloqueado { get; set; }
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string? bol_instr1 { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? bol_sn { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? cobr_sn { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? data_alt { get; set; }
+        [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
+        public DateOnly? data_alt { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? data_inc { get; set; }
+        [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
+        public DateOnly? data_inc { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? hora_alt { get; set; }
+        [JsonConverter(typeof(TimeOnlyNullableJsonConverter))]
+        public TimeOnly? hora_alt { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? hora_inc { get; set; }
+        [JsonConverter(typeof(TimeOnlyNullableJsonConverter))]
+        public TimeOnly? hora_inc { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? importado_api { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? inativo { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? nao_fluxo { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? nao_resumo { get; set; }
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string? pdv_categoria { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? pdv_enviar { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? pdv_sincr_analitica { get; set; }
 
-        [JsonConverter(typeof(BooleanSNJsonConverter))]
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? pix_sn { get; set; }
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
