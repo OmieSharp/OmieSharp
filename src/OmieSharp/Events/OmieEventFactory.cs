@@ -25,6 +25,8 @@ namespace OmieSharp.Events
 
             if (topic.StartsWith("OrdemServico.", StringComparison.CurrentCultureIgnoreCase))
                 return CreateOrdemServicoEvent(topic, json);
+            if (topic.StartsWith("Financas.ContaReceber.BaixaRealizada", StringComparison.CurrentCultureIgnoreCase))
+                return CreateBaixaRealizadaEvent(topic, json);
             if (topic.StartsWith("Financas.ContaReceber.", StringComparison.CurrentCultureIgnoreCase))
                 return CreateContaReceberEvent(topic, json);
 
@@ -64,6 +66,14 @@ namespace OmieSharp.Events
             return null;
         }
 
+        private static object? CreateBaixaRealizadaEvent(string topic, string json)
+        {
+            if (topic.Equals("Financas.ContaReceber.BaixaRealizada", StringComparison.CurrentCultureIgnoreCase))
+                return JsonSerializer.Deserialize<OmieEventRequestMultiple<ContaReceberBaixaRealizadaOmieEvent>>(json);
+
+            return null;
+        }
+
         private static object? CreateContaReceberEvent(string topic, string json)
         {
             if (topic.Equals("Financas.ContaReceber.Incluido", StringComparison.CurrentCultureIgnoreCase))
@@ -71,6 +81,9 @@ namespace OmieSharp.Events
 
             if (topic.Equals("Financas.ContaReceber.Alterado", StringComparison.CurrentCultureIgnoreCase))
                 return JsonSerializer.Deserialize<OmieEventRequest<ContaReceberAlteradoOmieEvent>>(json);
+
+            if (topic.Equals("Financas.ContaReceber.BaixaRealizada", StringComparison.CurrentCultureIgnoreCase))
+                return JsonSerializer.Deserialize<OmieEventRequest<ContaReceberBaixaRealizadaOmieEvent>>(json);
 
             return null;
         }
