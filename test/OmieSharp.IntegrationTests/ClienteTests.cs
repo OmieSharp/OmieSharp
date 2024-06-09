@@ -19,7 +19,8 @@ namespace OmieSharp.IntegrationTests
         {
             var request = new ListarClienteRequest();
             var response = await _omieSharpClient.ListarClientesAsync(request);
-            Assert.NotEmpty(response.clientes_cadastro);
+            Assert.NotNull(response);
+            Assert.NotEmpty(response.clientes_cadastro!);
         }
 
         [Fact]
@@ -27,7 +28,8 @@ namespace OmieSharp.IntegrationTests
         {
             var request = new ListarClienteRequest() { clientesFiltro = new ClientFiltro() { cnpj_cpf = "60.409.075/0001-52" } };
             var response = await _omieSharpClient.ListarClientesAsync(request);
-            Assert.NotEmpty(response.clientes_cadastro);
+            Assert.NotNull(response);
+            Assert.NotEmpty(response.clientes_cadastro!);
         }
 
         [Fact]

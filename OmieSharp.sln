@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E53695F-F8B0-4697-AF95-F9760218755D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{9E53695F-F8B0-4697-AF95-F9760218755D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
@@ -13,9 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmieSharp", "src\OmieSharp\OmieSharp.csproj", "{7F020B76-7F1E-4A53-A404-716B5EFD5346}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{774AB37E-B176-4710-808B-49039B131CEE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{774AB37E-B176-4710-808B-49039B131CEE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmieSharp.IntegrationTests", "test\OmieSharp.IntegrationTests\OmieSharp.IntegrationTests.csproj", "{58B5D3AC-7D71-439A-A7AA-1E412C883B91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{35014085-09F6-4180-A8EB-AE9E2FA40B43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{7F020B76-7F1E-4A53-A404-716B5EFD5346} = {35014085-09F6-4180-A8EB-AE9E2FA40B43}
 		{58B5D3AC-7D71-439A-A7AA-1E412C883B91} = {774AB37E-B176-4710-808B-49039B131CEE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
