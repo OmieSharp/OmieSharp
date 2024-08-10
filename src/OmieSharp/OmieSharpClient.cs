@@ -1,5 +1,8 @@
-﻿using OmieSharp.Exceptions;
+﻿using OmieSharp.EventHandlers;
+using OmieSharp.Exceptions;
 using OmieSharp.Models;
+using System.Diagnostics;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -16,14 +19,16 @@ namespace OmieSharp
 
         private static readonly Uri baseUrl = new("https://app.omie.com.br/");
 
-        private readonly JsonSerializerOptions _jsonSerializerOptions;
+        #region Events
+
+        public event ApiCallExecutedEventHandler? OnApiCallExecuted;
+
+        #endregion
 
         public OmieSharpClient(string appKey, string appSecret, HttpClient httpClient)
         {
             ValidateAppKey(appKey);
             ValidateAppSecret(appSecret);
-
-            _jsonSerializerOptions = new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault };
 
             this.AppKey = appKey;
             this.AppSecret = appSecret;
@@ -32,22 +37,91 @@ namespace OmieSharp
             this.UserAgent = $"OmieSharp v{Utils.Application.GetAppVersion()}";
         }
 
+        private readonly JsonSerializerOptions jsonSerializerOptions = new()
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+        };
+
         private static void ValidateAppKey(string appKey)
         {
-            if (appKey == null)
-                throw new ArgumentNullException(nameof(appKey));
+            ArgumentNullException.ThrowIfNull(appKey);
 
             if (appKey.Length < 6)
-                throw new ArgumentException(nameof(appKey));
+                throw new ArgumentException("Invalid AppKey");
         }
 
         private static void ValidateAppSecret(string appSecret)
         {
-            if (appSecret == null)
-                throw new ArgumentNullException(nameof(appSecret));
+            ArgumentNullException.ThrowIfNull(appSecret);
 
             if (appSecret.Length < 32)
-                throw new ArgumentException(nameof(appSecret));
+                throw new ArgumentException("Invalid AppSecret");
+        }
+
+        private async Task<T2> ExecuteApiCall<T1, T2>(HttpMethod httpMethod, Uri fullUrl, OmieBaseRequest<T1> omieRequest)
+        {
+            var jsonRequest = (omieRequest != null ? JsonSerializer.Serialize(omieRequest, jsonSerializerOptions) : null);
+
+            try
+            {
+                var httpRequest = new HttpRequestMessage(httpMethod, fullUrl);
+                
+                if (jsonRequest != null)
+                {
+                    var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+                    requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    httpRequest.Content = requestContent;
+                }
+
+                var stopwatch = Stopwatch.StartNew();
+                var httpResponse = await this.HttpClient.SendAsync(httpRequest);
+                stopwatch.Stop();
+
+                var jsonResponse = await httpResponse.Content.ReadAsStringAsync();
+                
+                RegisterApiCallExecuted(httpMethod, fullUrl, httpResponse.StatusCode, httpResponse.IsSuccessStatusCode, jsonRequest, jsonResponse, stopwatch.ElapsedMilliseconds);
+
+                if (!httpResponse.IsSuccessStatusCode)
+                {
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+
+                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
+                        throw new OmieSharpDuplicateRequestException();
+
+                    //{"faultstring": "ERROR: Não existem registros para a página [1]!","faultcode": "SOAP-ENV:Client-5113"}
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("Não existem registros"))
+                        return default;
+
+                    //{"faultstring": "ERROR: Cliente não cadastrado para o Código [999999999] !","faultcode": "SOAP-ENV:Client-105"}
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("não cadastrado"))
+                        return default;
+
+                    //{"faultstring":"ERROR: Nenhuma conta corrente foi encontrada!","faultcode":"SOAP-ENV:Client-101"}
+                    if ((errorResponse?.ErrorMessage ?? "").Contains("Nenhuma conta corrente"))
+                        return default;
+
+                    throw new OmieSharpWebException(httpResponse.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)httpResponse.StatusCode})", jsonRequest, jsonResponse);
+                }
+
+                var model = JsonSerializer.Deserialize<T2>(jsonResponse)!;
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw new OmieSharpException($"Error in Omie API Call {fullUrl} -- {ex.Message}", ex);
+            }
+        }
+
+        private void RegisterApiCallExecuted(HttpMethod httpMethod, Uri fullUrl, HttpStatusCode httpStatusCode, bool isSuccess, string? jsonRequest, string? jsonResponse, long elapsedMilliseconds)
+        {
+            if (isSuccess)
+                Debug.WriteLine($"API Call - {httpMethod} {fullUrl} -- HttpStatus: {(int)httpStatusCode}");
+            else
+                Debug.WriteLine($"API Call ERROR - {httpMethod} {fullUrl} -- HttpStatus: {(int)httpStatusCode} -- Response: {jsonResponse}");
+
+            OnApiCallExecuted?.Invoke(httpMethod, fullUrl, httpStatusCode, isSuccess, jsonRequest, jsonResponse, elapsedMilliseconds);
         }
 
         #region Cliente
@@ -57,7 +131,9 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/geral/clientes/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ListarClienteRequest>("ListarClientes", AppKey, AppSecret, request);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<ListarClienteRequest, ListarClienteResponse>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -89,7 +165,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<ClienteCadastro?> ConsultarClienteAsync(ClienteCadastroChave chave)
@@ -97,7 +173,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/geral/clientes/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ClienteCadastroChave>("ConsultarCliente", AppKey, AppSecret, chave);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<ClienteCadastroChave, ClienteCadastro?>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -129,7 +208,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<ClienteStatus> IncluirClienteAsync(ClienteCadastro request)
@@ -137,7 +216,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/geral/clientes/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ClienteCadastro>("IncluirCliente", AppKey, AppSecret, request);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<ClienteCadastro, ClienteStatus>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -154,7 +236,7 @@ namespace OmieSharp
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
                     if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
-
+                    
                     throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
@@ -165,7 +247,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<ClienteStatus> AlterarClienteAsync(ClienteCadastro request)
@@ -173,7 +255,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/geral/clientes/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ClienteCadastro>("AlterarCliente", AppKey, AppSecret, request);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<ClienteCadastro, ClienteStatus>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -190,7 +275,7 @@ namespace OmieSharp
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
                     if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
                         throw new OmieSharpDuplicateRequestException();
-
+                    
                     throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
                 var model = JsonSerializer.Deserialize<ClienteStatus>(jsonResponse)!;
@@ -200,7 +285,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         #endregion
@@ -212,7 +297,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/servicos/servico/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ListarCadastroServicoRequest>("ListarCadastroServico", AppKey, AppSecret, request);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<ListarCadastroServicoRequest, ListarCadastroServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -244,7 +332,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<CadastroServico?> ConsultarCadastroServicoAsync(CadastroServicoChave chave)
@@ -252,7 +340,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/servicos/servico/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<CadastroServicoChave>("ConsultarCadastroServico", AppKey, AppSecret, chave);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<CadastroServicoChave, CadastroServico?>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -284,7 +375,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<IncluirCadastroServicoResponse> IncluirCadastroServicoAsync(IncluirCadastroServicoRequest request)
@@ -292,7 +383,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/servicos/servico/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<IncluirCadastroServicoRequest>("IncluirCadastroServico", AppKey, AppSecret, request);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<IncluirCadastroServicoRequest, IncluirCadastroServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -313,7 +407,7 @@ namespace OmieSharp
                     //{"faultstring": "ERROR: Não existem registros para a página [20]!","faultcode": "SOAP-ENV:Client-5113"}
                     if ((errorResponse?.ErrorMessage ?? "").Contains("Não existem registros"))
                         return new IncluirCadastroServicoResponse();
-
+                    
                     throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
                 }
 
@@ -324,7 +418,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<AlterarCadastroServicoResponse> AlterarCadastroServicoAsync(AlterarCadastroServicoRequest request)
@@ -332,7 +426,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/servicos/servico/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<AlterarCadastroServicoRequest>("AlterarCadastroServico", AppKey, AppSecret, request);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<AlterarCadastroServicoRequest, AlterarCadastroServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -360,7 +457,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         #endregion
@@ -372,7 +469,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/servicos/os/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ListarOrdemServicoRequest>("ListarOS", AppKey, AppSecret, request);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<ListarOrdemServicoRequest, ListarOrdemServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -404,7 +504,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<OrdemServico?> ConsultarOrdemServicoAsync(OrdemServicoChave chave)
@@ -412,7 +512,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/servicos/os/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<OrdemServicoChave>("ConsultarOS", AppKey, AppSecret, chave);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<OrdemServicoChave, OrdemServico?>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -444,7 +547,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<OrdemServicoStatus> IncluirOrdemServicoAsync(OrdemServico request)
@@ -452,7 +555,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/servicos/os/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<OrdemServico>("IncluirOS", AppKey, AppSecret, request);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<OrdemServico, OrdemServicoStatus>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -480,7 +586,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<OrdemServicoStatus> AlterarOrdemServicoAsync(OrdemServico request)
@@ -488,7 +594,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/servicos/os/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<OrdemServico>("AlterarOS", AppKey, AppSecret, request);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<OrdemServico, OrdemServicoStatus>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -516,7 +625,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<OrdemServicoStatus> ExcluirOrdemServicoAsync(OrdemServicoChave chave)
@@ -524,7 +633,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/servicos/os/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<OrdemServicoChave>("ExcluirOS", AppKey, AppSecret, chave);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<OrdemServicoChave, OrdemServicoStatus>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -552,7 +664,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         #endregion
@@ -564,7 +676,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/geral/contacorrente/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ListarContaCorrenteRequest>("ListarContasCorrentes", AppKey, AppSecret, request);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<ListarContaCorrenteRequest, ListarContaCorrenteResponse>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -596,7 +711,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<ContaCorrente?> ConsultarContaCorrenteAsync(ContaCorrenteChave chave)
@@ -604,7 +719,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/geral/contacorrente/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ContaCorrenteChave>("ConsultarContaCorrente", AppKey, AppSecret, chave);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<ContaCorrenteChave, ContaCorrente?>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -635,7 +753,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<ContaCorrenteStatus> IncluirContaCorrenteAsync(ContaCorrente request)
@@ -643,7 +761,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/geral/contacorrente/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ContaCorrente>("IncluirContaCorrente", AppKey, AppSecret, request);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<ContaCorrente, ContaCorrenteStatus>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -671,7 +792,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         public async Task<ContaCorrenteStatus> AlterarContaCorrenteAsync(ContaCorrente request)
@@ -682,7 +803,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/geral/contacorrente/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ContaCorrente>("AlterarContaCorrente", AppKey, AppSecret, request);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<ContaCorrente, ContaCorrenteStatus>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
 
             try
             {
@@ -710,7 +834,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         #endregion
@@ -722,7 +846,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/financas/contareceber/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ContaReceberChave>("ConsultarContaReceber", AppKey, AppSecret, chave);
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, _jsonSerializerOptions);
+            return await ExecuteApiCall<ContaReceberChave, ContaReceber?>(HttpMethod.Post, fullUrl, omieRequest);
+
+            /*
+            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
             
             try
             {
@@ -754,7 +881,7 @@ namespace OmieSharp
             catch (Exception ex)
             {
                 throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }
+            }*/
         }
 
         #endregion

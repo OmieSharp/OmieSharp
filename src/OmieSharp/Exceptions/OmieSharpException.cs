@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OmieSharp.Exceptions
+﻿namespace OmieSharp.Exceptions
 {
     [Serializable]
     public class OmieSharpException : Exception
