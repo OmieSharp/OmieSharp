@@ -132,40 +132,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ListarClienteRequest>("ListarClientes", AppKey, AppSecret, request);
             return await ExecuteApiCall<ListarClienteRequest, ListarClienteResponse>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    //{"faultstring": "ERROR: Não existem registros para a página [1]!","faultcode": "SOAP-ENV:Client-5113"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("Não existem registros"))
-                        return new ListarClienteResponse();
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<ListarClienteResponse>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<ClienteCadastro?> ConsultarClienteAsync(ClienteCadastroChave chave)
@@ -174,41 +140,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ClienteCadastroChave>("ConsultarCliente", AppKey, AppSecret, chave);
             return await ExecuteApiCall<ClienteCadastroChave, ClienteCadastro?>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    //{"faultstring": "ERROR: Cliente não cadastrado para o Código [999999999] !","faultcode": "SOAP-ENV:Client-105"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("não cadastrado"))
-                        return null;
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<ClienteCadastro>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<ClienteStatus> IncluirClienteAsync(ClienteCadastro request)
@@ -217,37 +148,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ClienteCadastro>("IncluirCliente", AppKey, AppSecret, request);
             return await ExecuteApiCall<ClienteCadastro, ClienteStatus>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-                    
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<ClienteStatus>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<ClienteStatus> AlterarClienteAsync(ClienteCadastro request)
@@ -256,36 +156,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ClienteCadastro>("AlterarCliente", AppKey, AppSecret, request);
             return await ExecuteApiCall<ClienteCadastro, ClienteStatus>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-                    
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-                var model = JsonSerializer.Deserialize<ClienteStatus>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         #endregion
@@ -298,41 +168,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ListarCadastroServicoRequest>("ListarCadastroServico", AppKey, AppSecret, request);
             return await ExecuteApiCall<ListarCadastroServicoRequest, ListarCadastroServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    //{"faultstring":"ERROR: N\u00e3o existem registros para a p\u00e1gina [1]!","faultcode":"SOAP-ENV:Client-5113"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("Não existem registros"))
-                        return new ListarCadastroServicoResponse();
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<ListarCadastroServicoResponse>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<CadastroServico?> ConsultarCadastroServicoAsync(CadastroServicoChave chave)
@@ -341,41 +176,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<CadastroServicoChave>("ConsultarCadastroServico", AppKey, AppSecret, chave);
             return await ExecuteApiCall<CadastroServicoChave, CadastroServico?>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    //{"faultstring": "ERROR: Serviço não cadastrado para o Código de integração do Serviço [teste-010] ! Tag [cCodIntServ]!","faultcode": "SOAP-ENV:Client-5002"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("não cadastrado"))
-                        return null;
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<CadastroServico>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<IncluirCadastroServicoResponse> IncluirCadastroServicoAsync(IncluirCadastroServicoRequest request)
@@ -384,41 +184,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<IncluirCadastroServicoRequest>("IncluirCadastroServico", AppKey, AppSecret, request);
             return await ExecuteApiCall<IncluirCadastroServicoRequest, IncluirCadastroServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    //{"faultstring": "ERROR: Não existem registros para a página [20]!","faultcode": "SOAP-ENV:Client-5113"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("Não existem registros"))
-                        return new IncluirCadastroServicoResponse();
-                    
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<IncluirCadastroServicoResponse>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<AlterarCadastroServicoResponse> AlterarCadastroServicoAsync(AlterarCadastroServicoRequest request)
@@ -427,37 +192,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<AlterarCadastroServicoRequest>("AlterarCadastroServico", AppKey, AppSecret, request);
             return await ExecuteApiCall<AlterarCadastroServicoRequest, AlterarCadastroServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<AlterarCadastroServicoResponse>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         #endregion
@@ -470,41 +204,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ListarOrdemServicoRequest>("ListarOS", AppKey, AppSecret, request);
             return await ExecuteApiCall<ListarOrdemServicoRequest, ListarOrdemServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    //{"faultstring":"ERROR: N\u00e3o existem registros para a p\u00e1gina [1]!","faultcode":"SOAP-ENV:Client-5113"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("Não existem registros"))
-                        return new ListarOrdemServicoResponse();
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-                
-                var model = JsonSerializer.Deserialize<ListarOrdemServicoResponse>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<OrdemServico?> ConsultarOrdemServicoAsync(OrdemServicoChave chave)
@@ -513,41 +212,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<OrdemServicoChave>("ConsultarOS", AppKey, AppSecret, chave);
             return await ExecuteApiCall<OrdemServicoChave, OrdemServico?>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    //{"faultstring":"ERROR: OS n\u00e3o cadastrada para o C\u00f3digo de Integra\u00e7\u00e3o [99999999999] !","faultcode":"SOAP-ENV:Client-103"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("não cadastrada"))
-                        return null;
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<OrdemServico>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<OrdemServicoStatus> IncluirOrdemServicoAsync(OrdemServico request)
@@ -556,37 +220,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<OrdemServico>("IncluirOS", AppKey, AppSecret, request);
             return await ExecuteApiCall<OrdemServico, OrdemServicoStatus>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<OrdemServicoStatus>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<OrdemServicoStatus> AlterarOrdemServicoAsync(OrdemServico request)
@@ -595,37 +228,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<OrdemServico>("AlterarOS", AppKey, AppSecret, request);
             return await ExecuteApiCall<OrdemServico, OrdemServicoStatus>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<OrdemServicoStatus>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<OrdemServicoStatus> ExcluirOrdemServicoAsync(OrdemServicoChave chave)
@@ -634,37 +236,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<OrdemServicoChave>("ExcluirOS", AppKey, AppSecret, chave);
             return await ExecuteApiCall<OrdemServicoChave, OrdemServicoStatus>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<OrdemServicoStatus>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         #endregion
@@ -677,41 +248,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ListarContaCorrenteRequest>("ListarContasCorrentes", AppKey, AppSecret, request);
             return await ExecuteApiCall<ListarContaCorrenteRequest, ListarContaCorrenteResponse>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    //{"faultstring":"ERROR: Nenhuma conta corrente foi encontrada!","faultcode":"SOAP-ENV:Client-101"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("Nenhuma conta corrente"))
-                        return new ListarContaCorrenteResponse();
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<ListarContaCorrenteResponse>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<ContaCorrente?> ConsultarContaCorrenteAsync(ContaCorrenteChave chave)
@@ -720,40 +256,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ContaCorrenteChave>("ConsultarContaCorrente", AppKey, AppSecret, chave);
             return await ExecuteApiCall<ContaCorrenteChave, ContaCorrente?>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<ContaCorrente>(jsonResponse)!;
-
-                if (model.nCodCC == 0)
-                    return null;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<ContaCorrenteStatus> IncluirContaCorrenteAsync(ContaCorrente request)
@@ -762,37 +264,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ContaCorrente>("IncluirContaCorrente", AppKey, AppSecret, request);
             return await ExecuteApiCall<ContaCorrente, ContaCorrenteStatus>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<ContaCorrenteStatus>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         public async Task<ContaCorrenteStatus> AlterarContaCorrenteAsync(ContaCorrente request)
@@ -804,37 +275,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ContaCorrente>("AlterarContaCorrente", AppKey, AppSecret, request);
             return await ExecuteApiCall<ContaCorrente, ContaCorrenteStatus>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<ContaCorrenteStatus>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         #endregion
@@ -847,41 +287,6 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ContaReceberChave>("ConsultarContaReceber", AppKey, AppSecret, chave);
             return await ExecuteApiCall<ContaReceberChave, ContaReceber?>(HttpMethod.Post, fullUrl, omieRequest);
-
-            /*
-            var jsonRequest = JsonSerializer.Serialize(omieRequest, jsonSerializerOptions);
-            
-            try
-            {
-                var requestContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-                requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await this.HttpClient.PostAsync(fullUrl, requestContent);
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
-
-                    //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
-                        throw new OmieSharpDuplicateRequestException();
-
-                    //{"faultstring": "ERROR: Lançamento não cadastrado para o Código [123] !", "faultcode": "SOAP-ENV:Client-105"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("não cadastrado"))
-                        return null;
-
-                    throw new OmieSharpWebException(response.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)response.StatusCode})", jsonRequest, jsonResponse);
-                }
-
-                var model = JsonSerializer.Deserialize<ContaReceber>(jsonResponse)!;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                throw new OmieSharpException($"Error in Omie API Call {relativeUrl} -- {ex.Message} -- Url: {fullUrl}", ex);
-            }*/
         }
 
         #endregion
