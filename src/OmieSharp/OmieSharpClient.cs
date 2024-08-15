@@ -4,6 +4,7 @@ using OmieSharp.Models;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -84,21 +85,29 @@ namespace OmieSharp
                 if (!httpResponse.IsSuccessStatusCode)
                 {
                     var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(jsonResponse);
+                    var errorMessage = errorResponse?.ErrorMessage ?? "";
 
                     //{"faultstring":"ERROR: Esta requisi\u00e7\u00e3o j\u00e1 foi processada ou est\u00e1 sendo processada e voc\u00ea pode tentar novamente \u00e0s 19:04:08. (1)","faultcode":"SOAP-ENV:Client-1100"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("já foi processada"))
+                    if (errorMessage.Contains("já foi processada") || errorMessage.Contains("j\u00e1 foi processada"))
                         throw new OmieSharpDuplicateRequestException();
 
                     //{"faultstring": "ERROR: Não existem registros para a página [1]!","faultcode": "SOAP-ENV:Client-5113"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("Não existem registros"))
+                    //{\"faultstring\":\"ERROR: N\\u00e3o existem registros para a p\\u00e1gina [1]!\",\"faultcode\":\"SOAP-ENV:Client-5113\"}
+                    if (errorMessage.Contains("Não existem registros") || errorMessage.Contains("N\\u00e3o existem registros"))
                         return default;
 
                     //{"faultstring": "ERROR: Cliente não cadastrado para o Código [999999999] !","faultcode": "SOAP-ENV:Client-105"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("não cadastrado"))
+                    //{"faultstring": "ERROR: Lançamento não cadastrado para o Código [123] !", "faultcode": "SOAP-ENV:Client-105"}
+                    //{"faultstring": "ERROR: Serviço não cadastrado para o Código de integração do Serviço [teste-010] ! Tag [cCodIntServ]!","faultcode": "SOAP-ENV:Client-5002"}
+                    if (errorMessage.Contains("não cadastrado") || errorMessage.Contains("n\\u00e3o cadastrado"))
+                        return default;
+
+                    //{"faultstring":"ERROR: OS n\u00e3o cadastrada para o C\u00f3digo de Integra\u00e7\u00e3o [99999999999] !","faultcode":"SOAP-ENV:Client-103"}
+                    if (errorMessage.Contains("não cadastrada") || errorMessage.Contains("n\\u00e3o cadastrada"))
                         return default;
 
                     //{"faultstring":"ERROR: Nenhuma conta corrente foi encontrada!","faultcode":"SOAP-ENV:Client-101"}
-                    if ((errorResponse?.ErrorMessage ?? "").Contains("Nenhuma conta corrente"))
+                    if (errorMessage.Contains("Nenhuma conta corrente"))
                         return default;
 
                     throw new OmieSharpWebException(httpResponse.StatusCode, $"Error: {errorResponse?.ErrorCode} {errorResponse?.ErrorMessage} (API StatusCode: {(int)httpResponse.StatusCode})", jsonRequest, jsonResponse);
@@ -131,7 +140,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/geral/clientes/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ListarClienteRequest>("ListarClientes", AppKey, AppSecret, request);
-            return await ExecuteApiCall<ListarClienteRequest, ListarClienteResponse>(HttpMethod.Post, fullUrl, omieRequest);
+            var response = await ExecuteApiCall<ListarClienteRequest, ListarClienteResponse>(HttpMethod.Post, fullUrl, omieRequest);
+            if (response == null)
+                return new ListarClienteResponse();
+            return response;
         }
 
         public async Task<ClienteCadastro?> ConsultarClienteAsync(ClienteCadastroChave chave)
@@ -167,7 +179,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/servicos/servico/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ListarCadastroServicoRequest>("ListarCadastroServico", AppKey, AppSecret, request);
-            return await ExecuteApiCall<ListarCadastroServicoRequest, ListarCadastroServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
+            var response = await ExecuteApiCall<ListarCadastroServicoRequest, ListarCadastroServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
+            if (response == null)
+                return new ListarCadastroServicoResponse();
+            return response;
         }
 
         public async Task<CadastroServico?> ConsultarCadastroServicoAsync(CadastroServicoChave chave)
@@ -203,7 +218,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/servicos/os/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ListarOrdemServicoRequest>("ListarOS", AppKey, AppSecret, request);
-            return await ExecuteApiCall<ListarOrdemServicoRequest, ListarOrdemServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
+            var response = await ExecuteApiCall<ListarOrdemServicoRequest, ListarOrdemServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
+            if (response == null)
+                return new ListarOrdemServicoResponse();
+            return response;
         }
 
         public async Task<OrdemServico?> ConsultarOrdemServicoAsync(OrdemServicoChave chave)
@@ -247,7 +265,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/geral/contacorrente/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ListarContaCorrenteRequest>("ListarContasCorrentes", AppKey, AppSecret, request);
-            return await ExecuteApiCall<ListarContaCorrenteRequest, ListarContaCorrenteResponse>(HttpMethod.Post, fullUrl, omieRequest);
+            var response = await ExecuteApiCall<ListarContaCorrenteRequest, ListarContaCorrenteResponse>(HttpMethod.Post, fullUrl, omieRequest);
+            if (response == null)
+                return new ListarContaCorrenteResponse();
+            return response;
         }
 
         public async Task<ContaCorrente?> ConsultarContaCorrenteAsync(ContaCorrenteChave chave)
