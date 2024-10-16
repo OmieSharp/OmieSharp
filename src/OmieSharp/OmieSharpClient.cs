@@ -276,7 +276,10 @@ namespace OmieSharp
             var relativeUrl = new Uri("/api/v1/geral/contacorrente/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ContaCorrenteChave>("ConsultarContaCorrente", AppKey, AppSecret, chave);
-            return await ExecuteApiCall<ContaCorrenteChave, ContaCorrente?>(HttpMethod.Post, fullUrl, omieRequest);
+            var contaCorrente = await ExecuteApiCall<ContaCorrenteChave, ContaCorrente?>(HttpMethod.Post, fullUrl, omieRequest);
+            if (contaCorrente.nCodCC == 0)
+                return null;
+            return contaCorrente;
         }
 
         public async Task<ContaCorrenteStatus> IncluirContaCorrenteAsync(ContaCorrente request)

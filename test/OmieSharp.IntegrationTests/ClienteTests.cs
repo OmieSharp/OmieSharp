@@ -26,7 +26,7 @@ namespace OmieSharp.IntegrationTests
         [Fact]
         public async Task ListarClientes_Filtro_Cnpj_Success()
         {
-            var request = new ListarClienteRequest() { clientesFiltro = new ClientFiltro() { cnpj_cpf = "60.409.075/0001-52" } };
+            var request = new ListarClienteRequest() { clientesFiltro = new ClientFiltro() { cnpj_cpf = Constants.CLIENTE_CNPJ } };
             var response = await _omieSharpClient.ListarClientesAsync(request);
             Assert.NotNull(response);
             Assert.NotEmpty(response.clientes_cadastro!);
