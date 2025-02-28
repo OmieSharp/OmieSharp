@@ -1,4 +1,3 @@
-using OmieSharp.IntegrationTests.ConfigModels;
 using OmieSharp.Models;
 
 namespace OmieSharp.IntegrationTests
@@ -6,12 +5,12 @@ namespace OmieSharp.IntegrationTests
     public class ClienteTests : BaseTest
     {
         private readonly OmieSharpClient _omieSharpClient;
-        private readonly ConfigurationFile _configurationFile;
+        //private readonly ConfigurationFile _configurationFile;
 
         public ClienteTests()
         {
             _omieSharpClient = GetOmieSharpClient();
-            _configurationFile = GetConfigurationFile();
+            //_configurationFile = GetConfigurationFile();
         }
 
         [Fact]

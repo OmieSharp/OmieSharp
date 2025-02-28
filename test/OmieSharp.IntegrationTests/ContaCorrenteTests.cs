@@ -1,17 +1,16 @@
-﻿using OmieSharp.IntegrationTests.ConfigModels;
-using OmieSharp.Models;
+﻿using OmieSharp.Models;
 
 namespace OmieSharp.IntegrationTests
 {
     public class ContaCorrenteTests : BaseTest
     {
         private readonly OmieSharpClient _omieSharpClient;
-        private readonly ConfigurationFile _configurationFile;
+        //private readonly ConfigurationFile _configurationFile;
 
         public ContaCorrenteTests()
         {
             _omieSharpClient = GetOmieSharpClient();
-            _configurationFile = GetConfigurationFile();
+            //_configurationFile = GetConfigurationFile();
         }
 
         [Fact]

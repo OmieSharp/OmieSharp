@@ -17,7 +17,7 @@ namespace OmieSharp.IntegrationTests
         [Fact]
         public async Task ConsultarContaReceberAsync_Success()
         {
-            var codigo_lancamento_omie = 6324571563;
+            var codigo_lancamento_omie = _configurationFile.codigo_lancamento_omie;
 
             var request = new ContaReceberChave(codigo_lancamento_omie);
             var response = await _omieSharpClient.ConsultarContaReceberAsync(request);

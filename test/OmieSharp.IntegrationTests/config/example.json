@@ -1,5 +1,6 @@
 ﻿{
   "appKey": "xxx",
   "appSecret": "xxx",
-  "codigo_cliente_omie": 123
+  "codigo_cliente_omie": 123456789,
+  "codigo_lancamento_omie": 789123456
 }

@@ -6,12 +6,12 @@ namespace OmieSharp.IntegrationTests
     public class OrdemServicoTests : BaseTest
     {
         private readonly OmieSharpClient _omieSharpClient;
-        private readonly ConfigurationFile _configurationFile;
+        //private readonly ConfigurationFile _configurationFile;
 
         public OrdemServicoTests()
         {
             _omieSharpClient = GetOmieSharpClient();
-            _configurationFile = GetConfigurationFile();
+            //_configurationFile = GetConfigurationFile();
         }
 
         [Fact]

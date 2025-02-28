@@ -5,7 +5,7 @@ namespace OmieSharp.Models
 {
     public class ClientFiltro
     {
-        public int? codigo_cliente_omie { get; set; }
+        public long? codigo_cliente_omie { get; set; }
         public string? codigo_cliente_integracao { get; set; }
         public string? cnpj_cpf { get; set; }
         public string? razao_social { get; set; }

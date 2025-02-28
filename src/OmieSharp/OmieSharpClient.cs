@@ -4,7 +4,6 @@ using OmieSharp.Models;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
-using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -59,7 +58,7 @@ namespace OmieSharp
                 throw new ArgumentException("Invalid AppSecret");
         }
 
-        private async Task<T2> ExecuteApiCall<T1, T2>(HttpMethod httpMethod, Uri fullUrl, OmieBaseRequest<T1> omieRequest)
+        private async Task<T2?> ExecuteApiCall<T1, T2>(HttpMethod httpMethod, Uri fullUrl, OmieBaseRequest<T1> omieRequest)
         {
             var jsonRequest = (omieRequest != null ? JsonSerializer.Serialize(omieRequest, jsonSerializerOptions) : null);
 
@@ -154,7 +153,7 @@ namespace OmieSharp
             return await ExecuteApiCall<ClienteCadastroChave, ClienteCadastro?>(HttpMethod.Post, fullUrl, omieRequest);
         }
 
-        public async Task<ClienteStatus> IncluirClienteAsync(ClienteCadastro request)
+        public async Task<ClienteStatus?> IncluirClienteAsync(ClienteCadastro request)
         {
             var relativeUrl = new Uri("/api/v1/geral/clientes/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
@@ -162,7 +161,7 @@ namespace OmieSharp
             return await ExecuteApiCall<ClienteCadastro, ClienteStatus>(HttpMethod.Post, fullUrl, omieRequest);
         }
 
-        public async Task<ClienteStatus> AlterarClienteAsync(ClienteCadastro request)
+        public async Task<ClienteStatus?> AlterarClienteAsync(ClienteCadastro request)
         {
             var relativeUrl = new Uri("/api/v1/geral/clientes/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
@@ -193,7 +192,7 @@ namespace OmieSharp
             return await ExecuteApiCall<CadastroServicoChave, CadastroServico?>(HttpMethod.Post, fullUrl, omieRequest);
         }
 
-        public async Task<IncluirCadastroServicoResponse> IncluirCadastroServicoAsync(IncluirCadastroServicoRequest request)
+        public async Task<IncluirCadastroServicoResponse?> IncluirCadastroServicoAsync(IncluirCadastroServicoRequest request)
         {
             var relativeUrl = new Uri("/api/v1/servicos/servico/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
@@ -201,7 +200,7 @@ namespace OmieSharp
             return await ExecuteApiCall<IncluirCadastroServicoRequest, IncluirCadastroServicoResponse>(HttpMethod.Post, fullUrl, omieRequest);
         }
 
-        public async Task<AlterarCadastroServicoResponse> AlterarCadastroServicoAsync(AlterarCadastroServicoRequest request)
+        public async Task<AlterarCadastroServicoResponse?> AlterarCadastroServicoAsync(AlterarCadastroServicoRequest request)
         {
             var relativeUrl = new Uri("/api/v1/servicos/servico/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
@@ -232,7 +231,7 @@ namespace OmieSharp
             return await ExecuteApiCall<OrdemServicoChave, OrdemServico?>(HttpMethod.Post, fullUrl, omieRequest);
         }
 
-        public async Task<OrdemServicoStatus> IncluirOrdemServicoAsync(OrdemServico request)
+        public async Task<OrdemServicoStatus?> IncluirOrdemServicoAsync(OrdemServico request)
         {
             var relativeUrl = new Uri("/api/v1/servicos/os/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
@@ -240,7 +239,7 @@ namespace OmieSharp
             return await ExecuteApiCall<OrdemServico, OrdemServicoStatus>(HttpMethod.Post, fullUrl, omieRequest);
         }
 
-        public async Task<OrdemServicoStatus> AlterarOrdemServicoAsync(OrdemServico request)
+        public async Task<OrdemServicoStatus?> AlterarOrdemServicoAsync(OrdemServico request)
         {
             var relativeUrl = new Uri("/api/v1/servicos/os/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
@@ -248,7 +247,7 @@ namespace OmieSharp
             return await ExecuteApiCall<OrdemServico, OrdemServicoStatus>(HttpMethod.Post, fullUrl, omieRequest);
         }
 
-        public async Task<OrdemServicoStatus> ExcluirOrdemServicoAsync(OrdemServicoChave chave)
+        public async Task<OrdemServicoStatus?> ExcluirOrdemServicoAsync(OrdemServicoChave chave)
         {
             var relativeUrl = new Uri("/api/v1/servicos/os/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
@@ -282,7 +281,7 @@ namespace OmieSharp
             return contaCorrente;
         }
 
-        public async Task<ContaCorrenteStatus> IncluirContaCorrenteAsync(ContaCorrente request)
+        public async Task<ContaCorrenteStatus?> IncluirContaCorrenteAsync(ContaCorrente request)
         {
             var relativeUrl = new Uri("/api/v1/geral/contacorrente/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
@@ -290,7 +289,7 @@ namespace OmieSharp
             return await ExecuteApiCall<ContaCorrente, ContaCorrenteStatus>(HttpMethod.Post, fullUrl, omieRequest);
         }
 
-        public async Task<ContaCorrenteStatus> AlterarContaCorrenteAsync(ContaCorrente request)
+        public async Task<ContaCorrenteStatus?> AlterarContaCorrenteAsync(ContaCorrente request)
         {
             //{"faultstring":"ERROR: A tag [pdv_sincr_analitica] somente deve ser informada quando a tag [tipo_conta_corrente] for igual a 'CC', 'AC', 'CX' ou 'CN' e a tag [pdv_enviar] for 'S' !","faultcode":"SOAP-ENV:Client-1020"}
             request.pdv_sincr_analitica = null;
