@@ -1,7 +1,7 @@
 ﻿using OmieSharp.JsonConverters;
 using System.Text.Json.Serialization;
 
-namespace OmieSharp.Models
+namespace OmieSharp.Models.ContaPagarModels
 {
     public class ListarOrdemServicoRequest
     {
@@ -16,8 +16,13 @@ namespace OmieSharp.Models
         [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? ordem_decrescente { get; set; }
 
-        public string? filtrar_por_data_de { get; set; }
-        public string? filtrar_por_data_ate { get; set; }
+
+        [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
+        public DateOnly? filtrar_por_data_de { get; set; }
+        
+        [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
+        public DateOnly? filtrar_por_data_ate { get; set; }
+
 
         [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? filtrar_apenas_inclusao { get; set; }

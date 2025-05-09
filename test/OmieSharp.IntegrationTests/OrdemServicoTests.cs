@@ -1,5 +1,5 @@
-using OmieSharp.IntegrationTests.ConfigModels;
 using OmieSharp.Models;
+using OmieSharp.Models.ContaPagarModels;
 
 namespace OmieSharp.IntegrationTests
 {

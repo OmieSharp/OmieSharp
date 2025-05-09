@@ -1,6 +1,7 @@
 ﻿using OmieSharp.EventHandlers;
 using OmieSharp.Exceptions;
 using OmieSharp.Models;
+using OmieSharp.Models.ContaPagarModels;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
@@ -310,6 +311,39 @@ namespace OmieSharp
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ContaReceberChave>("ConsultarContaReceber", AppKey, AppSecret, chave);
             return await ExecuteApiCall<ContaReceberChave, ContaReceber?>(HttpMethod.Post, fullUrl, omieRequest);
+        }
+
+        #endregion
+
+        #region ContaPagar
+
+        //ref: https://app.omie.com.br/api/v1/financas/contapagar/#conta_pagar_cadastro
+
+        public async Task<ListarContaPagarResponse> ListarContaPagarAsync(ListarContaPagarRequest request)
+        {
+            var relativeUrl = new Uri("/api/v1/financas/contapagar/", UriKind.Relative);
+            var fullUrl = new Uri(baseUrl, relativeUrl);
+            var omieRequest = new OmieBaseRequest<ListarContaPagarRequest>("ListarContasPagar", AppKey, AppSecret, request);
+            var response = await ExecuteApiCall<ListarContaPagarRequest, ListarContaPagarResponse>(HttpMethod.Post, fullUrl, omieRequest);
+            if (response == null)
+                return new ListarContaPagarResponse();
+            return response;
+        }
+
+        public async Task<ContaPagar?> ConsultarContaPagarAsync(ContaPagarChave chave)
+        {
+            var relativeUrl = new Uri("/api/v1/financas/contapagar/", UriKind.Relative);
+            var fullUrl = new Uri(baseUrl, relativeUrl);
+            var omieRequest = new OmieBaseRequest<ContaPagarChave>("ConsultarContaPagar", AppKey, AppSecret, chave);
+            return await ExecuteApiCall<ContaPagarChave, ContaPagar?>(HttpMethod.Post, fullUrl, omieRequest);
+        }
+
+        public async Task<ContaPagarResposta?> IncluirContaPagarAsync(ContaPagar request)
+        {
+            var relativeUrl = new Uri("/api/v1/financas/contapagar/", UriKind.Relative);
+            var fullUrl = new Uri(baseUrl, relativeUrl);
+            var omieRequest = new OmieBaseRequest<ContaPagar>("IncluirContaPagar", AppKey, AppSecret, request);
+            return await ExecuteApiCall<ContaPagar, ContaPagarResposta>(HttpMethod.Post, fullUrl, omieRequest);
         }
 
         #endregion
