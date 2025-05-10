@@ -28,4 +28,5 @@ public class ContaPagarResposta
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
     public string? descricao_status { get; set; }
 
+    public bool Success => (codigo_status ?? "999").Equals("0");
 }
