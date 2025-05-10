@@ -340,10 +340,30 @@ namespace OmieSharp
 
         public async Task<ContaPagarResposta?> IncluirContaPagarAsync(ContaPagar request)
         {
+            request.status_titulo = null;
+
             var relativeUrl = new Uri("/api/v1/financas/contapagar/", UriKind.Relative);
             var fullUrl = new Uri(baseUrl, relativeUrl);
             var omieRequest = new OmieBaseRequest<ContaPagar>("IncluirContaPagar", AppKey, AppSecret, request);
             return await ExecuteApiCall<ContaPagar, ContaPagarResposta>(HttpMethod.Post, fullUrl, omieRequest);
+        }
+
+        public async Task<ContaPagarResposta?> AlterarContaPagarAsync(ContaPagar request)
+        {
+            request.status_titulo = null;
+
+            var relativeUrl = new Uri("/api/v1/financas/contapagar/", UriKind.Relative);
+            var fullUrl = new Uri(baseUrl, relativeUrl);
+            var omieRequest = new OmieBaseRequest<ContaPagar>("AlterarContaPagar", AppKey, AppSecret, request);
+            return await ExecuteApiCall<ContaPagar, ContaPagarResposta>(HttpMethod.Post, fullUrl, omieRequest);
+        }
+
+        public async Task<ContaPagarResposta?> ExcluirContaPagarAsync(ContaPagarChave chave)
+        {
+            var relativeUrl = new Uri("/api/v1/financas/contapagar/", UriKind.Relative);
+            var fullUrl = new Uri(baseUrl, relativeUrl);
+            var omieRequest = new OmieBaseRequest<ContaPagarChave>("ExcluirContaPagar", AppKey, AppSecret, chave);
+            return await ExecuteApiCall<ContaPagarChave, ContaPagarResposta>(HttpMethod.Post, fullUrl, omieRequest);
         }
 
         #endregion

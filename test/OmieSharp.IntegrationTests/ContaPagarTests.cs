@@ -39,7 +39,7 @@ public class ContaPagarTests : BaseTest
     }
 
     [Fact]
-    public async Task IncluirContaPagar_Success()
+    public async Task IncluirConsultarAlterarExcluirContaPagar_Success()
     {
         var cliente = await _omieSharpClient.ConsultarClienteAsync(new ClienteCadastroChave(Constants.CLIENTE_CODIGO_INTEGRACAO));
         if (cliente == null)
@@ -52,7 +52,10 @@ public class ContaPagarTests : BaseTest
         var codigoIntegracao = $"{DateTime.Now:yyyyMMdd-HHmmss}";
         var now = DateTime.Now.Date;
         var dataPrevisao = DateOnly.FromDateTime(now.AddDays(15));
-        
+
+
+        //-- Inclusão
+
         var request = new ContaPagar()
         {
             codigo_lancamento_integracao = codigoIntegracao,
@@ -63,9 +66,52 @@ public class ContaPagarTests : BaseTest
             data_previsao = dataPrevisao,
             id_conta_corrente = contaCorrente.nCodCC
         };
-        var response = await _omieSharpClient.IncluirContaPagarAsync(request);
+        var responseInclusao = await _omieSharpClient.IncluirContaPagarAsync(request);
+        var codigoOmie = responseInclusao.codigo_lancamento_omie;
 
-        Assert.Equal("0", response.codigo_status);
-        Assert.Equal(codigoIntegracao, response.codigo_lancamento_integracao);
+        Assert.Equal("0", responseInclusao.codigo_status);
+        Assert.Equal(codigoIntegracao, responseInclusao.codigo_lancamento_integracao);
+
+
+        //-- Consultar inclusão
+
+        var contaApagar = await _omieSharpClient.ConsultarContaPagarAsync(new ContaPagarChave(codigoIntegracao));
+
+        Assert.NotNull(contaApagar);
+        Assert.Equal(codigoIntegracao, contaApagar.codigo_lancamento_integracao);
+        Assert.Equal(codigoOmie, contaApagar.codigo_lancamento_omie);
+
+
+        //-- Alteração
+
+        var observacao = $"Teste de alteração {DateTime.Now:yyyy-MM-dd-HH:mm:ss}";
+        contaApagar.observacao = observacao;
+
+        var responseAlteracao = await _omieSharpClient.AlterarContaPagarAsync(contaApagar);
+        Assert.Equal("0", responseAlteracao.codigo_status);
+        Assert.Equal(responseAlteracao.codigo_lancamento_integracao, responseInclusao.codigo_lancamento_integracao);
+
+
+        //-- Consultar alteração
+
+        contaApagar = await _omieSharpClient.ConsultarContaPagarAsync(new ContaPagarChave(codigoIntegracao));
+
+        Assert.NotNull(contaApagar);
+        Assert.Equal(codigoIntegracao, contaApagar.codigo_lancamento_integracao);
+        Assert.Equal(codigoOmie, contaApagar.codigo_lancamento_omie);
+        //Assert.Equal(observacao, contaApagar.observacao); //Omie demora para reponder com a versão atualizada
+
+
+        //-- Exclusão
+
+        var responseExclusao = await _omieSharpClient.ExcluirContaPagarAsync(new ContaPagarChave(codigoIntegracao));
+        Assert.Equal("0", responseExclusao.codigo_status);
+        Assert.Equal(responseExclusao.codigo_lancamento_integracao, responseInclusao.codigo_lancamento_integracao);
+
+
+        //-- Consultar exclusão
+
+        contaApagar = await _omieSharpClient.ConsultarContaPagarAsync(new ContaPagarChave(codigoIntegracao));
+        Assert.Null(contaApagar);
     }
 }
