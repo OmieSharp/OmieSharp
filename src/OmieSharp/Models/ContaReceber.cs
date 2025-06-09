@@ -68,8 +68,8 @@ namespace OmieSharp.Models
 
         public decimal valor_pis { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? retem_pis { get; set; }
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+        public bool? retem_pis { get; set; }
 
         public decimal valor_cofins { get; set; }
 

@@ -96,8 +96,8 @@ public class ContaPagar
     /// <summary>
     /// Reter PIS
     /// </summary>
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? retem_pis { get; set; }
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? retem_pis { get; set; }
 
     /// <summary>
     /// Valor do PIS
@@ -107,8 +107,8 @@ public class ContaPagar
     /// <summary>
     /// Reter COFINS
     /// </summary>
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? retem_cofins { get; set; }
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? retem_cofins { get; set; }
 
     /// <summary>
     /// Valor CSLL
@@ -118,8 +118,8 @@ public class ContaPagar
     /// <summary>
     /// Reter CSLL
     /// </summary>
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? retem_csll { get; set; }
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? retem_csll { get; set; }
 
     /// <summary>
     /// Valor IR
@@ -129,8 +129,8 @@ public class ContaPagar
     /// <summary>
     /// Reter IR
     /// </summary>
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? retem_ir { get; set; }
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? retem_ir { get; set; }
 
     /// <summary>
     /// Valor ISS
@@ -140,8 +140,8 @@ public class ContaPagar
     /// <summary>
     /// Reter ISS
     /// </summary>
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? retem_iss { get; set; }
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? retem_iss { get; set; }
 
     /// <summary>
     /// Valor INSS
@@ -151,8 +151,8 @@ public class ContaPagar
     /// <summary>
     /// Reter INSS
     /// </summary>
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? retem_inss { get; set; }
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? retem_inss { get; set; }
 
     /// <summary>
     /// Distribuição por Departamentos
