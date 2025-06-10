@@ -96,20 +96,20 @@ namespace OmieSharp.Models
         [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
         public bool? retem_inss { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? bloqueado { get; set; }
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+        public bool? bloqueado { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? bloquear_baixa { get; set; }
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+        public bool? bloquear_baixa { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? importado_api { get; set; }
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+        public bool? importado_api { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? baixar_documento { get; set; }
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+        public bool? baixar_documento { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? conciliar_documento { get; set; }
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+        public bool? conciliar_documento { get; set; }
 
         [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
         public string? acao { get; set; }
@@ -139,8 +139,8 @@ namespace OmieSharp.Models
 
         public long nCodPedido { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? bloquear_exclusao { get; set; }
+        [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+        public bool? bloquear_exclusao { get; set; }
 
         public long nCodOS { get; set; }
 

@@ -226,14 +226,14 @@ public class ContaPagar
     /// <summary>
     /// Importado pela API (S/N)
     /// </summary>
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? importado_api { get; set; }
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? importado_api { get; set; }
 
     /// <summary>
     /// Bloqueia a exclusão do registro (S/N)
     /// </summary>
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? bloquear_exclusao { get; set; }
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? bloquear_exclusao { get; set; }
 
     /// <summary>
     /// Dados do CNAB e Integração Bancária
