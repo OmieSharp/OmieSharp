@@ -2,37 +2,36 @@
 using System.Reflection;
 using System.Text.Json;
 
-namespace OmieSharp.IntegrationTests
+namespace OmieSharp.IntegrationTests;
+
+public abstract class BaseTest
 {
-    public abstract class BaseTest
+    private static HttpClient httpClient = new HttpClient();
+    private static string? assemblyLocation;
+
+    internal static ConfigurationFile GetConfigurationFile()
     {
-        private static HttpClient httpClient = new HttpClient();
-        private static string? assemblyLocation;
+        assemblyLocation ??= new System.IO.FileInfo(Assembly.GetEntryAssembly()!.Location).Directory!.FullName;
+        string path = System.IO.Path.Combine(assemblyLocation, "config", "main.json");
 
-        internal static ConfigurationFile GetConfigurationFile()
+        if (!System.IO.File.Exists(path))
+            throw new FileNotFoundException($"File not found: config\\main.json", path);
+
+        try
         {
-            assemblyLocation ??= new System.IO.FileInfo(Assembly.GetEntryAssembly()!.Location).Directory!.FullName;
-            string path = System.IO.Path.Combine(assemblyLocation, "config", "main.json");
-
-            if (!System.IO.File.Exists(path))
-                throw new FileNotFoundException($"File not found: config\\main.json", path);
-
-            try
-            {
-                var json = System.IO.File.ReadAllText(path);
-                return (JsonSerializer.Deserialize<ConfigurationFile>(json))!;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Error reading config file config\\main.json -- {ex.Message}", ex);
-            }
+            var json = System.IO.File.ReadAllText(path);
+            return (JsonSerializer.Deserialize<ConfigurationFile>(json))!;
         }
-
-        protected static OmieSharpClient GetOmieSharpClient()
+        catch (Exception ex)
         {
-            var config = GetConfigurationFile();
-            var omieClient = new OmieSharpClient(config.AppKey!, config.AppSecret!, httpClient);
-            return omieClient;
+            throw new InvalidOperationException($"Error reading config file config\\main.json -- {ex.Message}", ex);
         }
+    }
+
+    protected static OmieSharpClient GetOmieSharpClient()
+    {
+        var config = GetConfigurationFile();
+        var omieClient = new OmieSharpClient(config.AppKey!, config.AppSecret!, httpClient);
+        return omieClient;
     }
 }

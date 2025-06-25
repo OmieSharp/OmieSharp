@@ -1,7 +1,6 @@
-﻿namespace OmieSharp.Events.Body.ContaReceber
+﻿namespace OmieSharp.Events.Body.ContaReceber;
+
+public class ContaReceberIncluidoOmieEvent : BaseContaReceberOmieEvent
 {
-    public class ContaReceberIncluidoOmieEvent : BaseContaReceberOmieEvent
-    {
-        
-    }
+    
 }

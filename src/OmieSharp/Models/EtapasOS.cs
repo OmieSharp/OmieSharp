@@ -1,13 +1,12 @@
-﻿namespace OmieSharp.Models
+﻿namespace OmieSharp.Models;
+
+public enum EtapasOS
 {
-    public enum EtapasOS
-    {
-        None = 0,
-        PrimeiraColuna = 10,
-        SegundaColuna = 20,
-        TerceiraColuna = 30,
-        QuartaColuna = 40,
-        Faturar = 50,
-        Faturado = 60
-    }
+    None = 0,
+    PrimeiraColuna = 10,
+    SegundaColuna = 20,
+    TerceiraColuna = 30,
+    QuartaColuna = 40,
+    Faturar = 50,
+    Faturado = 60
 }

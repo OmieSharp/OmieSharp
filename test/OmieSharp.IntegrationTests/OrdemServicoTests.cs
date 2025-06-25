@@ -1,129 +1,128 @@
 using OmieSharp.Models;
 using OmieSharp.Models.ContaPagarModels;
 
-namespace OmieSharp.IntegrationTests
+namespace OmieSharp.IntegrationTests;
+
+public class OrdemServicoTests : BaseTest
 {
-    public class OrdemServicoTests : BaseTest
+    private readonly OmieSharpClient _omieSharpClient;
+    //private readonly ConfigurationFile _configurationFile;
+
+    public OrdemServicoTests()
     {
-        private readonly OmieSharpClient _omieSharpClient;
-        //private readonly ConfigurationFile _configurationFile;
+        _omieSharpClient = GetOmieSharpClient();
+        //_configurationFile = GetConfigurationFile();
+    }
 
-        public OrdemServicoTests()
+    [Fact]
+    public async Task ListarOrdemServicoAsync_Success()
+    {
+        var request = new ListarOrdemServicoRequest();
+        var response = await _omieSharpClient.ListarOrdemServicoAsync(request);
+        Assert.NotEmpty(response.osCadastro);
+    }
+
+    [Fact]
+    public async Task ListarOrdemServicoAsync_Notfound()
+    {
+        var request = new ListarOrdemServicoRequest() { filtrar_por_codigo = new List<OrdemServicoChave>() { new OrdemServicoChave("99999999999") } };
+        var response = await _omieSharpClient.ListarOrdemServicoAsync(request);
+        Assert.Empty(response.osCadastro);
+    }
+
+    [Fact]
+    public async Task ConsultarOrdemServicoAsync_Notfound()
+    {
+        var request = new OrdemServicoChave("99999999999");
+        var response = await _omieSharpClient.ConsultarOrdemServicoAsync(request);
+        Assert.Null(response);
+    }
+
+    [Fact]
+    public async Task IncluirOrdemServico_Success()
+    {
+        var cliente = await _omieSharpClient.ConsultarClienteAsync(new ClienteCadastroChave(Constants.CLIENTE_CODIGO_INTEGRACAO));
+        if (cliente == null)
+            throw new InvalidOperationException("Cliente não encontrado");
+
+        var servico = await _omieSharpClient.ConsultarCadastroServicoAsync(new CadastroServicoChave(Constants.SERVICO_CODIGO_INTEGRACAO));
+        if (servico == null)
+            throw new InvalidOperationException("Serviço não encontrado");
+
+        var contaCorrente = await _omieSharpClient.ConsultarContaCorrenteAsync(new ContaCorrenteChave(Constants.CONTA_CORRENTE_CODIGO_INTEGRACAO));
+        if (contaCorrente == null)
+            throw new InvalidOperationException("Conta Corrente não encontrada");
+
+        var codigoIntegracao = $"{DateTime.Now:yyyyMMdd-HHmmss}";
+        var now = DateTime.Now.Date;
+        var dataPrevisao = DateOnly.FromDateTime(now.AddDays(15));
+        var qtd = 1;
+        var valUnit = 100M;
+
+        var request = new OrdemServico()
         {
-            _omieSharpClient = GetOmieSharpClient();
-            //_configurationFile = GetConfigurationFile();
-        }
-
-        [Fact]
-        public async Task ListarOrdemServicoAsync_Success()
-        {
-            var request = new ListarOrdemServicoRequest();
-            var response = await _omieSharpClient.ListarOrdemServicoAsync(request);
-            Assert.NotEmpty(response.osCadastro);
-        }
-
-        [Fact]
-        public async Task ListarOrdemServicoAsync_Notfound()
-        {
-            var request = new ListarOrdemServicoRequest() { filtrar_por_codigo = new List<OrdemServicoChave>() { new OrdemServicoChave("99999999999") } };
-            var response = await _omieSharpClient.ListarOrdemServicoAsync(request);
-            Assert.Empty(response.osCadastro);
-        }
-
-        [Fact]
-        public async Task ConsultarOrdemServicoAsync_Notfound()
-        {
-            var request = new OrdemServicoChave("99999999999");
-            var response = await _omieSharpClient.ConsultarOrdemServicoAsync(request);
-            Assert.Null(response);
-        }
-
-        [Fact]
-        public async Task IncluirOrdemServico_Success()
-        {
-            var cliente = await _omieSharpClient.ConsultarClienteAsync(new ClienteCadastroChave(Constants.CLIENTE_CODIGO_INTEGRACAO));
-            if (cliente == null)
-                throw new InvalidOperationException("Cliente não encontrado");
-
-            var servico = await _omieSharpClient.ConsultarCadastroServicoAsync(new CadastroServicoChave(Constants.SERVICO_CODIGO_INTEGRACAO));
-            if (servico == null)
-                throw new InvalidOperationException("Serviço não encontrado");
-
-            var contaCorrente = await _omieSharpClient.ConsultarContaCorrenteAsync(new ContaCorrenteChave(Constants.CONTA_CORRENTE_CODIGO_INTEGRACAO));
-            if (contaCorrente == null)
-                throw new InvalidOperationException("Conta Corrente não encontrada");
-
-            var codigoIntegracao = $"{DateTime.Now:yyyyMMdd-HHmmss}";
-            var now = DateTime.Now.Date;
-            var dataPrevisao = DateOnly.FromDateTime(now.AddDays(15));
-            var qtd = 1;
-            var valUnit = 100M;
-
-            var request = new OrdemServico()
+            Cabecalho = new OrdemServicoCabecalho()
             {
-                Cabecalho = new OrdemServicoCabecalho()
+                cCodIntOS = codigoIntegracao,
+                cCodParc = null,
+                cEtapa = EtapasOS.SegundaColuna, //"20",
+                dDtPrevisao = dataPrevisao,
+                nCodCli = cliente.codigo_cliente_omie,
+                nQtdeParc = 1
+            },
+            Email = new OrdemServicoEmail()
+            {
+                cEnvBoleto = false,
+                cEnvLink = false,
+                cEnviarPara = "teste@teste.com.br"
+            },
+            InformacoesAdicionais = new OrdemServicoInformacoesAdicionais()
+            {
+                cCidPrestServ = "SAO PAULO (SP)",
+                cCodCateg = "1.01.02",
+                cDadosAdicNF = "Teste TaskrowSharp",
+                nCodCC = contaCorrente.nCodCC
+            },
+            Observacoes = new Observacoes() {
+                cObsOS = "Teste OmiSharp"
+            },
+            Parcelas = new List<ParcelaOS>()
+            {
+                new ParcelaOS()
                 {
-                    cCodIntOS = codigoIntegracao,
-                    cCodParc = null,
-                    cEtapa = EtapasOS.SegundaColuna, //"20",
-                    dDtPrevisao = dataPrevisao,
-                    nCodCli = cliente.codigo_cliente_omie,
-                    nQtdeParc = 1
-                },
-                Email = new OrdemServicoEmail()
+                    dDtVenc = dataPrevisao,
+                    nDias = 31,
+                    nParcela = 1,
+                    nPercentual = 100,
+                    nValor = qtd * valUnit
+                }
+            },
+            ServicosPrestados = new List<OrdemServicoServicosPrestado>()
+            {
+                new OrdemServicoServicosPrestado()
                 {
-                    cEnvBoleto = false,
-                    cEnvLink = false,
-                    cEnviarPara = "teste@teste.com.br"
-                },
-                InformacoesAdicionais = new OrdemServicoInformacoesAdicionais()
-                {
-                    cCidPrestServ = "SAO PAULO (SP)",
-                    cCodCateg = "1.01.02",
-                    cDadosAdicNF = "Teste TaskrowSharp",
-                    nCodCC = contaCorrente.nCodCC
-                },
-                Observacoes = new Observacoes() {
-                    cObsOS = "Teste OmiSharp"
-                },
-                Parcelas = new List<ParcelaOS>()
-                {
-                    new ParcelaOS()
-                    {
-                        dDtVenc = dataPrevisao,
-                        nDias = 31,
-                        nParcela = 1,
-                        nPercentual = 100,
-                        nValor = qtd * valUnit
-                    }
-                },
-                ServicosPrestados = new List<OrdemServicoServicosPrestado>()
-                {
-                    new OrdemServicoServicosPrestado()
-                    {
-                        nCodServico = servico.intListar.nCodServ,
+                    nCodServico = servico.intListar.nCodServ,
 					    cDescServ = "Serviços prestado 001",
-                        cDadosAdicItem = "Serviços prestados",
+                    cDadosAdicItem = "Serviços prestados",
 					    cRetemISS = false,
-                        impostos = new OrdemServicoServicosImpostos()
-                        {
-                            cRetemIRRF = true,
+                    impostos = new OrdemServicoServicosImpostos()
+                    {
+                        cRetemIRRF = true,
 						    cRetemPIS = true,
 						    nAliqCOFINS = 0,
 						    nAliqCSLL = 0,
 						    nAliqIRRF = 15,
 						    nAliqISS = 3,
 						    nAliqPIS = 4.5M
-                        },
-                        nQtde = qtd,
+                    },
+                    nQtde = qtd,
 					    nValUnit = valUnit
-                    }
                 }
-            };
-            var response = await _omieSharpClient.IncluirOrdemServicoAsync(request);
+            }
+        };
+        var response = await _omieSharpClient.IncluirOrdemServicoAsync(request);
 
-            Assert.Equal("0", response.cCodStatus);
-            Assert.Equal(codigoIntegracao, response.cCodIntOS);
-        }
+        Assert.Equal("0", response.cCodStatus);
+        Assert.Equal(codigoIntegracao, response.cCodIntOS);
     }
 }

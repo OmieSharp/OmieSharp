@@ -1,17 +1,16 @@
-﻿namespace OmieSharp.Models
+﻿namespace OmieSharp.Models;
+
+public class Tag
 {
-    public class Tag
+    public string tag { get; set; }
+
+    public Tag()
     {
-        public string tag { get; set; }
+        this.tag = "";
+    }
 
-        public Tag()
-        {
-            this.tag = "";
-        }
-
-        public Tag(string tag)
-        {
-            this.tag = tag;
-        }
+    public Tag(string tag)
+    {
+        this.tag = tag;
     }
 }

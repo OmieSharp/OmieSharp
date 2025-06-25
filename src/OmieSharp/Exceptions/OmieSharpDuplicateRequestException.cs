@@ -1,18 +1,17 @@
-﻿namespace OmieSharp.Exceptions
+﻿namespace OmieSharp.Exceptions;
+
+public class OmieSharpDuplicateRequestException : OmieSharpException
 {
-    public class OmieSharpDuplicateRequestException : OmieSharpException
+    const string MESSAGE = "Omie Request Duplicated";
+
+    public OmieSharpDuplicateRequestException() : base(MESSAGE)
     {
-        const string MESSAGE = "Omie Request Duplicated";
+        
+    }
 
-        public OmieSharpDuplicateRequestException() : base(MESSAGE)
-        {
-            
-        }
+    public OmieSharpDuplicateRequestException(Exception innerException)
+        : base(MESSAGE, innerException)
+    {
 
-        public OmieSharpDuplicateRequestException(Exception innerException)
-            : base(MESSAGE, innerException)
-        {
-
-        }
     }
 }

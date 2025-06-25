@@ -1,11 +1,10 @@
 ﻿using OmieSharp.JsonConverters;
 using System.Text.Json.Serialization;
 
-namespace OmieSharp.Models
+namespace OmieSharp.Models;
+
+public class CadastroServicoDescricao
 {
-    public class CadastroServicoDescricao
-    {
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? cDescrCompleta { get; set; }
-    }
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? cDescrCompleta { get; set; }
 }

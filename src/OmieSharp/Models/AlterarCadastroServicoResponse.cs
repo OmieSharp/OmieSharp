@@ -1,19 +1,18 @@
 ﻿using OmieSharp.JsonConverters;
 using System.Text.Json.Serialization;
 
-namespace OmieSharp.Models
+namespace OmieSharp.Models;
+
+public class AlterarCadastroServicoResponse
 {
-    public class AlterarCadastroServicoResponse
-    {
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? cCodIntServ { get; set; }
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? cCodIntServ { get; set; }
 
-        public long nCodServ { get; set; }
+    public long nCodServ { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? cCodStatus { get; set; }
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? cCodStatus { get; set; }
 
-        [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-        public string? cDescStatus { get; set; }
-    }
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? cDescStatus { get; set; }
 }

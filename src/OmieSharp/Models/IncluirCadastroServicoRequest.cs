@@ -1,28 +1,27 @@
-﻿namespace OmieSharp.Models
+﻿namespace OmieSharp.Models;
+
+public class IncluirCadastroServicoRequest : CadastroServico
 {
-    public class IncluirCadastroServicoRequest : CadastroServico
+    public CadastroServicoChave? intIncluir { get; set; }
+
+    public IncluirCadastroServicoRequest(string cCodigo, string cCodIntServ, string cDescricao, string? cDescrCompleta)
     {
-        public CadastroServicoChave? intIncluir { get; set; }
+        this.intIncluir = new CadastroServicoChave(cCodIntServ);
 
-        public IncluirCadastroServicoRequest(string cCodigo, string cCodIntServ, string cDescricao, string? cDescrCompleta)
+        this.cabecalho = new CadastroServicoCabecalho()
         {
-            this.intIncluir = new CadastroServicoChave(cCodIntServ);
+            cDescricao = cDescricao,
+            cCodigo = cCodigo
+        };
 
-            this.cabecalho = new CadastroServicoCabecalho()
+        if (cDescrCompleta != null)
+        {
+            this.descricao = new CadastroServicoDescricao()
             {
-                cDescricao = cDescricao,
-                cCodigo = cCodigo
+                cDescrCompleta = cDescrCompleta
             };
-
-            if (cDescrCompleta != null)
-            {
-                this.descricao = new CadastroServicoDescricao()
-                {
-                    cDescrCompleta = cDescrCompleta
-                };
-            }
-
-            this.impostos = new CadastroServicoImpostos();
         }
+
+        this.impostos = new CadastroServicoImpostos();
     }
 }

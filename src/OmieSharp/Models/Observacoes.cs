@@ -1,7 +1,6 @@
-﻿namespace OmieSharp.Models
+﻿namespace OmieSharp.Models;
+
+public class Observacoes
 {
-    public class Observacoes
-    {
-        public string? cObsOS { get; set; }
-    }
+    public string? cObsOS { get; set; }
 }
