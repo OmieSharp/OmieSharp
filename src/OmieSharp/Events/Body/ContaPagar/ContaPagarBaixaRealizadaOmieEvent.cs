@@ -2,7 +2,7 @@
 
 namespace OmieSharp.Events.Body.ContaPagar;
 
-public class BaseContaReceberOmieEvent : BaseOmieEvent
+public class ContaPagarBaixaRealizadaOmieEvent : BaseOmieEvent
 {
     [JsonPropertyName("codigo_baixa")]
     public long? CodigoBaixa { get; set; }
