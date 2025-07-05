@@ -5,16 +5,21 @@ namespace OmieSharp.Models;
 
 public class Recomendacoes
 {
-    public int codigo_transportadora { get; set; }
+    [JsonPropertyName("codigo_transportadora")]
+    public int CodigoTransportadora { get; set; }
 
+    [JsonPropertyName("gerar_boletos")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? gerar_boletos { get; set; }
+    public bool? GerarBoletosSN { get; set; }
 
-    public int? codigo_vendedor { get; set; }
+    [JsonPropertyName("codigo_vendedor")]
+    public int? CodigoVendedor { get; set; }
 
+    [JsonPropertyName("email_fatura")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? email_fatura { get; set; }
+    public string? EmailFatura { get; set; }
 
+    [JsonPropertyName("numero_parcelas")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? numero_parcelas { get; set; }
+    public string? NumeroParcelas { get; set; }
 }

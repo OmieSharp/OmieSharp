@@ -5,14 +5,18 @@ namespace OmieSharp.Models;
 
 public class OrdemServicoInformacoesAdicionais
 {
+    [JsonPropertyName("cCidPrestServ")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCidPrestServ { get; set; }
+    public string? CidPrestServ { get; set; }
 
+    [JsonPropertyName("cCodCateg")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCodCateg { get; set; }
+    public string? CodCateg { get; set; }
 
+    [JsonPropertyName("cDadosAdicNF")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cDadosAdicNF { get; set; }
+    public string? DadosAdicNF { get; set; }
 
-    public long? nCodCC { get; set; }
+    [JsonPropertyName("nCodCC")]
+    public long? CodCC { get; set; }
 }

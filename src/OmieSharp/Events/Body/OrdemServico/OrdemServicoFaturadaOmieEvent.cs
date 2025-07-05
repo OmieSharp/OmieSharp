@@ -7,7 +7,7 @@ public class OrdemServicoFaturadaOmieEvent : BaseOrdemServicoOmieEvent
 {
     [JsonPropertyName("faturada")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? faturada { get; set; }
+    public bool? FaturadaSN { get; set; }
 
     [JsonPropertyName("dataFaturado")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]

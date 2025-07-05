@@ -4,23 +4,26 @@ namespace OmieSharp.Models;
 
 public class CadastroServicoChave
 {
-    public string? cCodIntServ { get; private set; }
-    public long? nCodServ { get; private set; }
+    [JsonPropertyName("cCodIntServ")]
+    public string? CodIntServ { get; private set; }
+
+    [JsonPropertyName("nCodServ")]
+    public long? CodServ { get; private set; }
 
     public CadastroServicoChave(string cCodIntServ)
     {
-        this.cCodIntServ = cCodIntServ;
+        this.CodIntServ = cCodIntServ;
     }
 
     public CadastroServicoChave(long nCodServ)
     {
-        this.nCodServ = nCodServ;
+        this.CodServ = nCodServ;
     }
 
     [JsonConstructor]
-    public CadastroServicoChave(string? cCodIntServ, long? nCodServ)
+    public CadastroServicoChave(string? codIntServ, long? codServ)
     {
-        this.cCodIntServ = cCodIntServ;
-        this.nCodServ = nCodServ;
+        this.CodIntServ = codIntServ;
+        this.CodServ = codServ;
     }   
 }

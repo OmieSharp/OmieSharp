@@ -5,41 +5,57 @@ namespace OmieSharp.Models;
 
 public class CadastroServicoImpostos
 {
-    public decimal nAliqISS { get; set; }
+    [JsonPropertyName("nAliqISS")]
+    public decimal AliqIss { get; set; }
 
+    [JsonPropertyName("cRetISS")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cRetISS { get; set; }
+    public bool? RetIssSN { get; set; }
 
-    public decimal nAliqPIS { get; set; }
+    [JsonPropertyName("nAliqPIS")]
+    public decimal AliqPis { get; set; }
 
+    [JsonPropertyName("cRetPIS")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cRetPIS { get; set; }
+    public bool? RetPisSN { get; set; }
 
-    public decimal nAliqCOFINS { get; set; }
-
-    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cRetCOFINS { get; set; }
-
-    public decimal nAliqCSLL { get; set; }
-
-    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cRetCSLL { get; set; }
-
-    public decimal nAliqIR { get; set; }
-
-    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cRetIR { get; set; }
-
-    public decimal nAliqINSS { get; set; }
-
-    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cRetINSS { get; set; }
-
-    public decimal nRedBaseINSS { get; set; }
-
-    public decimal nRedBaseCOFINS { get; set; }
-
-    public decimal nRedBasePIS { get; set; }
+    [JsonPropertyName("nAliqCOFINS")]
+    public decimal AliqCofins { get; set; }
     
-    public bool lDeduzISS { get; set; }
+    [JsonPropertyName("cRetCOFINS")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? RetCofinsSN { get; set; }
+
+    [JsonPropertyName("nAliqCSLL")]
+    public decimal AliqCsll { get; set; }
+
+    [JsonPropertyName("cRetCSLL")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? RetCsllSN { get; set; }
+
+    [JsonPropertyName("nAliqIR")]
+    public decimal AliqIr { get; set; }
+
+    [JsonPropertyName("cRetIR")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? RetIrSN { get; set; }
+
+    [JsonPropertyName("nAliqINSS")]
+    public decimal AliqInss { get; set; }
+
+    [JsonPropertyName("cRetINSS")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? RetInssSN { get; set; }
+
+    [JsonPropertyName("nRedBaseINSS")]
+    public decimal RedBaseInss { get; set; }
+
+    [JsonPropertyName("nRedBaseCOFINS")]
+    public decimal RedBaseCofinsSN { get; set; }
+
+    [JsonPropertyName("nRedBasePIS")]
+    public decimal RedBasePis { get; set; }
+
+    [JsonPropertyName("lDeduzISS")]
+    public bool DeduzIssSN { get; set; }
 }

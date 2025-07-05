@@ -277,7 +277,7 @@ public class OmieSharpClient
         var fullUrl = new Uri(baseUrl, relativeUrl);
         var omieRequest = new OmieBaseRequest<ContaCorrenteChave>("ConsultarContaCorrente", AppKey, AppSecret, chave);
         var contaCorrente = await ExecuteApiCall<ContaCorrenteChave, ContaCorrente?>(HttpMethod.Post, fullUrl, omieRequest);
-        if (contaCorrente.nCodCC == 0)
+        if (contaCorrente.CodCC == 0)
             return null;
         return contaCorrente;
     }
@@ -293,7 +293,7 @@ public class OmieSharpClient
     public async Task<ContaCorrenteStatus?> AlterarContaCorrenteAsync(ContaCorrente request)
     {
         //{"faultstring":"ERROR: A tag [pdv_sincr_analitica] somente deve ser informada quando a tag [tipo_conta_corrente] for igual a 'CC', 'AC', 'CX' ou 'CN' e a tag [pdv_enviar] for 'S' !","faultcode":"SOAP-ENV:Client-1020"}
-        request.pdv_sincr_analitica = null;
+        request.PdvSincrAnaliticaSN = null;
 
         var relativeUrl = new Uri("/api/v1/geral/contacorrente/", UriKind.Relative);
         var fullUrl = new Uri(baseUrl, relativeUrl);
@@ -340,7 +340,7 @@ public class OmieSharpClient
 
     public async Task<ContaPagarResposta?> IncluirContaPagarAsync(ContaPagar request)
     {
-        request.status_titulo = null;
+        request.StatusTitulo = null;
 
         var relativeUrl = new Uri("/api/v1/financas/contapagar/", UriKind.Relative);
         var fullUrl = new Uri(baseUrl, relativeUrl);
@@ -350,7 +350,7 @@ public class OmieSharpClient
 
     public async Task<ContaPagarResposta?> AlterarContaPagarAsync(ContaPagar request)
     {
-        request.status_titulo = null;
+        request.StatusTitulo = null;
 
         var relativeUrl = new Uri("/api/v1/financas/contapagar/", UriKind.Relative);
         var fullUrl = new Uri(baseUrl, relativeUrl);

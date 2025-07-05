@@ -8,25 +8,30 @@ public class ContaPagarResposta
     /// <summary>
     /// Código do Lançamento de Contas a Pagar 
     /// </summary>
-    public long codigo_lancamento_omie { get; set; }
+    [JsonPropertyName("codigo_lancamento_omie")]
+    public long CodigoLancamentoOmie { get; set; }
 
     /// <summary>
     /// Código de Integração do Lançamento de Contas a Pagar 
     /// </summary>
+    [JsonPropertyName("codigo_lancamento_integracao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_lancamento_integracao { get; set; }
+    public string? CodigoLancamentoIntegracao { get; set; }
 
     /// <summary>
     /// Código do Status da baixa do contas a pagar
     /// </summary>
+    [JsonPropertyName("codigo_status")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_status { get; set; }
+    public string? CodigoStatus { get; set; }
 
     /// <summary>
     /// Descrição do Status da baixa do contas a pagar
     /// </summary>
+    [JsonPropertyName("descricao_status")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? descricao_status { get; set; }
+    public string? DescricaoStatus { get; set; }
 
-    public bool Success => (codigo_status ?? "999").Equals("0");
+    [JsonIgnore]
+    public bool Success => (CodigoStatus ?? "999").Equals("0");
 }

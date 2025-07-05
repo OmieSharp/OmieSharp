@@ -22,7 +22,7 @@ public class ContaReceberTests : BaseTest
         var request = new ContaReceberChave(codigo_lancamento_omie);
         var response = await _omieSharpClient.ConsultarContaReceberAsync(request);
         Assert.NotNull(response);
-        Assert.Equal(codigo_lancamento_omie, response.codigo_lancamento_omie);
+        Assert.Equal(codigo_lancamento_omie, response.CodigoLancamentoOmie);
     }
 
     [Fact]

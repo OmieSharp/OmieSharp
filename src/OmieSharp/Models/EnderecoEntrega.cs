@@ -5,27 +5,35 @@ namespace OmieSharp.Models;
 
 public class EnderecoEntrega
 {
+    [JsonPropertyName("entBairro")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? entBairro { get; set; }
+    public string? Bairro { get; set; }
 
+    [JsonPropertyName("entCEP")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? entCEP { get; set; }
+    public string? CEP { get; set; }
 
+    [JsonPropertyName("entCidade")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? entCidade { get; set; }
+    public string? Cidade { get; set; }
 
+    [JsonPropertyName("entEndereco")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? entEndereco { get; set; }
+    public string? Endereco { get; set; }
 
+    [JsonPropertyName("entEstado")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? entEstado { get; set; }
+    public string? Estado { get; set; }
 
+    [JsonPropertyName("entIE")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? entIE { get; set; }
+    public string? IE { get; set; }
 
+    [JsonPropertyName("entRazaoSocial")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? entRazaoSocial { get; set; }
+    public string? RazaoSocial { get; set; }
 
+    [JsonPropertyName("entTelefone")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? entTelefone { get; set; }
+    public string? Telefone { get; set; }
 }

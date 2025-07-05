@@ -1,15 +1,26 @@
-﻿namespace OmieSharp.Models.ContaPagarModels;
+﻿using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models.ContaPagarModels;
 
 public class ListarContaPagarResponse
 {
-    public int pagina { get; set; }
-    public int total_de_paginas { get; set; }
-    public int registros { get; set; }
-    public int total_de_registros { get; set; }
-    public List<ContaPagar> conta_pagar_cadastro { get; set; }
+    [JsonPropertyName("pagina")]
+    public int Pagina { get; set; }
+
+    [JsonPropertyName("total_de_paginas")]
+    public int TotalPaginas { get; set; }
+
+    [JsonPropertyName("registros")]
+    public int Registros { get; set; }
+
+    [JsonPropertyName("total_de_registros")]
+    public int TotalRegistros { get; set; }
+
+    [JsonPropertyName("conta_pagar_cadastro")]
+    public List<ContaPagar> ContaPagarCadastro { get; set; }
 
     public ListarContaPagarResponse()
     {
-        conta_pagar_cadastro = [];
+        ContaPagarCadastro = [];
     }
 }

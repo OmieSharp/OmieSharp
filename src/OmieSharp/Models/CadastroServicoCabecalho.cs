@@ -5,26 +5,34 @@ namespace OmieSharp.Models;
 
 public class CadastroServicoCabecalho
 {
+    [JsonPropertyName("cDescricao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cDescricao { get; set; }
+    public string? Descricao { get; set; }
 
+    [JsonPropertyName("cCodigo")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCodigo { get; set; }
+    public string? Codigo { get; set; }
 
+    [JsonPropertyName("cIdTrib")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cIdTrib { get; set; }
+    public string? IdTrib { get; set; }
 
+    [JsonPropertyName("cCodServMun")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCodServMun { get; set; }
+    public string? CodServMun { get; set; }
 
+    [JsonPropertyName("cCodLC116")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCodLC116 { get; set; }
+    public string? CodLC116 { get; set; }
 
+    [JsonPropertyName("nIdNBS")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? nIdNBS { get; set; }
+    public string? IdNbs { get; set; }
 
-    public decimal nPrecoUnit { get; set; }
+    [JsonPropertyName("nPrecoUnit")]
+    public decimal PrecoUnit { get; set; }
 
+    [JsonPropertyName("cCodCateg")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCodCateg { get; set; }
+    public string? CodCateg { get; set; }
 }

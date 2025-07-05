@@ -4,25 +4,30 @@ namespace OmieSharp.Models;
 
 public class OrdemServicoChave
 {
-    public string? cCodIntOS { get; private set; }
-    public int? nCodOS { get; private set; }
-    public string? cNumOS { get; private set; }
+    [JsonPropertyName("cCodIntOS")]
+    public string? CodIntOS { get; private set; }
+
+    [JsonPropertyName("nCodOS")]
+    public int? CodOS { get; private set; }
+
+    [JsonPropertyName("cNumOS")]
+    public string? NumOS { get; private set; }
 
     [JsonConstructor]
     public OrdemServicoChave(string? cCodIntOS = null, int? nCodOS = null, string? cNumOS = null)
     {
-        this.cCodIntOS = cCodIntOS;
-        this.nCodOS = nCodOS;
-        this.cNumOS = cNumOS;
+        this.CodIntOS = cCodIntOS;
+        this.CodOS = nCodOS;
+        this.NumOS = cNumOS;
     }
 
     public OrdemServicoChave(string cCodIntOS)
     {
-        this.cCodIntOS = cCodIntOS;
+        this.CodIntOS = cCodIntOS;
     }
 
     public OrdemServicoChave(int nCodOS)
     {
-        this.nCodOS = nCodOS;
+        this.CodOS = nCodOS;
     }
 }

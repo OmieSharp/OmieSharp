@@ -1,16 +1,19 @@
-﻿namespace OmieSharp.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models;
 
 public class Tag
 {
-    public string tag { get; set; }
+    [JsonPropertyName("tag")]
+    public string TagValue { get; set; }
 
     public Tag()
     {
-        this.tag = "";
+        this.TagValue = "";
     }
 
     public Tag(string tag)
     {
-        this.tag = tag;
+        this.TagValue = tag;
     }
 }

@@ -5,21 +5,27 @@ namespace OmieSharp.Models;
 
 public class DadosBancarios
 {
+    [JsonPropertyName("agencia")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? agencia { get; set; }
+    public string? Agencia { get; set; }
 
+    [JsonPropertyName("codigo_banco")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_banco { get; set; }
+    public string? CodigoBanco { get; set; }
 
+    [JsonPropertyName("conta_corrente")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? conta_corrente { get; set; }
+    public string? ContaCorrente { get; set; }
 
+    [JsonPropertyName("doc_titular")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? doc_titular { get; set; }
+    public string? DocTitular { get; set; }
 
+    [JsonPropertyName("nome_titular")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? nome_titular { get; set; }
-    
+    public string? NomeTitular { get; set; }
+
+    [JsonPropertyName("transf_padrao")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? transf_padrao { get; set; }
+    public bool? TransfPadraoSN { get; set; }
 }

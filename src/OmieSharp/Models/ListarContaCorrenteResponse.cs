@@ -1,19 +1,30 @@
-﻿namespace OmieSharp.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models;
 
 public class ListarContaCorrenteResponse
 {
-    public int pagina { get; set; }
-    public int total_de_paginas { get; set; }
-    public int registros { get; set; }
-    public int total_de_registros { get; set; }
+    [JsonPropertyName("pagina")]
+    public int Pagina { get; set; }
+
+    [JsonPropertyName("total_de_paginas")]
+    public int TotalPaginas { get; set; }
+
+    [JsonPropertyName("registros")]
+    public int Registros { get; set; }
+
+    [JsonPropertyName("total_de_registros")]
+    public int TotalRegistros { get; set; }
+
+    [JsonPropertyName("ListarContasCorrentes")]
     public List<ContaCorrente> ListarContasCorrentes { get; set; }
 
     public ListarContaCorrenteResponse()
     {
-        pagina = 0;
-        total_de_paginas = 0;
-        registros = 0;
-        total_de_registros = 0;
-        ListarContasCorrentes = new List<ContaCorrente>();
+        Pagina = 0;
+        TotalPaginas = 0;
+        Registros = 0;
+        TotalRegistros = 0;
+        ListarContasCorrentes = [];
     }
 }

@@ -5,28 +5,38 @@ namespace OmieSharp.Models;
 
 public class OrdemServicoCabecalho
 {
+    [JsonPropertyName("cCodIntOS")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCodIntOS { get; set; }
+    public string? CodIntOS { get; set; }
 
+    [JsonPropertyName("cCodParc")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCodParc { get; set; }
+    public string? CodParc { get; set; }
 
+    [JsonPropertyName("cEtapa")]
     [JsonConverter(typeof(EnumJsonConverter<EtapasOS>))]
-    public EtapasOS cEtapa { get; set; }
+    public EtapasOS Etapa { get; set; }
 
+    [JsonPropertyName("cNumOS")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cNumOS { get; set; }
+    public string? NumOS { get; set; }
 
+    [JsonPropertyName("dDtPrevisao")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? dDtPrevisao { get; set; }
+    public DateOnly? DataPrevisao { get; set; }
 
-    public long? nCodCli { get; set; }
+    [JsonPropertyName("nCodCli")]
+    public long? CodCli { get; set; }
 
-    public long? nCodOS { get; set; }
+    [JsonPropertyName("nCodOS")]
+    public long? CodOS { get; set; }
 
-    public int? nQtdeParc { get; set; }
+    [JsonPropertyName("nQtdeParc")]
+    public int? QtdeParc { get; set; }
 
-    public decimal? nValorTotal { get; set; }
+    [JsonPropertyName("nValorTotal")]
+    public decimal? ValorTotal { get; set; }
 
-    public decimal? nValorTotalImpRet { get; set; }
+    [JsonPropertyName("nValorTotalImpRet")]
+    public decimal? ValorTotalImpRet { get; set; }
 }

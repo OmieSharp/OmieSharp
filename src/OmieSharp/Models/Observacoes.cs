@@ -1,6 +1,9 @@
-﻿namespace OmieSharp.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models;
 
 public class Observacoes
 {
-    public string? cObsOS { get; set; }
+    [JsonPropertyName("cObsOS")]
+    public string? ObsOS { get; set; }
 }

@@ -5,150 +5,202 @@ namespace OmieSharp.Models;
 
 public class ContaReceber
 {
-    public long codigo_lancamento_omie { get; set; }
+    [JsonPropertyName("codigo_lancamento_omie")]
+    public long CodigoLancamentoOmie { get; set; }
 
+    [JsonPropertyName("codigo_lancamento_integracao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_lancamento_integracao { get; set; }
+    public string? CodigoLancamentoIntegracao { get; set; }
 
-    public long codigo_cliente_fornecedor { get; set; }
+    [JsonPropertyName("codigo_cliente_fornecedor")]
+    public long CodigoClienteFornecedor { get; set; }
 
+    [JsonPropertyName("codigo_cliente_fornecedor_integracao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_cliente_fornecedor_integracao { get; set; }
+    public string? CodigoClienteFornecedorIntegracao { get; set; }
 
+    [JsonPropertyName("data_vencimento")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? data_vencimento { get; set; }
+    public DateOnly? DataVencimento { get; set; }
 
-    public decimal valor_documento { get; set; }
+    [JsonPropertyName("valor_documento")]
+    public decimal ValorDocumento { get; set; }
 
+    [JsonPropertyName("codigo_categoria")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_categoria { get; set; }
+    public string? CodigoCategoria { get; set; }
 
+    [JsonPropertyName("data_previsao")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? data_previsao { get; set; }
+    public DateOnly? DataPrevisao { get; set; }
 
     //public List<Categoria> categorias { get; set; }
 
-    public long id_conta_corrente { get; set; }
+    [JsonPropertyName("id_conta_corrente")]
+    public long IdContaCorrente { get; set; }
 
+    [JsonPropertyName("numero_documento")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? numero_documento { get; set; }
+    public string? NumeroDocumento { get; set; }
 
+    [JsonPropertyName("numero_parcela")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? numero_parcela { get; set; }
+    public string? NumeroParcela { get; set; }
 
+    [JsonPropertyName("codigo_tipo_documento")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_tipo_documento { get; set; }
+    public string? CodigoTipoDocumento { get; set; }
 
+    [JsonPropertyName("numero_documento_fiscal")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? numero_documento_fiscal { get; set; }
+    public string? NumeroDocumentoFiscal { get; set; }
 
+    [JsonPropertyName("numero_pedido")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? numero_pedido { get; set; }
+    public string? NumeroPedido { get; set; }
 
+    [JsonPropertyName("chave_nfe")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? chave_nfe { get; set; }
+    public string? ChaveNfe { get; set; }
 
+    [JsonPropertyName("observacao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? observacao { get; set; }
+    public string? Observacao { get; set; }
 
+    [JsonPropertyName("codigo_barras_ficha_compensacao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_barras_ficha_compensacao { get; set; }
+    public string? CodigoBarrasFichaCompensacao { get; set; }
 
+    [JsonPropertyName("codigo_cmc7_cheque")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_cmc7_cheque { get; set; }
+    public string? CodigoCmc7Cheque { get; set; }
 
+    [JsonPropertyName("data_emissao")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? data_emissao { get; set; }
+    public DateOnly? DataEmissao { get; set; }
 
+    [JsonPropertyName("id_origem")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? id_origem { get; set; }
+    public string? IdOrigem { get; set; }
 
+    [JsonPropertyName("operacao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? operacao { get; set; }
+    public string? Operacao { get; set; }
 
-    public decimal valor_pis { get; set; }
+    [JsonPropertyName("valor_pis")]
+    public decimal ValorPis { get; set; }
 
+    [JsonPropertyName("retem_pis")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? retem_pis { get; set; }
+    public bool? RetemPisSN { get; set; }
 
-    public decimal valor_cofins { get; set; }
+    [JsonPropertyName("valor_cofins")]
+    public decimal ValorCofins { get; set; }
 
+    [JsonPropertyName("retem_cofins")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? retem_cofins { get; set; }
+    public bool? RetemCofinsSN { get; set; }
 
-    public decimal valor_csll { get; set; }
+    [JsonPropertyName("valor_csll")]
+    public decimal ValorCsll { get; set; }
 
+    [JsonPropertyName("retem_csll")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? retem_csll { get; set; }
+    public bool? RetemCsllSN { get; set; }
 
-    public decimal valor_ir { get; set; }
-
+    [JsonPropertyName("valor_ir")]
+    public decimal ValorIr { get; set; }
+    
+    [JsonPropertyName("retem_ir")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? retem_ir { get; set; }
+    public bool? RetemIrSN { get; set; }
 
-    public decimal valor_iss { get; set; }
+    [JsonPropertyName("valor_iss")]
+    public decimal ValorIss { get; set; }
 
+    [JsonPropertyName("retem_iss")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? retem_iss { get; set; }
+    public bool? RetemIssSN { get; set; }
 
-    public decimal valor_inss { get; set; }
+    [JsonPropertyName("valor_inss")]
+    public decimal ValorInss { get; set; }
 
+    [JsonPropertyName("retem_inss")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? retem_inss { get; set; }
+    public bool? RetemInssSN { get; set; }
 
+    [JsonPropertyName("bloqueado")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? bloqueado { get; set; }
+    public bool? BloqueadoSN { get; set; }
 
+    [JsonPropertyName("bloquear_baixa")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? bloquear_baixa { get; set; }
+    public bool? BloquearBaixaSN { get; set; }
 
+    [JsonPropertyName("importado_api")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? importado_api { get; set; }
+    public bool? ImportadoApiSN { get; set; }
 
+    [JsonPropertyName("baixar_documento")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? baixar_documento { get; set; }
+    public bool? BaixarDocumentoSN { get; set; }
 
+    [JsonPropertyName("conciliar_documento")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? conciliar_documento { get; set; }
+    public bool? ConciliarDocumentoSN { get; set; }
 
+    [JsonPropertyName("acao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? acao { get; set; }
+    public string? Acao { get; set; }
 
     //public object lancamento_detalhe { get; set; }
     //public List<object> distribuicao { get; set; }
 
+    [JsonPropertyName("status_titulo")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? status_titulo { get; set; }
+    public string? StatusTitulo { get; set; }
 
-    public int codigo_vendedor { get; set; }
-    
-    public int codigo_projeto { get; set; }
+    [JsonPropertyName("codigo_vendedor")]
+    public int CodigoVendedor { get; set; }
 
+    [JsonPropertyName("codigo_projeto")]
+    public int CodigoProjeto { get; set; }
+
+    [JsonPropertyName("nsu")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? nsu { get; set; }
+    public string? Nsu { get; set; }
 
+    [JsonPropertyName("data_registro")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? data_registro { get; set; }
+    public DateOnly? DataRegistro { get; set; }
 
+    [JsonPropertyName("tipo_agrupamento")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? tipo_agrupamento { get; set; }
+    public string? TipoAgrupamento { get; set; }
 
-    public Info? info { get; set; }
+    [JsonPropertyName("info")]
+    public Info? Info { get; set; }
 
-    public Boleto? boleto { get; set; }
+    [JsonPropertyName("boleto")]
+    public Boleto? Boleto { get; set; }
 
-    public long nCodPedido { get; set; }
+    [JsonPropertyName("nCodPedido")]
+    public long CodPedido { get; set; }
 
+    [JsonPropertyName("bloquear_exclusao")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? bloquear_exclusao { get; set; }
+    public bool? BloquearExclusaoSN { get; set; }
 
-    public long nCodOS { get; set; }
+    [JsonPropertyName("nCodOS")]
+    public long CodOS { get; set; }
 
+    [JsonPropertyName("cPedidoCliente")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cPedidoCliente { get; set; }
-
+    public string? PedidoCliente { get; set; }
+    
+    [JsonPropertyName("cNumeroContrato")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cNumeroContrato { get; set; }
+    public string? NumeroContrato { get; set; }
 
     //public object recebimento { get; set; }
     //public object repeticao { get; set; }

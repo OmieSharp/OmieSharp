@@ -5,31 +5,66 @@ namespace OmieSharp.Models;
 
 public class ClientFiltro
 {
-    public long? codigo_cliente_omie { get; set; }
-    public string? codigo_cliente_integracao { get; set; }
-    public string? cnpj_cpf { get; set; }
-    public string? razao_social { get; set; }
-    public string? nome_fantasia { get; set; }
-    public string? endereco { get; set; }
-    public string? bairro { get; set; }
-    public string? cidade { get; set; }
-    public string? estado { get; set; }
-    public string? cep { get; set; }
-    public string? contato { get; set; }
-    public string? email { get; set; }
-    public string? homepage { get; set; }
-    public string? inscricao_municipal { get; set; }
-    public string? inscricao_estadual { get; set; }
-    public string? inscricao_suframa { get; set; }
+    [JsonPropertyName("codigo_cliente_omie")]
+    public long? CodigoClienteOmie { get; set; }
 
+    [JsonPropertyName("codigo_cliente_integracao")]
+    public string? CodigoClienteIntegracao { get; set; }
+
+    [JsonPropertyName("cnpj_cpf")]
+    public string? CnpjCpf { get; set; }
+
+    [JsonPropertyName("razao_social")]
+    public string? RazaoSocial { get; set; }
+
+    [JsonPropertyName("nome_fantasia")]
+    public string? NomeFantasia { get; set; }
+
+    [JsonPropertyName("endereco")]
+    public string? Endereco { get; set; }
+
+    [JsonPropertyName("bairro")]
+    public string? Bairro { get; set; }
+
+    [JsonPropertyName("cidade")]
+    public string? Cidade { get; set; }
+
+    [JsonPropertyName("estado")]
+    public string? Estado { get; set; }
+
+    [JsonPropertyName("cep")]
+    public string? Cep { get; set; }
+
+    [JsonPropertyName("contato")]
+    public string? Contato { get; set; }
+
+    [JsonPropertyName("email")]
+    public string? Email { get; set; }
+
+    [JsonPropertyName("homepage")]
+    public string? Homepage { get; set; }
+
+    [JsonPropertyName("inscricao_municipal")]
+    public string? InscricaoMunicipal { get; set; }
+
+    [JsonPropertyName("inscricao_estadual")]
+    public string? InscricaoEstadual { get; set; }
+
+    [JsonPropertyName("inscricao_suframa")]
+    public string? InscricaoSuframa { get; set; }
+
+    [JsonPropertyName("pessoa_fisica")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? pessoa_fisica { get; set; }
+    public bool? PessoaFisicaSN { get; set; }
 
+    [JsonPropertyName("optante_simples_nacional")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? optante_simples_nacional { get; set; }
+    public bool? OptanteSimplesNacionalSN { get; set; }
 
+    [JsonPropertyName("inativo")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? inativo { get; set; }
+    public bool? InativoSN { get; set; }
 
-    public List<string>? tags { get; set; }
+    [JsonPropertyName("tags")]
+    public List<string>? Tags { get; set; }
 }

@@ -7,7 +7,7 @@ public class OrdemServicoCanceladaOmieEvent : BaseOrdemServicoOmieEvent
 {
     [JsonPropertyName("cancelada")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? Cancelada { get; set; }
+    public bool? CanceladaSN { get; set; }
 
     [JsonPropertyName("dataCancelado")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]

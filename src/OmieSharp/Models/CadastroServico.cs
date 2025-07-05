@@ -1,17 +1,25 @@
-﻿namespace OmieSharp.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models;
 
 public class CadastroServico
 {
-    public CadastroServicoChave? intListar { get; set; }
+    [JsonPropertyName("intListar")]
+    public CadastroServicoChave? Listar { get; set; }
 
-    public CadastroServicoCabecalho? cabecalho { get; set; }
-    public CadastroServicoDescricao? descricao { get; set; }
-    public CadastroServicoImpostos? impostos { get; set; }
+    [JsonPropertyName("cabecalho")]
+    public CadastroServicoCabecalho? Cabecalho { get; set; }
+
+    [JsonPropertyName("descricao")]
+    public CadastroServicoDescricao? Descricao { get; set; }
+
+    [JsonPropertyName("impostos")]
+    public CadastroServicoImpostos? Impostos { get; set; }
 
     public void FillProperties(CadastroServico cadastroServico)
     {
-        this.cabecalho = cabecalho ?? new CadastroServicoCabecalho();
-        this.descricao = descricao ?? new CadastroServicoDescricao();
-        this.impostos = impostos ?? new CadastroServicoImpostos();
+        this.Cabecalho = Cabecalho ?? new CadastroServicoCabecalho();
+        this.Descricao = Descricao ?? new CadastroServicoDescricao();
+        this.Impostos = Impostos ?? new CadastroServicoImpostos();
     }
 }

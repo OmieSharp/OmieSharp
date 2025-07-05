@@ -7,11 +7,11 @@ public abstract class BaseContaReceberOmieEvent : BaseOmieEvent
 {
     [JsonPropertyName("baixa_bloqueada")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? BaixaBloqueada { get; set; }
+    public bool? BaixaBloqueadaSN { get; set; }
 
     [JsonPropertyName("bloqueado")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? Bloqueado { get; set; }
+    public bool? BloqueadoSN { get; set; }
 
     [JsonPropertyName("boleto_gerado")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
@@ -85,35 +85,35 @@ public abstract class BaseContaReceberOmieEvent : BaseOmieEvent
 
     [JsonPropertyName("pix_gerado")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? PixGerado { get; set; }
+    public bool? PixGeradoSN { get; set; }
 
     [JsonPropertyName("retem_cofins")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? RetemCofins { get; set; }
+    public bool? RetemCofinsSN { get; set; }
 
     [JsonPropertyName("retem_csll")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? RetemCsll { get; set; }
+    public bool? RetemCsllSN { get; set; }
 
     [JsonPropertyName("retem_inss")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? RetemInss { get; set; }
+    public bool? RetemInssSN { get; set; }
 
     [JsonPropertyName("retem_ir")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? RetemIr { get; set; }
+    public bool? RetemIrSN { get; set; }
 
     [JsonPropertyName("retem_iss")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? RetemIss { get; set; }
+    public bool? RetemIssSN { get; set; }
 
     [JsonPropertyName("retem_pis")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? RetemPis { get; set; }
+    public bool? RetemPisSN { get; set; }
 
     [JsonPropertyName("situacao")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? Situacao { get; set; }
+    public bool? SituacaoSN { get; set; }
 
     [JsonPropertyName("valor_cofins")]
     public decimal ValorCofins { get; set; }

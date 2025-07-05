@@ -5,6 +5,7 @@ namespace OmieSharp.Models;
 
 public class CadastroServicoDescricao
 {
+    [JsonPropertyName("cDescrCompleta")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cDescrCompleta { get; set; }
+    public string? DescrCompleta { get; set; }
 }

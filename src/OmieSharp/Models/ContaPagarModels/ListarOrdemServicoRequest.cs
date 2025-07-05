@@ -5,51 +5,66 @@ namespace OmieSharp.Models.ContaPagarModels;
 
 public class ListarOrdemServicoRequest
 {
-    public int pagina { get; set; }
-    public int registros_por_pagina { get; set; }
+    [JsonPropertyName("pagina")]
+    public int Pagina { get; set; }
 
+    [JsonPropertyName("registros_por_pagina")]
+    public int RegistrosPorPagina { get; set; }
+
+    [JsonPropertyName("apenas_importado_api")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? apenas_importado_api { get; set; }
+    public bool? ApenasImportadoApiSN { get; set; }
 
-    public string? ordenar_por { get; set; }
+    [JsonPropertyName("ordenar_por")]
+    public string? OrdenarPor { get; set; }
 
+    [JsonPropertyName("ordem_decrescente")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? ordem_decrescente { get; set; }
+    public bool? OrdemDecrescenteSN { get; set; }
 
-
+    [JsonPropertyName("filtrar_por_data_de")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? filtrar_por_data_de { get; set; }
-    
+    public DateOnly? FiltrarPorDataDe { get; set; }
+
+    [JsonPropertyName("filtrar_por_data_ate")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? filtrar_por_data_ate { get; set; }
+    public DateOnly? FiltrarPorDataAte { get; set; }
 
-
+    [JsonPropertyName("filtrar_apenas_inclusao")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? filtrar_apenas_inclusao { get; set; }
+    public bool? FiltrarApenasInclusaoSN { get; set; }
 
+    [JsonPropertyName("filtrar_apenas_alteracao")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? filtrar_apenas_alteracao { get; set; }
+    public bool? FiltrarApenasAlteracaoSN { get; set; }
 
-    public List<OrdemServicoChave>? filtrar_por_codigo { get; set; }
+    [JsonPropertyName("filtrar_por_codigo")]
+    public List<OrdemServicoChave>? FiltrarPorCodigo { get; set; }
 
-    public string? filtrar_por_status { get; set; }
+    [JsonPropertyName("filtrar_por_status")]
+    public string? FiltrarPorStatus { get; set; }
 
-    public string? filtrar_por_etapa { get; set; }
+    [JsonPropertyName("filtrar_por_etapa")]
+    public string? FiltrarPorEtapa { get; set; }
 
-    public int? filtrar_por_cliente { get; set; }
+    [JsonPropertyName("filtrar_por_cliente")]
+    public int? FiltrarPorCliente { get; set; }
 
+    [JsonPropertyName("cExibirDespesas")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cExibirDespesas { get; set; }
+    public bool? ExibirDespesasSN { get; set; }
 
+    [JsonPropertyName("cExibirProdutos")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cExibirProdutos { get; set; }
+    public bool? ExibirProdutosSN { get; set; }
 
-    public string? cTipoFat { get; set; }
+    [JsonPropertyName("cTipoFat")]
+    public string? CTipoFat { get; set; }
 
     public ListarOrdemServicoRequest(int pagina = 1, int registros_por_pagina = 50, bool apenas_importado_api = false)
     {
-        this.pagina = pagina;
-        this.registros_por_pagina = registros_por_pagina;
-        this.apenas_importado_api = apenas_importado_api;
+        this.Pagina = pagina;
+        this.RegistrosPorPagina = registros_por_pagina;
+        this.ApenasImportadoApiSN = apenas_importado_api;
     }
 }

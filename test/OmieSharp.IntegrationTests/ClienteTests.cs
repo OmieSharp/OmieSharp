@@ -19,24 +19,24 @@ public class ClienteTests : BaseTest
         var request = new ListarClienteRequest();
         var response = await _omieSharpClient.ListarClientesAsync(request);
         Assert.NotNull(response);
-        Assert.NotEmpty(response.clientes_cadastro!);
+        Assert.NotEmpty(response.ClientesCadastro!);
     }
 
     [Fact]
     public async Task ListarClientes_Filtro_Cnpj_Success()
     {
-        var request = new ListarClienteRequest() { clientesFiltro = new ClientFiltro() { cnpj_cpf = Constants.CLIENTE_CNPJ } };
+        var request = new ListarClienteRequest() { ClientesFiltro = new ClientFiltro() { CnpjCpf = Constants.CLIENTE_CNPJ } };
         var response = await _omieSharpClient.ListarClientesAsync(request);
         Assert.NotNull(response);
-        Assert.NotEmpty(response.clientes_cadastro!);
+        Assert.NotEmpty(response.ClientesCadastro!);
     }
 
     [Fact]
     public async Task ListarClientesAsync_NotFound()
     {
-        var request = new ListarClienteRequest() { clientesPorCodigo = new List<ClienteCadastroChave>() { new ClienteCadastroChave(9999999) } };
+        var request = new ListarClienteRequest() { ClientesPorCodigo = new List<ClienteCadastroChave>() { new ClienteCadastroChave(9999999) } };
         var response = await _omieSharpClient.ListarClientesAsync(request);
-        Assert.Equal(0, response.total_de_registros);
+        Assert.Equal(0, response.TotalRegistros);
     }
 
     [Fact]
@@ -56,36 +56,36 @@ public class ClienteTests : BaseTest
 
         var requestListaClientes = new ListarClienteRequest()
         {
-            clientesFiltro = new ClientFiltro()
+            ClientesFiltro = new ClientFiltro()
             {
-                cnpj_cpf = Constants.CLIENTE_CNPJ
+                CnpjCpf = Constants.CLIENTE_CNPJ
             }
         };
         var responseListaClientes = await _omieSharpClient.ListarClientesAsync(requestListaClientes);
 
-        var clienteExistente = responseListaClientes?.clientes_cadastro?.FirstOrDefault();
+        var clienteExistente = responseListaClientes?.ClientesCadastro?.FirstOrDefault();
 
         if (clienteExistente == null)
         {
             var clienteIncluir = new ClienteCadastro
             {
-                codigo_cliente_integracao = Constants.CLIENTE_CODIGO_INTEGRACAO,
-                email = Constants.CLIENTE_EMAIL,
-                razao_social = Constants.CLIENTE_RAZAO_SOCIAL,
-                nome_fantasia = Constants.CLIENTE_NOME_FANTASIA,
-                cnpj_cpf = Constants.CLIENTE_CNPJ,
-                inativo = true
+                CodigoClienteIntegracao = Constants.CLIENTE_CODIGO_INTEGRACAO,
+                Email = Constants.CLIENTE_EMAIL,
+                RazaoSocial = Constants.CLIENTE_RAZAO_SOCIAL,
+                NomeFantasia = Constants.CLIENTE_NOME_FANTASIA,
+                CnpjCpf = Constants.CLIENTE_CNPJ,
+                InativoSN = true
             };
 
             var responseIncluir = await _omieSharpClient.IncluirClienteAsync(clienteIncluir);
             Assert.True(responseIncluir.Success);
-            Assert.NotEqual(0, responseIncluir.codigo_cliente_omie);
+            Assert.NotEqual(0, responseIncluir.CodigoClienteOmie);
 
-            codigoClienteOmie = responseIncluir.codigo_cliente_omie;
+            codigoClienteOmie = responseIncluir.CodigoClienteOmie;
         }
         else
         {
-            codigoClienteOmie = clienteExistente.codigo_cliente_omie;
+            codigoClienteOmie = clienteExistente.CodigoClienteOmie;
         }
 
         var clienteEditar = await _omieSharpClient.ConsultarClienteAsync(new ClienteCadastroChave(codigoClienteOmie));
@@ -95,12 +95,12 @@ public class ClienteTests : BaseTest
         //clienteEditar.nome_fantasia = nomeFantasia;
         
         const string fieldName = "omiesharp_test";
-        clienteEditar.caracteristicas ??= new List<Caracteristica>();
-        var caracteristica = clienteEditar.caracteristicas.FirstOrDefault(a => a.campo.Equals(fieldName));
+        clienteEditar.Caracteristicas ??= new List<Caracteristica>();
+        var caracteristica = clienteEditar.Caracteristicas.FirstOrDefault(a => a.Campo.Equals(fieldName));
         if (caracteristica == null)
-            clienteEditar.caracteristicas.Add(new Caracteristica(fieldName, timestamp));
+            clienteEditar.Caracteristicas.Add(new Caracteristica(fieldName, timestamp));
         else
-            caracteristica.conteudo = timestamp;
+            caracteristica.Conteudo = timestamp;
 
         var responseEditar = await _omieSharpClient.AlterarClienteAsync(clienteEditar);
         Assert.True(responseEditar.Success);
@@ -115,37 +115,37 @@ public class ClienteTests : BaseTest
 
         var requestListaClientes = new ListarClienteRequest()
         {
-            clientesFiltro = new ClientFiltro()
+            ClientesFiltro = new ClientFiltro()
             {
-                cnpj_cpf = Constants.FORNECEDOR_CNPJ
+                CnpjCpf = Constants.FORNECEDOR_CNPJ
             }
         };
         var responseListaClientes = await _omieSharpClient.ListarClientesAsync(requestListaClientes);
 
-        var clienteExistente = responseListaClientes?.clientes_cadastro?.FirstOrDefault();
+        var clienteExistente = responseListaClientes?.ClientesCadastro?.FirstOrDefault();
 
         if (clienteExistente == null)
         {
             var clienteIncluir = new ClienteCadastro
             {
-                codigo_cliente_integracao = Constants.FORNECEDOR_CODIGO_INTEGRACAO,
-                email = Constants.FORNECEDOR_EMAIL,
-                razao_social = Constants.FORNECEDOR_RAZAO_SOCIAL,
-                nome_fantasia = Constants.FORNECEDOR_NOME_FANTASIA,
-                cnpj_cpf = Constants.FORNECEDOR_CNPJ,
-                inativo = true,
-                tags = new List<Tag>() { new Tag("Fornecedor") }
+                CodigoClienteIntegracao = Constants.FORNECEDOR_CODIGO_INTEGRACAO,
+                Email = Constants.FORNECEDOR_EMAIL,
+                RazaoSocial = Constants.FORNECEDOR_RAZAO_SOCIAL,
+                NomeFantasia = Constants.FORNECEDOR_NOME_FANTASIA,
+                CnpjCpf = Constants.FORNECEDOR_CNPJ,
+                InativoSN = true,
+                Tags = new List<Tag>() { new Tag("Fornecedor") }
             };
 
             var responseIncluir = await _omieSharpClient.IncluirClienteAsync(clienteIncluir);
             Assert.True(responseIncluir.Success);
-            Assert.NotEqual(0, responseIncluir.codigo_cliente_omie);
+            Assert.NotEqual(0, responseIncluir.CodigoClienteOmie);
 
-            codigoClienteOmie = responseIncluir.codigo_cliente_omie;
+            codigoClienteOmie = responseIncluir.CodigoClienteOmie;
         }
         else
         {
-            codigoClienteOmie = clienteExistente.codigo_cliente_omie;
+            codigoClienteOmie = clienteExistente.CodigoClienteOmie;
         }
 
         var clienteEditar = await _omieSharpClient.ConsultarClienteAsync(new ClienteCadastroChave(codigoClienteOmie));
@@ -155,12 +155,12 @@ public class ClienteTests : BaseTest
         //clienteEditar.nome_fantasia = nomeFantasia;
 
         const string fieldName = "omiesharp_test";
-        clienteEditar.caracteristicas ??= new List<Caracteristica>();
-        var caracteristica = clienteEditar.caracteristicas.FirstOrDefault(a => a.campo.Equals(fieldName));
+        clienteEditar.Caracteristicas ??= new List<Caracteristica>();
+        var caracteristica = clienteEditar.Caracteristicas.FirstOrDefault(a => a.Campo.Equals(fieldName));
         if (caracteristica == null)
-            clienteEditar.caracteristicas.Add(new Caracteristica(fieldName, timestamp));
+            clienteEditar.Caracteristicas.Add(new Caracteristica(fieldName, timestamp));
         else
-            caracteristica.conteudo = timestamp;
+            caracteristica.Conteudo = timestamp;
 
         var responseEditar = await _omieSharpClient.AlterarClienteAsync(clienteEditar);
         Assert.True(responseEditar.Success);

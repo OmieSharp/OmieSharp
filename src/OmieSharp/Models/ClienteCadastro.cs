@@ -5,153 +5,209 @@ namespace OmieSharp.Models;
 
 public class ClienteCadastro
 {
-    public long codigo_cliente_omie { get; set; }
+    [JsonPropertyName("codigo_cliente_omie")]
+    public long CodigoClienteOmie { get; set; }
 
+    [JsonPropertyName("codigo_cliente_integracao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_cliente_integracao { get; set; }
+    public string? CodigoClienteIntegracao { get; set; }
 
+    [JsonPropertyName("razao_social")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? razao_social { get; set; }
+    public string? RazaoSocial { get; set; }
 
+    [JsonPropertyName("cnpj_cpf")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cnpj_cpf { get; set; }
-    
+    public string? CnpjCpf { get; set; }
+
+    [JsonPropertyName("nome_fantasia")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? nome_fantasia { get; set; }
+    public string? NomeFantasia { get; set; }
 
+    [JsonPropertyName("telefone1_ddd")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? telefone1_ddd { get; set; }
+    public string? Telefone1Ddd { get; set; }
 
+    [JsonPropertyName("telefone1_numero")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? telefone1_numero { get; set; }
+    public string? Telefone1Numero { get; set; }
 
+    [JsonPropertyName("contato")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? contato { get; set; }
+    public string? Contato { get; set; }
 
+    [JsonPropertyName("endereco")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? endereco { get; set; }
+    public string? Endereco { get; set; }
 
+    [JsonPropertyName("endereco_numero")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? endereco_numero { get; set; }
+    public string? EnderecoNumero { get; set; }
 
+    [JsonPropertyName("bairro")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? bairro { get; set; }
+    public string? Bairro { get; set; }
 
+    [JsonPropertyName("complemento")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? complemento { get; set; }
+    public string? Complemento { get; set; }
 
+    [JsonPropertyName("estado")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? estado { get; set; }
+    public string? Estado { get; set; }
 
+    [JsonPropertyName("cidade")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cidade { get; set; }
+    public string? Cidade { get; set; }
 
+    [JsonPropertyName("cep")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cep { get; set; }
+    public string? Cep { get; set; }
 
+    [JsonPropertyName("codigo_pais")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_pais { get; set; }
+    public string? CodigoPais { get; set; }
 
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? separar_endereco { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? pesquisar_cep { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? telefone2_ddd { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? telefone2_numero { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? fax_ddd { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? fax_numero { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? email { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? homepage { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? inscricao_estadual { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? inscricao_municipal { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? inscricao_suframa { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? optante_simples_nacional { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? tipo_atividade { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cnae { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? produtor_rural { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? contribuinte { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? observacao { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? obs_detalhadas { get; set; }
-
-    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? recomendacao_atraso { get; set; }
-
-    public List<Tag>? tags { get; set; }
-
+    [JsonPropertyName("separar_endereco")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? pessoa_fisica { get; set; }
+    public bool? SepararEnderecoSN { get; set; }
 
+    [JsonPropertyName("pesquisar_cep")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? exterior { get; set; }
+    public bool? PesquisarCepSN { get; set; }
 
-    public string? logradouro { get; set; }
-    
-    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? importado_api { get; set; }
-
-    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? bloqueado { get; set; }
-
+    [JsonPropertyName("telefone2_ddd")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cidade_ibge { get; set; }
+    public string? Telefone2Ddd { get; set; }
 
-    public int valor_limite_credito { get; set; }
-
-    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? bloquear_faturamento { get; set; }
-
+    [JsonPropertyName("telefone2_numero")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? nif { get; set; }
+    public string? Telefone2Numero { get; set; }
 
+    [JsonPropertyName("fax_ddd")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? documento_exterior { get; set; }
-    
+    public string? FaxDdd { get; set; }
+
+    [JsonPropertyName("fax_numero")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? FaxNumero { get; set; }
+
+    [JsonPropertyName("email")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? Email { get; set; }
+
+    [JsonPropertyName("homepage")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? Homepage { get; set; }
+
+    [JsonPropertyName("inscricao_estadual")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? InscricaoEstadual { get; set; }
+
+    [JsonPropertyName("inscricao_municipal")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? InscricaoMunicipal { get; set; }
+
+    [JsonPropertyName("inscricao_suframa")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? InscricaoSuframa { get; set; }
+
+    [JsonPropertyName("optante_simples_nacional")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? inativo { get; set; }
+    public bool? OptanteSimplesNacionalSN { get; set; }
 
+    [JsonPropertyName("tipo_atividade")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? CodigoTipoAtividade { get; set; }
+
+    [JsonPropertyName("cnae")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? Cnae { get; set; }
+
+    [JsonPropertyName("produtor_rural")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? bloquear_exclusao { get; set; }
+    public bool? ProdutorRuralSN { get; set; }
 
-    public Recomendacoes? recomendacoes { get; set; }
+    [JsonPropertyName("contribuinte")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? ContribuinteSN { get; set; }
 
-    public EnderecoEntrega? enderecoEntrega { get; set; }
+    [JsonPropertyName("observacao")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? Observacao { get; set; }
 
-    public DadosBancarios? dadosBancarios { get; set; }
+    [JsonPropertyName("obs_detalhadas")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? ObsDetalhadas { get; set; }
 
-    public List<Caracteristica>? caracteristicas { get; set; }
+    [JsonPropertyName("recomendacao_atraso")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? RecomendacaoAtraso { get; set; }
 
-    public Info? info { get; set; }
+    [JsonPropertyName("tags")]
+    public List<Tag>? Tags { get; set; }
+
+    [JsonPropertyName("pessoa_fisica")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? PessoaFisicaSN { get; set; }
+
+    [JsonPropertyName("exterior")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? ExteriorSN { get; set; }
+
+    [JsonPropertyName("logradouro")]
+    public string? Logradouro { get; set; }
+
+    [JsonPropertyName("importado_api")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? ImportadoApiSN { get; set; }
+
+    [JsonPropertyName("bloqueado")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? BloqueadoSN { get; set; }
+
+    [JsonPropertyName("cidade_ibge")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? CidadeIbge { get; set; }
+
+    [JsonPropertyName("valor_limite_credito")]
+    public decimal ValorLimiteCredito { get; set; }
+
+    [JsonPropertyName("bloquear_faturamento")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? BloquearFaturamentoSN { get; set; }
+
+    /// <summary>
+    /// NIF - Número de Identificação Fiscal (Apenas para estrangeiros)
+    /// </summary>
+    [JsonPropertyName("nif")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? Nif { get; set; }
+
+    [JsonPropertyName("documento_exterior")]
+    [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
+    public string? DocumentoExterior { get; set; }
+
+    [JsonPropertyName("inativo")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? InativoSN { get; set; }
+
+    [JsonPropertyName("bloquear_exclusao")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? BloquearExclusaoSN { get; set; }
+
+    [JsonPropertyName("recomendacoes")]
+    public Recomendacoes? Recomendacoes { get; set; }
+
+    [JsonPropertyName("enderecoEntrega")]
+    public EnderecoEntrega? EnderecoEntrega { get; set; }
+
+    [JsonPropertyName("dadosBancarios")]
+    public DadosBancarios? DadosBancarios { get; set; }
+
+    [JsonPropertyName("caracteristicas")]
+    public List<Caracteristica>? Caracteristicas { get; set; }
+
+    [JsonPropertyName("info")]
+    public Info? Info { get; set; }
 }

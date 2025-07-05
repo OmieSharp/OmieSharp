@@ -16,15 +16,15 @@ public class CadastroServicoTests : BaseTest
     {
         var request = new ListarCadastroServicoRequest();
         var response = await _omieSharpClient.ListarCadastroServicoAsync(request);
-        Assert.NotEmpty(response.cadastros);
+        Assert.NotEmpty(response.Cadastros);
     }
 
     [Fact]
     public async Task ListarCadastroServicoAsync_NotFound()
     {
-        var request = new ListarCadastroServicoRequest() { cCodigo = "999999999" };
+        var request = new ListarCadastroServicoRequest() { Codigo = "999999999" };
         var response = await _omieSharpClient.ListarCadastroServicoAsync(request);
-        Assert.Equal(0, response.nTotRegistros);
+        Assert.Equal(0, response.TotalRegistros);
     }
 
     [Fact]
@@ -50,16 +50,16 @@ public class CadastroServicoTests : BaseTest
             var request = new IncluirCadastroServicoRequest(Constants.SERVICO_CODIGO_INTEGRACAO, Constants.SERVICO_CODIGO_INTEGRACAO, descricao, null);
             var response = await _omieSharpClient.IncluirCadastroServicoAsync(request);
 
-            Assert.Equal("0", response.cCodStatus);
+            Assert.Equal("0", response.CodStatus);
         }
         else
         {
-            cadastroServicoExistente.descricao.cDescrCompleta = descricaoCompleta;
+            cadastroServicoExistente.Descricao.DescrCompleta = descricaoCompleta;
 
             var request = new AlterarCadastroServicoRequest(chave, cadastroServicoExistente);
             var response = await _omieSharpClient.AlterarCadastroServicoAsync(request);
 
-            Assert.Equal("0", response.cCodStatus);
+            Assert.Equal("0", response.CodStatus);
         }
     }
 }

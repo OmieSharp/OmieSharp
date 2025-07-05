@@ -5,18 +5,23 @@ namespace OmieSharp.Models;
 
 public class OrdemServicoEmail
 {
+    [JsonPropertyName("cEnvBoleto")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cEnvBoleto { get; set; }
+    public bool? EnvBoletoSN { get; set; }
 
+    [JsonPropertyName("cEnvLink")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cEnvLink { get; set; }
-    
-    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cEnvRecibo { get; set; }
+    public bool? EnvLinkSN { get; set; }
 
+    [JsonPropertyName("cEnvRecibo")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cEnvViaUnica { get; set; }
+    public bool? EnvReciboSN { get; set; }
 
+    [JsonPropertyName("cEnvViaUnica")]
+    [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
+    public bool? EnvViaUnicaSN { get; set; }
+
+    [JsonPropertyName("cEnviarPara")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cEnviarPara { get; set; }
+    public string? EnviarPara { get; set; }
 }

@@ -5,14 +5,18 @@ namespace OmieSharp.Models;
 
 public class AlterarCadastroServicoResponse
 {
+    [JsonPropertyName("cCodIntServ")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCodIntServ { get; set; }
+    public string? CodIntServ { get; set; }
 
-    public long nCodServ { get; set; }
+    [JsonPropertyName("nCodServ")]
+    public long CodServ { get; set; }
 
+    [JsonPropertyName("cCodStatus")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCodStatus { get; set; }
+    public string? CodStatus { get; set; }
 
+    [JsonPropertyName("cDescStatus")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cDescStatus { get; set; }
+    public string? DescStatus { get; set; }
 }

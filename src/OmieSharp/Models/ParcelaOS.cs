@@ -5,11 +5,19 @@ namespace OmieSharp.Models;
 
 public class ParcelaOS
 {
+    [JsonPropertyName("dDtVenc")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? dDtVenc { get; set; }
+    public DateOnly? DataVenc { get; set; }
 
-    public int? nDias { get; set; }
-    public int? nParcela { get; set; }
-    public decimal? nPercentual { get; set; }
-    public decimal? nValor { get; set; }
+    [JsonPropertyName("nDias")]
+    public int? NumeroDias { get; set; }
+    
+    [JsonPropertyName("nParcela")]
+    public int? NumeroParcela { get; set; }
+
+    [JsonPropertyName("nPercentual")]
+    public decimal? Percentual { get; set; }
+
+    [JsonPropertyName("nValor")]
+    public decimal? Valor { get; set; }
 }

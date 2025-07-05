@@ -5,72 +5,101 @@ namespace OmieSharp.Models;
 
 public class OrdemServicoServicosImpostos
 {
+    [JsonPropertyName("cFixarCOFINS")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cFixarCOFINS { get; set; }
+    public bool? FixarCofinsSN { get; set; }
 
+    [JsonPropertyName("cFixarCSLL")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cFixarCSLL { get; set; }
+    public bool? FixarCsllSN { get; set; }
 
+    [JsonPropertyName("cFixarINSS")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cFixarINSS { get; set; }
+    public bool? FixarInssSN { get; set; }
 
+    [JsonPropertyName("cFixarIRRF")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cFixarIRRF { get; set; }
+    public bool? FixarIrrfSN { get; set; }
 
+    [JsonPropertyName("cFixarISS")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cFixarISS { get; set; }
+    public bool? FixarIssSN { get; set; }
 
+    [JsonPropertyName("cFixarPIS")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cFixarPIS { get; set; }
+    public bool? FixarPisSN { get; set; }
 
+    [JsonPropertyName("cRetemCOFINS")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cRetemCOFINS { get; set; }
+    public bool? RetemCofinsSN { get; set; }
 
+    [JsonPropertyName("cRetemCSLL")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cRetemCSLL { get; set; }
+    public bool? RetemCsllSN { get; set; }
 
+    [JsonPropertyName("cRetemINSS")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cRetemINSS { get; set; }
+    public bool? RetemInssSN { get; set; }
 
+    [JsonPropertyName("cRetemIRRF")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cRetemIRRF { get; set; }
+    public bool? RetemIrrfSN { get; set; }
 
+    [JsonPropertyName("cRetemPIS")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cRetemPIS { get; set; }
+    public bool? RetemPisSN { get; set; }
 
-    public bool lDeduzISS { get; set; }
+    [JsonPropertyName("lDeduzISS")]
+    public bool DeduzIssSN { get; set; }
 
-    public decimal nAliqCOFINS { get; set; }
+    [JsonPropertyName("nAliqCOFINS")]
+    public decimal AliqCofins { get; set; }
 
-    public decimal nAliqCSLL { get; set; }
+    [JsonPropertyName("nAliqCSLL")]
+    public decimal AliqCsll { get; set; }
 
-    public decimal nAliqINSS { get; set; }
+    [JsonPropertyName("nAliqINSS")]
+    public decimal AliqInss { get; set; }
 
-    public decimal nAliqIRRF { get; set; }
+    [JsonPropertyName("nAliqIRRF")]
+    public decimal AliqIrrf { get; set; }
 
-    public decimal nAliqISS { get; set; }
+    [JsonPropertyName("nAliqISS")]
+    public decimal AliqIss { get; set; }
 
-    public decimal nAliqPIS { get; set; }
+    [JsonPropertyName("nAliqPIS")]
+    public decimal AliqPis { get; set; }
 
-    public decimal nAliqRedBaseCOFINS { get; set; }
+    [JsonPropertyName("nAliqRedBaseCOFINS")]
+    public decimal AliqRedBaseCofins { get; set; }
 
-    public decimal nAliqRedBaseINSS { get; set; }
+    [JsonPropertyName("nAliqRedBaseINSS")]
+    public decimal AliqRedBaseInss { get; set; }
 
-    public decimal nAliqRedBasePIS { get; set; }
+    [JsonPropertyName("nAliqRedBasePIS")]
+    public decimal AliqRedBasePis { get; set; }
 
-    public decimal nBaseISS { get; set; }
+    [JsonPropertyName("nBaseISS")]
+    public decimal BaseIss { get; set; }
 
-    public decimal nTotDeducao { get; set; }
+    [JsonPropertyName("nTotDeducao")]
+    public decimal TotDeducao { get; set; }
 
-    public decimal nValorCOFINS { get; set; }
+    [JsonPropertyName("nValorCOFINS")]
+    public decimal ValorCofins { get; set; }
 
-    public decimal nValorCSLL { get; set; }
+    [JsonPropertyName("nValorCSLL")]
+    public decimal ValorCsll { get; set; }
 
-    public decimal nValorINSS { get; set; }
+    [JsonPropertyName("nValorINSS")]
+    public decimal ValorInss { get; set; }
 
-    public decimal nValorIRRF { get; set; }
+    [JsonPropertyName("nValorIRRF")]
+    public decimal ValorIrrf { get; set; }
 
-    public decimal nValorISS { get; set; }
+    [JsonPropertyName("nValorISS")]
+    public decimal ValorIss { get; set; }
 
-    public decimal nValorPIS { get; set; }
+    [JsonPropertyName("nValorPIS")]
+    public decimal ValorPis { get; set; }
 }

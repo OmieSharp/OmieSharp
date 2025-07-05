@@ -5,56 +5,77 @@ namespace OmieSharp.Models.ContaPagarModels;
 
 public class ListarContaPagarRequest
 {
-    public int pagina { get; set; }
-    public int registros_por_pagina { get; set; }
+    [JsonPropertyName("pagina")]
+    public int Pagina { get; set; }
 
+    [JsonPropertyName("registros_por_pagina")]
+    public int RegistrosPorPagina { get; set; }
+
+    [JsonPropertyName("apenas_importado_api")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? apenas_importado_api { get; set; }
+    public bool? ApenasImportadoApiSN { get; set; }
 
-    public string? ordenar_por { get; set; }
+    [JsonPropertyName("ordenar_por")]
+    public string? OrdenarPor { get; set; }
 
+    [JsonPropertyName("ordem_decrescente")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? ordem_decrescente { get; set; }
+    public bool? OrdemDecrescenteSN { get; set; }
 
-
+    [JsonPropertyName("filtrar_por_data_de")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? filtrar_por_data_de { get; set; }
+    public DateOnly? FiltrarPorDataDe { get; set; }
 
+    [JsonPropertyName("filtrar_por_data_ate")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? filtrar_por_data_ate { get; set; }
+    public DateOnly? FiltrarPorDataAte { get; set; }
 
-
+    [JsonPropertyName("filtrar_apenas_inclusao")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? filtrar_apenas_inclusao { get; set; }
+    public bool? FiltrarApenasInclusaoSN { get; set; }
 
-
+    [JsonPropertyName("filtrar_por_emissao_de")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? filtrar_por_emissao_de { get; set; }
+    public DateOnly? FiltrarPorEmissaoDe { get; set; }
 
+    [JsonPropertyName("filtrar_por_emissao_ate")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? filtrar_por_emissao_ate { get; set; }
+    public DateOnly? FiltrarPorEmissaoAte { get; set; }
 
-
+    [JsonPropertyName("filtrar_por_registro_de")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? filtrar_por_registro_de { get; set; }
+    public DateOnly? FiltrarPorRegistroDe { get; set; }
 
+    [JsonPropertyName("filtrar_por_registro_ate")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? filtrar_por_registro_ate { get; set; }
+    public DateOnly? FiltrarPorRegistroAte { get; set; }
 
-    public long? filtrar_conta_corrente { get; set; }
-    public long? filtrar_cliente { get; set; }
-    public string? filtrar_por_cpf_cnpj { get; set; }
-    public string? filtrar_por_status { get; set; }
-    public long? filtrar_por_projeto { get; set; }
-    public long? filtrar_por_vendedor { get; set; }
+    [JsonPropertyName("filtrar_conta_corrente")]
+    public long? FiltrarContaCorrente { get; set; }
 
+    [JsonPropertyName("filtrar_cliente")]
+    public long? FiltrarCliente { get; set; }
+
+    [JsonPropertyName("filtrar_por_cpf_cnpj")]
+    public string? FiltrarPorCpfCnpj { get; set; }
+
+    [JsonPropertyName("filtrar_por_status")]
+    public string? FiltrarPorStatus { get; set; }
+
+    [JsonPropertyName("filtrar_por_projeto")]
+    public long? FiltrarPorProjeto { get; set; }
+
+    [JsonPropertyName("filtrar_por_vendedor")]
+    public long? FiltrarPorVendedor { get; set; }
+    
+    [JsonPropertyName("exibir_obs")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? exibir_obs { get; set; }
+    public bool? ExibirObsSN { get; set; }
 
     public ListarContaPagarRequest(int pagina = 1, int registros_por_pagina = 50, bool apenas_importado_api = false)
     {
-        this.pagina = pagina;
-        this.registros_por_pagina = registros_por_pagina;
-        this.apenas_importado_api = apenas_importado_api;
+        this.Pagina = pagina;
+        this.RegistrosPorPagina = registros_por_pagina;
+        this.ApenasImportadoApiSN = apenas_importado_api;
     }
 }

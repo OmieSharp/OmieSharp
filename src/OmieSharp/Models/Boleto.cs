@@ -5,19 +5,25 @@ namespace OmieSharp.Models;
 
 public class Boleto
 {
+    [JsonPropertyName("cGerado")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cGerado { get; set; }
+    public string? Gerado { get; set; }
 
+    [JsonPropertyName("cNumBancario")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cNumBancario { get; set; }
+    public string? NumBancario { get; set; }
 
+    [JsonPropertyName("cNumBoleto")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cNumBoleto { get; set; }
+    public string? NumBoleto { get; set; }
 
+    [JsonPropertyName("dDtEmBol")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? dDtEmBol { get; set; }
+    public DateOnly? DataEmBol { get; set; }
 
-    public int nPerJuros { get; set; }
+    [JsonPropertyName("nPerJuros")]
+    public int PerJuros { get; set; }
 
-    public int nPerMulta { get; set; }
+    [JsonPropertyName("nPerMulta")]
+    public int PerMulta { get; set; }
 }

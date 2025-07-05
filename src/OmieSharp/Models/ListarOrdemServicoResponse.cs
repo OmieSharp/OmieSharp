@@ -1,15 +1,26 @@
-﻿namespace OmieSharp.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models;
 
 public class ListarOrdemServicoResponse
 {
-    public int pagina { get; set; }
-    public int total_de_paginas { get; set; }
-    public int registros { get; set; }
-    public int total_de_registros { get; set; }
-    public List<OrdemServico> osCadastro { get; set; }
+    [JsonPropertyName("pagina")]
+    public int Pagina { get; set; }
+
+    [JsonPropertyName("total_de_paginas")]
+    public int TotalPaginas { get; set; }
+
+    [JsonPropertyName("registros")]
+    public int Registros { get; set; }
+
+    [JsonPropertyName("total_de_registros")]
+    public int TotalRegistros { get; set; }
+
+    [JsonPropertyName("osCadastro")]
+    public List<OrdemServico> OrdemServicos { get; set; }
 
     public ListarOrdemServicoResponse()
     {
-        osCadastro = new List<OrdemServico>();
+        OrdemServicos = new List<OrdemServico>();
     }
 }

@@ -1,12 +1,24 @@
-﻿namespace OmieSharp.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models;
 
 public class OrdemServicoStatus
 {
-    public string? cCodIntOS { get; set; }
-    public long nCodOS { get; set; }
-    public string? cNumOS { get; set; }
-    public string? cCodStatus { get; set; }
-    public string? cDescStatus { get; set; }
+    [JsonPropertyName("cCodIntOS")]
+    public string? CodIntOS { get; set; }
 
-    public bool Success { get { return (cCodStatus ?? "999").Equals("0"); } }
+    [JsonPropertyName("nCodOS")]
+    public long CodOS { get; set; }
+    
+    [JsonPropertyName("cNumOS")]
+    public string? NumOS { get; set; }
+
+    [JsonPropertyName("cCodStatus")]
+    public string? CodStatus { get; set; }
+
+    [JsonPropertyName("cDescStatus")]
+    public string? DescStatus { get; set; }
+
+    [JsonIgnore]
+    public bool Success => (CodStatus ?? "999").Equals("0");
 }

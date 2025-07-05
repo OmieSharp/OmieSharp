@@ -24,7 +24,7 @@ public class ContaCorrenteTests : BaseTest
     [Fact]
     public async Task ListarContaCorrenteAsync_Notfound()
     {
-        var request = new ListarContaCorrenteRequest() { codigo_integracao = "99999999999" };
+        var request = new ListarContaCorrenteRequest() { CodigoIntegracao = "99999999999" };
         var response = await _omieSharpClient.ListarContaCorrenteAsync(request);
         Assert.Empty(response.ListarContasCorrentes);
     }
@@ -51,23 +51,23 @@ public class ContaCorrenteTests : BaseTest
         {
             var request = new ContaCorrente()
             {
-                cCodCCInt = Constants.CONTA_CORRENTE_CODIGO_INTEGRACAO,
-                tipo_conta_corrente = "CX",
-                codigo_banco = "999",
-                descricao = descicao,
-                saldo_inicial = 0
+                CodCCInt = Constants.CONTA_CORRENTE_CODIGO_INTEGRACAO,
+                TipoContaCorrente = "CX",
+                CodigoBanco = "999",
+                Descricao = descicao,
+                SaldoInicial = 0
             };
             var response = await _omieSharpClient.IncluirContaCorrenteAsync(request);
 
-            Assert.Equal("0", response.cCodStatus);
+            Assert.Equal("0", response.CodStatus);
         }
         else
         {
-            contaCorrenteExistente.descricao = descicao;
+            contaCorrenteExistente.Descricao = descicao;
 
             var response = await _omieSharpClient.AlterarContaCorrenteAsync(contaCorrenteExistente);
 
-            Assert.Equal("0", response.cCodStatus);
+            Assert.Equal("0", response.CodStatus);
         }
     }
 }

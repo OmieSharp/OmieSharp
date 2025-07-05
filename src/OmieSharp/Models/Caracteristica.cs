@@ -1,13 +1,18 @@
-﻿namespace OmieSharp.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models;
 
 public class Caracteristica
 {
-    public string campo { get; set; }
-    public string conteudo { get; set; }
+    [JsonPropertyName("campo")]
+    public string Campo { get; set; }
+
+    [JsonPropertyName("conteudo")]
+    public string Conteudo { get; set; }
 
     public Caracteristica(string campo, string conteudo)
     {
-        this.campo = campo;
-        this.conteudo = conteudo;
+        this.Campo = campo;
+        this.Conteudo = conteudo;
     }
 }

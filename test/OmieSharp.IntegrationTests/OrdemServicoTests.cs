@@ -19,15 +19,15 @@ public class OrdemServicoTests : BaseTest
     {
         var request = new ListarOrdemServicoRequest();
         var response = await _omieSharpClient.ListarOrdemServicoAsync(request);
-        Assert.NotEmpty(response.osCadastro);
+        Assert.NotEmpty(response.OrdemServicos);
     }
 
     [Fact]
     public async Task ListarOrdemServicoAsync_Notfound()
     {
-        var request = new ListarOrdemServicoRequest() { filtrar_por_codigo = new List<OrdemServicoChave>() { new OrdemServicoChave("99999999999") } };
+        var request = new ListarOrdemServicoRequest() { FiltrarPorCodigo = new List<OrdemServicoChave>() { new OrdemServicoChave("99999999999") } };
         var response = await _omieSharpClient.ListarOrdemServicoAsync(request);
-        Assert.Empty(response.osCadastro);
+        Assert.Empty(response.OrdemServicos);
     }
 
     [Fact]
@@ -45,7 +45,8 @@ public class OrdemServicoTests : BaseTest
         if (cliente == null)
             throw new InvalidOperationException("Cliente não encontrado");
 
-        var servico = await _omieSharpClient.ConsultarCadastroServicoAsync(new CadastroServicoChave(Constants.SERVICO_CODIGO_INTEGRACAO));
+        var chaveConsulta = new CadastroServicoChave(Constants.SERVICO_CODIGO_INTEGRACAO);
+        var servico = await _omieSharpClient.ConsultarCadastroServicoAsync(chaveConsulta);
         if (servico == null)
             throw new InvalidOperationException("Serviço não encontrado");
 
@@ -63,66 +64,66 @@ public class OrdemServicoTests : BaseTest
         {
             Cabecalho = new OrdemServicoCabecalho()
             {
-                cCodIntOS = codigoIntegracao,
-                cCodParc = null,
-                cEtapa = EtapasOS.SegundaColuna, //"20",
-                dDtPrevisao = dataPrevisao,
-                nCodCli = cliente.codigo_cliente_omie,
-                nQtdeParc = 1
+                CodIntOS = codigoIntegracao,
+                CodParc = null,
+                Etapa = EtapasOS.SegundaColuna, //"20",
+                DataPrevisao = dataPrevisao,
+                CodCli = cliente.CodigoClienteOmie,
+                QtdeParc = 1
             },
             Email = new OrdemServicoEmail()
             {
-                cEnvBoleto = false,
-                cEnvLink = false,
-                cEnviarPara = "teste@teste.com.br"
+                EnvBoletoSN = false,
+                EnvLinkSN = false,
+                EnviarPara = "teste@teste.com.br"
             },
             InformacoesAdicionais = new OrdemServicoInformacoesAdicionais()
             {
-                cCidPrestServ = "SAO PAULO (SP)",
-                cCodCateg = "1.01.02",
-                cDadosAdicNF = "Teste TaskrowSharp",
-                nCodCC = contaCorrente.nCodCC
+                CidPrestServ = "SAO PAULO (SP)",
+                CodCateg = "1.01.02",
+                DadosAdicNF = "Teste TaskrowSharp",
+                CodCC = contaCorrente.CodCC
             },
             Observacoes = new Observacoes() {
-                cObsOS = "Teste OmiSharp"
+                ObsOS = "Teste OmiSharp"
             },
             Parcelas = new List<ParcelaOS>()
             {
                 new ParcelaOS()
                 {
-                    dDtVenc = dataPrevisao,
-                    nDias = 31,
-                    nParcela = 1,
-                    nPercentual = 100,
-                    nValor = qtd * valUnit
+                    DataVenc = dataPrevisao,
+                    NumeroDias = 31,
+                    NumeroParcela = 1,
+                    Percentual = 100,
+                    Valor = qtd * valUnit
                 }
             },
             ServicosPrestados = new List<OrdemServicoServicosPrestado>()
             {
                 new OrdemServicoServicosPrestado()
                 {
-                    nCodServico = servico.intListar.nCodServ,
-					    cDescServ = "Serviços prestado 001",
-                    cDadosAdicItem = "Serviços prestados",
-					    cRetemISS = false,
-                    impostos = new OrdemServicoServicosImpostos()
+                    CodServico = servico.Listar.CodServ,
+					    DescServ = "Serviços prestado 001",
+                    DadosAdicItem = "Serviços prestados",
+					    RetemIssSN = false,
+                    Impostos = new OrdemServicoServicosImpostos()
                     {
-                        cRetemIRRF = true,
-						    cRetemPIS = true,
-						    nAliqCOFINS = 0,
-						    nAliqCSLL = 0,
-						    nAliqIRRF = 15,
-						    nAliqISS = 3,
-						    nAliqPIS = 4.5M
+                        RetemIrrfSN = true,
+						    RetemPisSN = true,
+						    AliqCofins = 0,
+						    AliqCsll = 0,
+						    AliqIrrf = 15,
+						    AliqIss = 3,
+						    AliqPis = 4.5M
                     },
-                    nQtde = qtd,
-					    nValUnit = valUnit
+                    Qtde = qtd,
+					    ValUnit = valUnit
                 }
             }
         };
         var response = await _omieSharpClient.IncluirOrdemServicoAsync(request);
 
-        Assert.Equal("0", response.cCodStatus);
-        Assert.Equal(codigoIntegracao, response.cCodIntOS);
+        Assert.Equal("0", response.CodStatus);
+        Assert.Equal(codigoIntegracao, response.CodIntOS);
     }
 }

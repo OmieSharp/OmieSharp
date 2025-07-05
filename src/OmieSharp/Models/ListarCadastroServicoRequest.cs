@@ -5,39 +5,59 @@ namespace OmieSharp.Models;
 
 public class ListarCadastroServicoRequest
 {
-    public int nPagina { get; set; }
-    
-    public int nRegPorPagina { get; set; }
+    [JsonPropertyName("nPagina")]
+    public int Pagina { get; set; }
 
-    public string? cOrdenarPor { get; set; }
+    [JsonPropertyName("nRegPorPagina")]
+    public int RegistrosPorPagina { get; set; }
 
-    public string? cOrdemDecrescente { get; set; }
+    [JsonPropertyName("cOrdenarPor")]
+    public string? OrdenarPor { get; set; }
 
-    public string? dInclusaoInicial { get; set; }
-    public string? hInclusaoInicial { get; set; }
+    [JsonPropertyName("cOrdemDecrescente")]
+    public string? OrdemDecrescente { get; set; }
 
-    public string? dInclusaoFinal { get; set; }
-    public string? hInclusaoFinal { get; set; }
+    [JsonPropertyName("dInclusaoInicial")]
+    public string? DataInclusaoInicial { get; set; }
 
-    public string? dAlteracaoInicial { get; set; }
-    public string? hAlteracaoInicial { get; set; }
+    [JsonPropertyName("hInclusaoInicial")]
+    public string? HoraInclusaoInicial { get; set; }
 
-    public string? dAlteracaoFinal { get; set; }
-    public string? hAlteracaoFinal { get; set; }
+    [JsonPropertyName("dInclusaoFinal")]
+    public string? DataInclusaoFinal { get; set; }
 
-    public string? cDescricao { get; set; }
+    [JsonPropertyName("hInclusaoFinal")]
+    public string? HoraInclusaoFinal { get; set; }
 
-    public string? cCodigo { get; set; }
+    [JsonPropertyName("dAlteracaoInicial")]
+    public string? DataAlteracaoInicial { get; set; }
 
+    [JsonPropertyName("hAlteracaoInicial")]
+    public string? HoraAlteracaoInicial { get; set; }
+
+    [JsonPropertyName("dAlteracaoFinal")]
+    public string? DataAlteracaoFinal { get; set; }
+
+    [JsonPropertyName("hAlteracaoFinal")]
+    public string? HoraAlteracaoFinal { get; set; }
+
+    [JsonPropertyName("cDescricao")]
+    public string? Descricao { get; set; }
+
+    [JsonPropertyName("cCodigo")]
+    public string? Codigo { get; set; }
+
+    [JsonPropertyName("inativo")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? inativo { get; set; }
+    public bool? InativoSN { get; set; }
 
+    [JsonPropertyName("cExibirProdutos")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cExibirProdutos { get; set; }
+    public bool? ExibirProdutosSN { get; set; }
 
     public ListarCadastroServicoRequest(int nPagina = 1, int nRegPorPagina = 50)
     {
-        this.nPagina = nPagina;
-        this.nRegPorPagina = nRegPorPagina;
+        this.Pagina = nPagina;
+        this.RegistrosPorPagina = nRegPorPagina;
     }
 }

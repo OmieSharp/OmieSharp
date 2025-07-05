@@ -8,65 +8,77 @@ public class ServicoTomado
     /// <summary>
     /// Número da Nota Fiscal.
     /// </summary>
+    [JsonPropertyName("numero_nf")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? numero_nf { get; set; }
+    public string? NumeroNf { get; set; }
 
     /// <summary>
     /// Série da Nota Fiscal.
     /// </summary>
+    [JsonPropertyName("serie_nf")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? serie_nf { get; set; }
+    public string? SerieNf { get; set; }
 
     /// <summary>
     /// Código do serviço (LC116).
     /// </summary>
+    [JsonPropertyName("codigo_servico")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_servico { get; set; }
+    public string? CodigoServico { get; set; }
 
     /// <summary>
     /// Valor total da Nota Fiscal.
     /// </summary>
-    public decimal valor_nf { get; set; }
+    [JsonPropertyName("valor_nf")]
+    public decimal ValorNf { get; set; }
 
     /// <summary>
     /// CST do PIS (Código da Situação Tributária).
     /// </summary>
+    [JsonPropertyName("cst_pis")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cst_pis { get; set; }
+    public string? CstPis { get; set; }
 
     /// <summary>
     /// Base de cálculo do PIS.
     /// </summary>
-    public decimal base_pis { get; set; }
+    [JsonPropertyName("base_pis")]
+    public decimal BasePis { get; set; }
 
     /// <summary>
     /// Alíquota do PIS (%).
     /// </summary>
-    public decimal aliquota_pis { get; set; }
+    [JsonPropertyName("aliquota_pis")]
+    public decimal AliquotaPis { get; set; }
 
     /// <summary>
     /// Valor do PIS.
     /// </summary>
-    public decimal valor_pis { get; set; }
+    [JsonPropertyName("valor_pis")]
+    public decimal ValorPis { get; set; }
 
     /// <summary>
     /// CST do COFINS (Código da Situação Tributária).
     /// </summary>
+    [JsonPropertyName("cst_cofins")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cst_cofins { get; set; }
+    public string? CstCofins { get; set; }
 
     /// <summary>
     /// Base de cálculo do COFINS.
     /// </summary>
-    public decimal base_cofins { get; set; }
+    [JsonPropertyName("base_cofins")]
+    public decimal BaseCofins { get; set; }
 
     /// <summary>
     /// Alíquota do COFINS (%).
     /// </summary>
-    public decimal aliquota_cofins { get; set; }
+    [JsonPropertyName("aliquota_cofins")]
+    public decimal AliquotaCofins { get; set; }
 
     /// <summary>
     /// Valor do PIS.
     /// </summary>
-    public decimal valor_cofins { get; set; }
+    [JsonPropertyName("valor_cofins")]
+    public decimal ValorCofins { get; set; }
 }

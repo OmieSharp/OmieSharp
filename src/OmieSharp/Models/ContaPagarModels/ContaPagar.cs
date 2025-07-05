@@ -8,253 +8,298 @@ public class ContaPagar
     /// <summary>
     /// Código do Lançamento de Contas a Pagar
     /// </summary>
-    public long codigo_lancamento_omie { get; set; }
+    [JsonPropertyName("codigo_lancamento_omie")]
+    public long CodigoLancamentoOmie { get; set; }
 
     /// <summary>
     /// Código de Integração do Lançamento de Contas a Pagar
     /// </summary>
-    public string? codigo_lancamento_integracao { get; set; }
+    [JsonPropertyName("codigo_lancamento_integracao")]
+    public string? CodigoLancamentoIntegracao { get; set; }
 
     /// <summary>
     /// Código do Favorecido / Fornecedor
     /// </summary>
-    public long codigo_cliente_fornecedor { get; set; }
+    [JsonPropertyName("codigo_cliente_fornecedor")]
+    public long CodigoClienteFornecedor { get; set; }
 
     /// <summary>
     /// Código de Integração do Favorecido / Fornecedor
     /// </summary>
+    [JsonPropertyName("codigo_cliente_fornecedor_integracao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_cliente_fornecedor_integracao { get; set; }
+    public string? CodigoClienteFornecedorIntegracao { get; set; }
 
     /// <summary>
     /// Data de Vencimento
     /// </summary>
+    [JsonPropertyName("data_vencimento")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? data_vencimento { get; set; }
+    public DateOnly? DataVencimento { get; set; }
 
     /// <summary>
     /// Valor da Conta
     /// </summary>
-    public decimal valor_documento { get; set; }
+    [JsonPropertyName("valor_documento")]
+    public decimal? ValorDocumento { get; set; }
 
     /// <summary>
     /// Código da Categoria
     /// </summary>
+    [JsonPropertyName("codigo_categoria")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_categoria { get; set; }
+    public string? CodigoCategoria { get; set; }
 
     /// <summary>
     /// Rateio de Categoria
     /// </summary>
-    public List<CategoriaRateio>? categorias { get; set; }
+    [JsonPropertyName("categorias")]
+    public List<CategoriaRateio>? Categorias { get; set; }
 
     /// <summary>
     /// Data da Previsão de Pagamento
     /// </summary>
+    [JsonPropertyName("data_previsao")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? data_previsao { get; set; }
+    public DateOnly? DataPrevisao { get; set; }
 
     /// <summary>
     /// Código da Conta Corrente
     /// </summary>
-    public long id_conta_corrente { get; set; }
+    [JsonPropertyName("id_conta_corrente")]
+    public long IdContaCorrente { get; set; }
 
     /// <summary>
     /// Número da Nota Fiscal
     /// </summary>
+    [JsonPropertyName("numero_documento_fiscal")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? numero_documento_fiscal { get; set; }
+    public string? NumeroDocumentoFiscal { get; set; }
 
     /// <summary>
     /// Data de Emissão
     /// </summary>
+    [JsonPropertyName("data_emissao")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? data_emissao { get; set; }
+    public DateOnly? DataEmissao { get; set; }
 
     /// <summary>
     /// Data de Registro
     /// </summary>
+    [JsonPropertyName("data_entrada")]
     [JsonConverter(typeof(DateOnlyNullableJsonConverter))]
-    public DateOnly? data_entrada { get; set; }
+    public DateOnly? DataEntrada { get; set; }
 
     /// <summary>
     /// Código do Projeto
     /// </summary>
-    public long codigo_projeto { get; set; }
+    [JsonPropertyName("codigo_projeto")]
+    public long CodigoProjeto { get; set; }
 
     /// <summary>
     /// Observações
     /// </summary>
+    [JsonPropertyName("observacao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? observacao { get; set; }
+    public string? Observacao { get; set; }
 
     /// <summary>
     /// Valor do PIS
     /// </summary>
-    public decimal valor_pis { get; set; }
+    [JsonPropertyName("valor_pis")]
+    public decimal? ValorPis { get; set; }
 
     /// <summary>
     /// Reter PIS
     /// </summary>
+    [JsonPropertyName("retem_pis")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? retem_pis { get; set; }
+    public bool? RetemPisSN { get; set; }
 
     /// <summary>
     /// Valor do PIS
     /// </summary>
-    public decimal valor_cofins { get; set; }
+    [JsonPropertyName("valor_cofins")]
+    public decimal? ValorCofins { get; set; }
 
     /// <summary>
     /// Reter COFINS
     /// </summary>
+    [JsonPropertyName("retem_cofins")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? retem_cofins { get; set; }
+    public bool? RetemCofinsSN { get; set; }
 
     /// <summary>
     /// Valor CSLL
     /// </summary>
-    public decimal valor_csll { get; set; }
+    [JsonPropertyName("valor_csll")]
+    public decimal? ValorCsll { get; set; }
 
     /// <summary>
     /// Reter CSLL
     /// </summary>
+    [JsonPropertyName("retem_csll")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? retem_csll { get; set; }
+    public bool? RetemCsllSN { get; set; }
 
     /// <summary>
     /// Valor IR
     /// </summary>
-    public decimal valor_ir { get; set; }
+    [JsonPropertyName("valor_ir")]
+    public decimal? ValorIr { get; set; }
 
     /// <summary>
     /// Reter IR
     /// </summary>
+    [JsonPropertyName("retem_ir")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? retem_ir { get; set; }
+    public bool? RetemIrSN { get; set; }
 
     /// <summary>
     /// Valor ISS
     /// </summary>
-    public decimal valor_iss { get; set; }
+    [JsonPropertyName("valor_iss")]
+    public decimal? ValorIss { get; set; }
 
     /// <summary>
     /// Reter ISS
     /// </summary>
+    [JsonPropertyName("retem_iss")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? retem_iss { get; set; }
+    public bool? RetemIssSN { get; set; }
 
     /// <summary>
     /// Valor INSS
     /// </summary>
-    public decimal valor_inss { get; set; }
+    [JsonPropertyName("valor_inss")]
+    public decimal? ValorInss { get; set; }
 
     /// <summary>
     /// Reter INSS
     /// </summary>
+    [JsonPropertyName("retem_inss")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? retem_inss { get; set; }
+    public bool? RetemInssSN { get; set; }
 
     /// <summary>
     /// Distribuição por Departamentos
     /// </summary>
-    public List<DistribuicaoDepartamento>? distribuicao { get; set; }
+    [JsonPropertyName("distribuicao")]
+    public List<DistribuicaoDepartamento>? Distribuicao { get; set; }
 
     /// <summary>
     /// Número do Pedido
     /// </summary>
+    [JsonPropertyName("numero_pedido")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? numero_pedido { get; set; }
+    public string? NumeroPedido { get; set; }
 
     /// <summary>
     /// Código do Tipo de Documento
     /// </summary>
+    [JsonPropertyName("codigo_tipo_documento")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_tipo_documento { get; set; }
+    public string? CodigoTipoDocumento { get; set; }
 
     /// <summary>
     /// Número do Documento
     /// </summary>
+    [JsonPropertyName("numero_documento")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? numero_documento { get; set; }
+    public string? NumeroDocumento { get; set; }
 
     /// <summary>
     /// Número da parcela
     /// </summary>
+    [JsonPropertyName("numero_parcela")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? numero_parcela { get; set; }
+    public string? NumeroParcela { get; set; }
 
     /// <summary>
     /// Chave da NFe
     /// </summary>
+    [JsonPropertyName("chave_nfe")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? chave_nfe { get; set; }
+    public string? ChaveNfe { get; set; }
 
     /// <summary>
     /// Código de Barras (de Cobrança Bancária, de Concessionária ou de Impostos)
     /// </summary>
+    [JsonPropertyName("codigo_barras_ficha_compensacao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? codigo_barras_ficha_compensacao { get; set; }
+    public string? CodigoBarrasFichaCompensacao { get; set; }
 
     /// <summary>
     /// Código do Vendedor
     /// </summary>
-    public long codigo_vendedor { get; set; }
+    [JsonPropertyName("codigo_vendedor")]
+    public long CodigoVendedor { get; set; }
 
     /// <summary>
     /// Código da Origem
     /// </summary>
+    [JsonPropertyName("id_origem")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? id_origem { get; set; }
+    public string? IdOrigem { get; set; }
 
     /// <summary>
     /// Informações sobre a criação/alteração do lançamento de Contas a Pagar
     /// </summary>
-    public Info? info { get; set; }
+    [JsonPropertyName("info")]
+    public Info? Info { get; set; }
 
     /// <summary>
     /// Código da Operação
     /// </summary>
+    [JsonPropertyName("operacao")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? operacao { get; set; }
+    public string? Operacao { get; set; }
 
     /// <summary>
     /// Status do Título
     /// </summary>
+    [JsonPropertyName("status_titulo")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? status_titulo { get; set; }
+    public string? StatusTitulo { get; set; }
 
     /// <summary>
     /// Importado pela API (S/N)
     /// </summary>
+    [JsonPropertyName("importado_api")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? importado_api { get; set; }
+    public bool? ImportadoApiSN { get; set; }
 
     /// <summary>
     /// Bloqueia a exclusão do registro (S/N)
     /// </summary>
+    [JsonPropertyName("bloquear_exclusao")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? bloquear_exclusao { get; set; }
+    public bool? BloquearExclusaoSN { get; set; }
 
     /// <summary>
     /// Dados do CNAB e Integração Bancária
     /// </summary>
-    public CnabIntegracaoBancaria? cnab_integracao_bancaria { get; set; }
+    [JsonPropertyName("cnab_integracao_bancaria")]
+    public CnabIntegracaoBancaria? CnabIntegracaoBancaria { get; set; }
 
     /// <summary>
     /// Informações da aba de Serviço Tomado da Ordem de Serviço
     /// </summary>
-    public ServicoTomado? servico_tomado { get; set; }
+    [JsonPropertyName("servico_tomado")]
+    public ServicoTomado? ServicoTomado { get; set; }
 
     /// <summary>
     /// Valor a pagar
     /// </summary>
-    public decimal valor_pag { get; set; }
+    [JsonPropertyName("valor_pag")]
+    public decimal? ValorPag { get; set; }
 
     /// <summary>
     /// Aprendizado de rateio de departamento
     /// </summary>
+    [JsonPropertyName("aprendizado_rateio")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? aprendizado_rateio { get; set; }
+    public string? AprendizadoRateio { get; set; }
     
     public ContaPagar()
     {
@@ -263,12 +308,12 @@ public class ContaPagar
 
     public ContaPagar(string? codigo_lancamento_integracao, int codigo_cliente_fornecedor, DateOnly? data_vencimento, int valor_documento, string? codigo_categoria, DateOnly? data_previsao, int id_conta_corrente)
     {
-        this.codigo_lancamento_integracao = codigo_lancamento_integracao;
-        this.codigo_cliente_fornecedor = codigo_cliente_fornecedor;
-        this.data_vencimento = data_vencimento;
-        this.valor_documento = valor_documento;
-        this.codigo_categoria = codigo_categoria;
-        this.data_previsao = data_previsao;
-        this.id_conta_corrente = id_conta_corrente;
+        this.CodigoLancamentoIntegracao = codigo_lancamento_integracao;
+        this.CodigoClienteFornecedor = codigo_cliente_fornecedor;
+        this.DataVencimento = data_vencimento;
+        this.ValorDocumento = valor_documento;
+        this.CodigoCategoria = codigo_categoria;
+        this.DataPrevisao = data_previsao;
+        this.IdContaCorrente = id_conta_corrente;
     }
 }

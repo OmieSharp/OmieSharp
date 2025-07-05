@@ -1,16 +1,27 @@
-﻿namespace OmieSharp.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models;
 
 public class ListarClienteResponse
 {
-    public int pagina { get; set; }
-    public int total_de_paginas { get; set; }
-    public int registros { get; set; }
-    public int total_de_registros { get; set; }
-    public List<ClienteCadastro>? clientes_cadastro { get; set; }
+    [JsonPropertyName("pagina")]
+    public int Pagina { get; set; }
+
+    [JsonPropertyName("total_de_paginas")]
+    public int TotalPaginas { get; set; }
+
+    [JsonPropertyName("registros")]
+    public int Registros { get; set; }
+
+    [JsonPropertyName("total_de_registros")]
+    public int TotalRegistros { get; set; }
+
+    [JsonPropertyName("clientes_cadastro")]
+    public List<ClienteCadastro>? ClientesCadastro { get; set; }
 
     public ListarClienteResponse()
     {
-        pagina = 1;
-        clientes_cadastro = new List<ClienteCadastro>();
+        Pagina = 1;
+        ClientesCadastro = new List<ClienteCadastro>();
     }
 }

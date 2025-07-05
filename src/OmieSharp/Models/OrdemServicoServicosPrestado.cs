@@ -5,50 +5,69 @@ namespace OmieSharp.Models;
 
 public class OrdemServicoServicosPrestado
 {
+    [JsonPropertyName("cCodCategItem")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCodCategItem { get; set; }
+    public string? CodCategItem { get; set; }
 
+    [JsonPropertyName("cCodServLC116")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCodServLC116 { get; set; }
+    public string? CodServLC116 { get; set; }
 
+    [JsonPropertyName("cCodServMun")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cCodServMun { get; set; }
+    public string? CodServMun { get; set; }
 
+    [JsonPropertyName("cDadosAdicItem")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cDadosAdicItem { get; set; }
+    public string? DadosAdicItem { get; set; }
 
+    [JsonPropertyName("cDescServ")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cDescServ { get; set; }
+    public string? DescServ { get; set; }
 
+    [JsonPropertyName("cNaoGerarFinanceiro")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cNaoGerarFinanceiro { get; set; }
+    public bool? NaoGerarFinanceiroSN { get; set; }
 
+    [JsonPropertyName("cRetemISS")]
     [JsonConverter(typeof(BooleanNullableSNJsonConverter))]
-    public bool? cRetemISS { get; set; }
+    public bool? RetemIssSN { get; set; }
 
+    [JsonPropertyName("cTpDesconto")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cTpDesconto { get; set; }
+    public string? TpDesconto { get; set; }
 
+    [JsonPropertyName("cTribServ")]
     [JsonConverter(typeof(EmptyToNullStringJsonConverter))]
-    public string? cTribServ { get; set; }
+    public string? TribServ { get; set; }
+    
+    [JsonPropertyName("impostos")]
+    public OrdemServicoServicosImpostos? Impostos { get; set; }
 
-    public OrdemServicoServicosImpostos? impostos { get; set; }
+    [JsonPropertyName("nAliqDesconto")]
+    public decimal? AliqDesconto { get; set; }
 
-    public decimal? nAliqDesconto { get; set; }
+    [JsonPropertyName("nCodServico")]
+    public long? CodServico { get; set; }
 
-    public long? nCodServico { get; set; }
+    [JsonPropertyName("nIdItem")]
+    public long? IdItem { get; set; }
 
-    public long? nIdItem { get; set; }
+    [JsonPropertyName("nQtde")]
+    public decimal Qtde { get; set; }
 
-    public decimal nQtde { get; set; }
+    [JsonPropertyName("nSeqItem")]
+    public int? SeqItem { get; set; }
 
-    public int? nSeqItem { get; set; }
+    [JsonPropertyName("nValUnit")]
+    public decimal? ValUnit { get; set; }
 
-    public decimal? nValUnit { get; set; }
+    [JsonPropertyName("nValorAcrescimos")]
+    public decimal? ValorAcrescimos { get; set; }
 
-    public decimal? nValorAcrescimos { get; set; }
+    [JsonPropertyName("nValorDesconto")]
+    public decimal? ValorDesconto { get; set; }
 
-    public decimal? nValorDesconto { get; set; }
-
-    public decimal? nValorOutrasRetencoes { get; set; }
+    [JsonPropertyName("nValorOutrasRetencoes")]
+    public decimal? ValorOutrasRetencoes { get; set; }
 }

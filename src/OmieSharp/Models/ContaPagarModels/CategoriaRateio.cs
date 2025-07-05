@@ -1,19 +1,24 @@
-﻿namespace OmieSharp.Models.ContaPagarModels;
+﻿using System.Text.Json.Serialization;
+
+namespace OmieSharp.Models.ContaPagarModels;
 
 public class CategoriaRateio
 {
     /// <summary>
     /// Código da Categoria
     /// </summary>
-    public string? codigo_categoria { get; set; }
+    [JsonPropertyName("codigo_categoria")]
+    public string? CodigoCategoria { get; set; }
 
     /// <summary>
     /// Valor do Rateio
     /// </summary>
-    public decimal valor { get; set; }
+    [JsonPropertyName("valor")]
+    public decimal Valor { get; set; }
 
     /// <summary>
     /// Percentual da categoria
     /// </summary>
-    public decimal percentual { get; set; }
+    [JsonPropertyName("percentual")]
+    public decimal Percentual { get; set; }
 }
