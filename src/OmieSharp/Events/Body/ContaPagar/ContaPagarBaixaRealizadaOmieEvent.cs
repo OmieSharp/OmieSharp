@@ -17,7 +17,7 @@ public class ContaPagarBaixaRealizadaOmieEvent : BaseOmieEvent
     public long? CodigoContaCorrente { get; set; }
 
     [JsonPropertyName("conta_a_pagar")]
-    public List<OmieSharp.Models.ContaPagarModels.ContaPagar>? ContaPagar { get; set; }
+    public List<ContaPagarReference>? ContaPagar { get; set; }
 
     [JsonPropertyName("data")]
     public DateTime? Data { get; set; }
@@ -26,20 +26,20 @@ public class ContaPagarBaixaRealizadaOmieEvent : BaseOmieEvent
     public DateTime? DataCred { get; set; }
 
     [JsonPropertyName("desconto")]
-    public long? Desconto { get; set; }
+    public decimal? Desconto { get; set; }
 
     [JsonPropertyName("juros")]
-    public long? Juros { get; set; }
+    public decimal? Juros { get; set; }
 
     [JsonPropertyName("multa")]
-    public long? Multa { get; set; }
+    public decimal? Multa { get; set; }
 
     [JsonPropertyName("observacao")]
     public string? Observacao { get; set; }
 
     [JsonPropertyName("tarifa")]
-    public int? Tarifa { get; set; }
+    public decimal? Tarifa { get; set; }
 
     [JsonPropertyName("valor")]
-    public long? Valor { get; set; }
+    public decimal? Valor { get; set; }
 }

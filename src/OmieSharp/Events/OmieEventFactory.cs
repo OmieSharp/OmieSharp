@@ -1,4 +1,5 @@
 ﻿using OmieSharp.Events.Body;
+using OmieSharp.Events.Body.ContaPagar;
 using OmieSharp.Events.Body.ContaReceber;
 using OmieSharp.Events.Body.OrdemServico;
 using System.Text.Json;
@@ -25,10 +26,12 @@ public static class OmieEventFactory
 
         if (topic.StartsWith("OrdemServico.", StringComparison.CurrentCultureIgnoreCase))
             return CreateOrdemServicoEvent(topic, json);
-        if (topic.StartsWith("Financas.ContaReceber.BaixaRealizada", StringComparison.CurrentCultureIgnoreCase))
-            return CreateBaixaRealizadaEvent(topic, json);
+        
         if (topic.StartsWith("Financas.ContaReceber.", StringComparison.CurrentCultureIgnoreCase))
             return CreateContaReceberEvent(topic, json);
+        
+        if (topic.StartsWith("Financas.ContaPagar.BaixaRealizada", StringComparison.CurrentCultureIgnoreCase))
+            return CreateContaPagarEvent(topic, json);
 
         //Evento desconhecido (não tratado)
         return JsonSerializer.Deserialize<OmieEventRequest<object>>(json);
@@ -66,14 +69,6 @@ public static class OmieEventFactory
         return null;
     }
 
-    private static object? CreateBaixaRealizadaEvent(string topic, string json)
-    {
-        if (topic.Equals("Financas.ContaReceber.BaixaRealizada", StringComparison.CurrentCultureIgnoreCase))
-            return JsonSerializer.Deserialize<OmieEventRequestMultiple<ContaReceberBaixaRealizadaOmieEvent>>(json);
-
-        return null;
-    }
-
     private static object? CreateContaReceberEvent(string topic, string json)
     {
         if (topic.Equals("Financas.ContaReceber.Incluido", StringComparison.CurrentCultureIgnoreCase))
@@ -83,7 +78,15 @@ public static class OmieEventFactory
             return JsonSerializer.Deserialize<OmieEventRequest<ContaReceberAlteradoOmieEvent>>(json);
 
         if (topic.Equals("Financas.ContaReceber.BaixaRealizada", StringComparison.CurrentCultureIgnoreCase))
-            return JsonSerializer.Deserialize<OmieEventRequest<ContaReceberBaixaRealizadaOmieEvent>>(json);
+            return JsonSerializer.Deserialize<OmieEventRequestMultiple<ContaReceberBaixaRealizadaOmieEvent>>(json);
+
+        return null;
+    }
+
+    private static object? CreateContaPagarEvent(string topic, string json)
+    {
+        if (topic.Equals("Financas.ContaPagar.BaixaRealizada", StringComparison.CurrentCultureIgnoreCase))
+            return JsonSerializer.Deserialize<OmieEventRequestMultiple<ContaPagarBaixaRealizadaOmieEvent>>(json);
 
         return null;
     }
